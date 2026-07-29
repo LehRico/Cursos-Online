@@ -26,6 +26,20 @@ window.Danca = window.Danca || {};
     "danca-do-ventre": ["ventre1.jpg", "ventre2.jpg", "ventre3.jpg", "ventre4.jpg", "ventre5.jpg"],
   };
 
+  /* Reparte as fotos de uma modalidade entre os N cursos dela, em fatias
+     contíguas e sem repetição (curso 1 pega as primeiras, curso 2 as
+     seguintes, etc.) — assim dois cursos da mesma modalidade nunca mostram
+     as mesmas fotos no carrossel do card. */
+  function repartir(lista, totalPartes, indiceParte) {
+    if (totalPartes <= 1) return lista;
+    const tamanhoBase = Math.floor(lista.length / totalPartes);
+    const resto = lista.length % totalPartes;
+    const inicio = indiceParte * tamanhoBase + Math.min(indiceParte, resto);
+    const tamanho = tamanhoBase + (indiceParte < resto ? 1 : 0);
+    const fatia = lista.slice(inicio, inicio + tamanho);
+    return fatia.length > 0 ? fatia : lista;
+  }
+
   Danca.modalidades = {
     LISTA_FIXA: LISTA,
     corGel(id) {
@@ -36,9 +50,27 @@ window.Danca = window.Danca || {};
       const fotos = FOTOS[id];
       return fotos ? `assets/img/modalidades/${id}/${fotos[0]}` : `assets/img/modalidades/${id}.jpg`;
     },
+    /* fotos de UMA modalidade inteira (usado só para a grade de modalidades) */
     fotosCurso(id) {
       const fotos = FOTOS[id] || [];
       return fotos.map((arquivo) => `assets/img/modalidades/${id}/${arquivo}`);
+    },
+    /* fotos de um curso específico: recebe a lista completa de cursos (já
+       carregada da API) pra saber em que posição este curso está dentro da
+       sua modalidade, e reparte as fotos da modalidade entre eles. */
+    fotosDoCurso(curso, todosCursos) {
+      const modalidadeId = curso.modalidadeId;
+      const fotos = FOTOS[modalidadeId] || [];
+      if (fotos.length === 0) return [];
+
+      const irmaos = todosCursos
+        .filter((c) => c.modalidadeId === modalidadeId)
+        .map((c) => c.id)
+        .sort();
+      const indice = Math.max(0, irmaos.indexOf(curso.id));
+      const fatia = repartir(fotos, irmaos.length, indice);
+
+      return fatia.map((arquivo) => `assets/img/modalidades/${modalidadeId}/${arquivo}`);
     },
   };
 })();

@@ -145,7 +145,7 @@
         <div class="estado-vazio">
           <h3>Você ainda não se matriculou em nenhum curso</h3>
           <p>Volte ao catálogo e escolha um ritmo pra começar.</p>
-          <a class="botao botao--primario" style="margin-top: var(--espaco-4)" href="index.html">Ver catálogo</a>
+          <a class="botao botao--primario" style="margin-top: var(--espaco-4)" href="catalogo.html">Ver catálogo</a>
         </div>`;
       return;
     }

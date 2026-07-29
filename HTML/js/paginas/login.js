@@ -26,7 +26,7 @@
   function obterDestinoRedirecionamento() {
     const parametro = new URLSearchParams(window.location.search).get("redirecionar");
     if (!parametro || parametro.startsWith("http://") || parametro.startsWith("https://") || parametro.startsWith("//")) {
-      return "index.html";
+      return "catalogo.html";
     }
     return parametro;
   }

@@ -25,6 +25,11 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  /* Cria um contexto de empilhamento próprio: sem isso, cards com transform
+     (.revelar) mais abaixo no DOM podem acabar renderizados por cima do
+     ::before/::after de fundo (z-index: -1), mesmo estando "atrás" na
+     intenção visual — isolation garante que o -1 vale só dentro do body. */
+  isolation: isolate;
 }
 
 body::before {

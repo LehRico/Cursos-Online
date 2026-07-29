@@ -7,9 +7,14 @@
   let filtroBusca = "";
 
   document.addEventListener("DOMContentLoaded", async () => {
-    Danca.ui.montarNavegacao("index.html");
-    montarAcoesHero();
+    Danca.ui.montarNavegacao("catalogo.html");
     Danca.ui.observarRevelacao();
+
+    const parametros = new URLSearchParams(window.location.search);
+    const modalidadeUrl = parametros.get("modalidade");
+    if (modalidadeUrl && Danca.modalidades.LISTA_FIXA.some((m) => m.id === modalidadeUrl)) {
+      filtroModalidade = modalidadeUrl;
+    }
 
     document.getElementById("filtro-nivel").addEventListener("change", (evento) => {
       filtroNivel = evento.target.value;
@@ -26,28 +31,9 @@
     });
 
     await carregarDados();
-    montarGradeModalidades();
     montarChipsFiltro();
     renderizarCursos();
   });
-
-  function montarAcoesHero() {
-    const usuario = Danca.sessao.obter();
-    const acoes = document.getElementById("hero-acoes");
-    if (!usuario) {
-      acoes.innerHTML = `
-        <a class="botao botao--primario" href="#catalogo">Ver cursos</a>
-        <a class="botao botao--contorno" href="login.html">Entrar</a>`;
-    } else if (usuario.role === "aluno") {
-      acoes.innerHTML = `
-        <a class="botao botao--primario" href="#catalogo">Ver cursos</a>
-        <a class="botao botao--contorno" href="perfil.html">Minhas matrículas</a>`;
-    } else {
-      acoes.innerHTML = `
-        <a class="botao botao--primario" href="#catalogo">Ver cursos</a>
-        <a class="botao botao--contorno" href="painel-professor.html">Painel do professor</a>`;
-    }
-  }
 
   async function carregarDados() {
     const grade = document.getElementById("grade-cursos");
@@ -62,35 +48,13 @@
     }
   }
 
-  function montarGradeModalidades() {
-    const grade = document.getElementById("grade-modalidades");
-    grade.innerHTML = Danca.modalidades.LISTA_FIXA.map((meta) => {
-      const dadosApi = modalidades.find((m) => m.id === meta.id);
-      return `
-        <button type="button" class="cartao-modalidade revelar" style="--gel: var(${meta.corVar})" data-modalidade="${meta.id}">
-          <img src="${Danca.modalidades.imagemCapa(meta.id)}" alt="" loading="lazy" onerror="this.remove()" />
-          <span class="cartao-modalidade__nome">${Danca.ui.escapar(meta.nome)}</span>
-          <span class="cartao-modalidade__descricao">${Danca.ui.escapar((dadosApi && dadosApi.descricao) || "")}</span>
-        </button>`;
-    }).join("");
-
-    grade.querySelectorAll(".cartao-modalidade").forEach((elemento) => {
-      elemento.addEventListener("click", () => {
-        selecionarModalidade(elemento.dataset.modalidade);
-        document.getElementById("catalogo").scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-
-    Danca.ui.observarRevelacao("#grade-modalidades .revelar");
-  }
-
   function montarChipsFiltro() {
     const contêiner = document.getElementById("filtros-chips");
     const chips = [{ id: "todas", nome: "Todas" }, ...Danca.modalidades.LISTA_FIXA];
     contêiner.innerHTML = chips
       .map(
         (meta) => `
-        <button type="button" class="chip" style="${meta.corVar ? `--gel: var(${meta.corVar})` : ""}" data-modalidade="${meta.id}" aria-pressed="${meta.id === "todas"}">
+        <button type="button" class="chip" style="${meta.corVar ? `--gel: var(${meta.corVar})` : ""}" data-modalidade="${meta.id}" aria-pressed="${meta.id === filtroModalidade}">
           ${Danca.ui.escapar(meta.nome)}
         </button>`
       )
@@ -135,6 +99,7 @@
         return Danca.ui.cartaoCursoHtml(curso, {
           modalidade: meta ? { nome: dadosApi ? dadosApi.nome : meta.nome, corVar: meta.corVar } : null,
           instrutor,
+          todosCursos: cursos,
         });
       })
       .join("");

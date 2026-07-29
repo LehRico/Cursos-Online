@@ -321,13 +321,13 @@ Danca.ui = Danca.ui || {};
   };
 
   /* ---- Card de curso ---- */
-  Danca.ui.cartaoCursoHtml = function (curso, { modalidade, instrutor, mostrarStatus = false } = {}) {
+  Danca.ui.cartaoCursoHtml = function (curso, { modalidade, instrutor, mostrarStatus = false, todosCursos = [curso] } = {}) {
     const corGel = modalidade ? `var(${modalidade.corVar})` : "var(--gold)";
     const seloStatus =
       mostrarStatus && curso.status === "rascunho"
         ? '<span class="selo selo--rascunho cartao-curso__selo">Rascunho</span>'
         : "";
-    const fotos = Danca.modalidades.fotosCurso(curso.modalidadeId);
+    const fotos = Danca.modalidades.fotosDoCurso(curso, todosCursos);
 
     return `
       <article class="cartao-curso revelar" style="--gel:${corGel}">

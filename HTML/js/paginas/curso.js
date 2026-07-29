@@ -70,7 +70,7 @@
         <div class="envolucro estado-vazio">
           <h3>Curso não encontrado</h3>
           <p>Ele pode ter sido removido, ainda não foi publicado, ou você não tem acesso a ele.</p>
-          <a class="botao botao--primario" style="margin-top: var(--espaco-4)" href="index.html">Voltar ao catálogo</a>
+          <a class="botao botao--primario" style="margin-top: var(--espaco-4)" href="catalogo.html">Voltar ao catálogo</a>
         </div>
       </section>`;
   }
@@ -82,7 +82,7 @@
 
     const alvo = document.getElementById("curso-cabecalho");
     alvo.innerHTML = `
-      <a class="curso-voltar" href="index.html"><i class="ph ph-bold ph-arrow-left"></i> Voltar ao catálogo</a>
+      <a class="curso-voltar" href="catalogo.html"><i class="ph ph-bold ph-arrow-left"></i> Voltar ao catálogo</a>
       <div class="curso-titulo-linha">
         <span class="etiqueta-modalidade" style="--gel: ${corGel}">${Danca.ui.escapar(dadosModalidade ? dadosModalidade.nome : "")}</span>
         ${curso.status === "rascunho" ? '<span class="selo selo--rascunho">Rascunho</span>' : ""}

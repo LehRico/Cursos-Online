@@ -5,7 +5,7 @@ Danca.ui = Danca.ui || {};
 
 (function () {
   const ITENS = [
-    { href: "index.html", rotulo: "Catálogo", roles: null },
+    { href: "catalogo.html", rotulo: "Catálogo", roles: null },
     { href: "painel-professor.html", rotulo: "Painel do professor", roles: ["professor", "admin"] },
     { href: "painel-admin.html", rotulo: "Usuários", roles: ["admin"] },
     { href: "perfil.html", rotulo: "Meu perfil", roles: ["aluno", "professor", "admin"] },

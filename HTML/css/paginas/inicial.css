@@ -1,0 +1,103 @@
+.carrossel-modalidades {
+  position: relative;
+}
+
+.carrossel-modalidades__seta {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  border: 1px solid var(--line-forte);
+  background: var(--curtain-soft);
+  color: var(--ivory);
+  cursor: pointer;
+  box-shadow: 0 8px 20px var(--sombra);
+  transition: border-color var(--duracao-rapida), color var(--duracao-rapida), opacity var(--duracao-rapida);
+}
+
+.carrossel-modalidades__seta--anterior {
+  left: -1.375rem;
+}
+
+.carrossel-modalidades__seta--proximo {
+  right: -1.375rem;
+}
+
+.carrossel-modalidades__seta:hover {
+  border-color: var(--gold);
+  color: var(--gold-soft);
+}
+
+.carrossel-modalidades__seta:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .carrossel-modalidades__seta {
+    display: none;
+  }
+}
+
+.grade-modalidades {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 260px);
+  gap: var(--espaco-4);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-block: var(--espaco-1) var(--espaco-3);
+  scrollbar-width: none;
+}
+
+.grade-modalidades::-webkit-scrollbar {
+  display: none;
+}
+
+.cartao-modalidade {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--raio-lg);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: radial-gradient(120% 140% at 20% 0%, color-mix(in srgb, var(--gel) 50%, transparent), transparent 60%),
+    linear-gradient(160deg, color-mix(in srgb, var(--gel) 35%, var(--curtain)), var(--ink));
+  cursor: pointer;
+  text-align: left;
+  scroll-snap-align: start;
+  transition: transform var(--duracao-normal) var(--facilitador), border-color var(--duracao-normal);
+}
+
+.cartao-modalidade:hover {
+  transform: translateY(-5px);
+  border-color: var(--gel);
+}
+
+.cartao-modalidade img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: luminosity;
+}
+
+.cartao-modalidade__nome {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  font-family: var(--fonte-display);
+  font-size: var(--tamanho-md);
+  color: var(--ivory);
+  background: color-mix(in srgb, var(--gel) 55%, var(--ink) 45%);
+  padding: 0.4em 0.9em;
+}

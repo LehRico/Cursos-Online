@@ -837,6 +837,13 @@ dialog.modal[open] {
   font-weight: 600;
   font-size: var(--tamanho-sm);
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* ============ Linha de Ritmo (elemento de assinatura / progresso) ============ */

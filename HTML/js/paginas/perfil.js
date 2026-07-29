@@ -1,5 +1,6 @@
 (function () {
   let usuarioSessao;
+  let novaFotoDataUrl = null;
 
   document.addEventListener("DOMContentLoaded", async () => {
     usuarioSessao = Danca.sessao.exigir(["aluno", "professor", "admin"]);
@@ -9,6 +10,7 @@
     renderizarCabecalhoPerfil();
     Danca.ui.observarRevelacao();
     document.getElementById("formulario-perfil").addEventListener("submit", salvarPerfil);
+    document.getElementById("campo-foto").addEventListener("change", aoEscolherFoto);
 
     if (usuarioSessao.role === "aluno") {
       document.getElementById("secao-aluno").hidden = false;
@@ -21,7 +23,7 @@
   });
 
   function renderizarCabecalhoPerfil() {
-    document.getElementById("perfil-avatar").textContent = Danca.ui.iniciais(usuarioSessao.nome);
+    document.getElementById("perfil-avatar").innerHTML = Danca.ui.avatarConteudo(usuarioSessao);
     document.getElementById("perfil-nome-atual").textContent = usuarioSessao.nome;
     document.getElementById("perfil-email-atual").textContent = usuarioSessao.email;
     const selo = document.getElementById("perfil-role-atual");
@@ -44,6 +46,21 @@
     document.getElementById("perfil-links-atalho").innerHTML = links.join("");
   }
 
+  async function aoEscolherFoto(evento) {
+    const arquivo = evento.target.files[0];
+    if (!arquivo) return;
+
+    Danca.ui.limparErrosCampos(["campo-grupo-foto"]);
+    try {
+      novaFotoDataUrl = await Danca.ui.lerImagemComoDataUrl(arquivo);
+      // pré-visualização imediata na bolinha do cabeçalho, antes mesmo de salvar
+      document.getElementById("perfil-avatar").innerHTML = `<img src="${novaFotoDataUrl}" alt="" />`;
+    } catch (erro) {
+      Danca.ui.mostrarErroCampo("campo-grupo-foto", erro.message);
+      evento.target.value = "";
+    }
+  }
+
   async function salvarPerfil(evento) {
     evento.preventDefault();
     const novoNome = document.getElementById("campo-nome").value.trim();
@@ -62,14 +79,17 @@
 
     const dados = { nome: novoNome };
     if (novaSenha) dados.senha = novaSenha;
+    if (novaFotoDataUrl) dados.foto = novaFotoDataUrl;
 
     try {
       const atualizado = await Danca.api.atualizar("usuarios", usuarioSessao.id, dados);
       usuarioSessao = atualizado;
       Danca.sessao.definir(atualizado);
+      novaFotoDataUrl = null;
       renderizarCabecalhoPerfil();
       Danca.ui.montarNavegacao("perfil.html");
       document.getElementById("campo-senha").value = "";
+      document.getElementById("campo-foto").value = "";
       Danca.ui.mostrarAviso("Perfil atualizado!", "sucesso");
     } catch (erro) {
       Danca.ui.mostrarAviso(erro.message, "erro");

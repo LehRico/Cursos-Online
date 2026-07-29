@@ -28,12 +28,9 @@ Alternativa sem servidor nenhum para o front-end: dê duplo-clique em `HTML/inde
 |---|---|---|
 | Admin | Marina Ferraz | marina.ferraz@danca.com |
 | Professor | Isadora Nunes | isadora.nunes@danca.com |
-| Professor | Kadu Bispo | kadu.bispo@danca.com |
-| Professor | Renata Villas | renata.villas@danca.com |
 | Aluno | Camila Rocha | camila.rocha@email.com |
-| Aluno | Bruno Costa | bruno.costa@email.com |
 
-A tela de login lista todas as contas ativas — basta clicar numa delas para entrar direto, sem digitar nada.
+A tela de login lista só essas 3 contas (uma por papel) — basta clicar numa delas para entrar direto, sem digitar nada. O `db.json` tem outros 15 usuários (mais professores e alunos, com senha igual às de cima) só pra dar volume real aos cursos, turmas e avaliações; eles não aparecem na tela de login, mas dá pra entrar com eles digitando o e-mail manualmente.
 
 ---
 

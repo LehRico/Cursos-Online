@@ -26,7 +26,7 @@ Danca.ui = Danca.ui || {};
 
     const areaUsuarioHtml = usuario
       ? `<span class="selo selo--role-${usuario.role}">${Danca.ui.rotuloRole(usuario.role)}</span>
-         <span class="avatar" title="${Danca.ui.escapar(usuario.nome)}">${Danca.ui.iniciais(usuario.nome)}</span>
+         <span class="avatar" title="${Danca.ui.escapar(usuario.nome)}">${Danca.ui.avatarConteudo(usuario)}</span>
          <button class="botao botao--fantasma botao--pequeno" id="botao-sair" type="button">Sair</button>`
       : `<a class="botao botao--contorno botao--pequeno" href="login.html">Entrar</a>`;
 

@@ -1,6 +1,7 @@
 (function () {
   let usuarioSessao;
   let usuarios = [];
+  let novaFotoDataUrl = null;
 
   document.addEventListener("DOMContentLoaded", async () => {
     usuarioSessao = Danca.sessao.exigir(["admin"]);
@@ -12,6 +13,7 @@
     });
     document.getElementById("botao-novo-usuario").addEventListener("click", () => abrirModalUsuario());
     document.getElementById("formulario-usuario").addEventListener("submit", salvarUsuario);
+    document.getElementById("usuario-foto").addEventListener("change", aoEscolherFotoUsuario);
 
     await carregarUsuarios();
   });
@@ -32,7 +34,7 @@
           <tr>
             <td>
               <div style="display: flex; align-items: center; gap: var(--espaco-3)">
-                <span class="avatar">${Danca.ui.iniciais(usuario.nome)}</span>
+                <span class="avatar">${Danca.ui.avatarConteudo(usuario)}</span>
                 <div>
                   <strong>${Danca.ui.escapar(usuario.nome)}</strong>${ehVoce ? ' <span class="texto-pequeno" style="color: var(--gold-soft)">(você)</span>' : ""}
                   <div class="texto-pequeno" style="color: var(--ivory-dim)">${Danca.ui.escapar(usuario.email)}</div>
@@ -103,9 +105,30 @@
     document.getElementById("usuario-role").disabled = !!(usuario && usuario.id === usuarioSessao.id);
     document.getElementById("usuario-senha").value = "";
     document.getElementById("usuario-senha").placeholder = usuario ? "Deixe em branco para manter a atual" : "";
+    document.getElementById("usuario-foto").value = "";
+    novaFotoDataUrl = null;
 
-    Danca.ui.limparErrosCampos(["campo-grupo-usuario-nome", "campo-grupo-usuario-email", "campo-grupo-usuario-senha", "campo-grupo-usuario-role"]);
+    Danca.ui.limparErrosCampos([
+      "campo-grupo-usuario-nome",
+      "campo-grupo-usuario-email",
+      "campo-grupo-usuario-senha",
+      "campo-grupo-usuario-role",
+      "campo-grupo-usuario-foto",
+    ]);
     document.getElementById("modal-usuario").showModal();
+  }
+
+  async function aoEscolherFotoUsuario(evento) {
+    const arquivo = evento.target.files[0];
+    if (!arquivo) return;
+
+    Danca.ui.limparErrosCampos(["campo-grupo-usuario-foto"]);
+    try {
+      novaFotoDataUrl = await Danca.ui.lerImagemComoDataUrl(arquivo);
+    } catch (erro) {
+      Danca.ui.mostrarErroCampo("campo-grupo-usuario-foto", erro.message);
+      evento.target.value = "";
+    }
   }
 
   async function salvarUsuario(evento) {
@@ -135,6 +158,7 @@
 
     if (senha) dados.senha = senha;
     if (!id) dados.ativo = true;
+    if (novaFotoDataUrl) dados.foto = novaFotoDataUrl;
 
     try {
       if (id) {

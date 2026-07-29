@@ -24,6 +24,69 @@ Danca.ui = Danca.ui || {};
     return ROTULO_ROLE[role] || role;
   };
 
+  /*
+    Conteúdo de dentro da "bolinha" (.avatar): se o usuário tem uma foto
+    mostra a foto, senão cai pras iniciais do nome.
+
+    O campo `foto` pode ser tanto uma imagem enviada pelo próprio usuário
+    (data URL em base64, ver Danca.ui.lerImagemComoDataUrl) quanto um avatar
+    ilustrado fictício de exemplo (URL do DiceBear, só pros usuários que já
+    vêm prontos no db.json). Se a imagem não carregar por algum motivo (ex:
+    sem internet, no caso do DiceBear), o onerror troca a <img> pelas
+    iniciais na hora, em vez de deixar o ícone de imagem quebrada.
+  */
+  Danca.ui.avatarConteudo = function (usuario) {
+    const iniciais = Danca.ui.iniciais(usuario ? usuario.nome : "?");
+    if (usuario && usuario.foto) {
+      return `<img src="${usuario.foto}" alt="" onerror="this.replaceWith(document.createTextNode('${iniciais}'))" />`;
+    }
+    return iniciais;
+  };
+
+  /*
+    Lê um arquivo de imagem escolhido pelo usuário (input type="file") e
+    devolve uma Promise com uma data URL já redimensionada, pra não salvar
+    fotos gigantes dentro do db.json (que é só um arquivo texto).
+
+    Como funciona:
+    1. FileReader lê o arquivo do computador do usuário e devolve como data
+       URL (base64) — é o jeito padrão de "abrir" um arquivo local em JS.
+    2. Criamos uma <img> só na memória com essa data URL, pra saber a
+       largura/altura reais da foto.
+    3. Desenhamos essa imagem redimensionada dentro de um <canvas> (mantendo
+       a proporção) e exportamos o canvas de volta como data URL JPEG — é
+       esse resultado, bem menor, que vai pro campo `foto` do usuário.
+  */
+  Danca.ui.lerImagemComoDataUrl = function (arquivo, tamanhoMaximo = 160) {
+    return new Promise((resolve, reject) => {
+      if (!arquivo.type.startsWith("image/")) {
+        reject(new Error("Escolha um arquivo de imagem (JPG, PNG, etc)."));
+        return;
+      }
+
+      const leitor = new FileReader();
+      leitor.onerror = () => reject(new Error("Não foi possível ler o arquivo."));
+      leitor.onload = () => {
+        const imagem = new Image();
+        imagem.onerror = () => reject(new Error("Não foi possível abrir essa imagem."));
+        imagem.onload = () => {
+          const escala = Math.min(1, tamanhoMaximo / Math.max(imagem.width, imagem.height));
+          const largura = Math.round(imagem.width * escala);
+          const altura = Math.round(imagem.height * escala);
+
+          const canvas = document.createElement("canvas");
+          canvas.width = largura;
+          canvas.height = altura;
+          canvas.getContext("2d").drawImage(imagem, 0, 0, largura, altura);
+
+          resolve(canvas.toDataURL("image/jpeg", 0.85));
+        };
+        imagem.src = leitor.result;
+      };
+      leitor.readAsDataURL(arquivo);
+    });
+  };
+
   Danca.ui.formatarData = function (isoOuData) {
     const data = new Date(isoOuData);
     if (Number.isNaN(data.getTime())) return "";
@@ -139,7 +202,7 @@ Danca.ui = Danca.ui || {};
       <article class="avaliacao revelar">
         <div class="avaliacao__cabecalho">
           <span class="avaliacao__autor">
-            <span class="avatar">${Danca.ui.iniciais(autor ? autor.nome : "?")}</span>
+            <span class="avatar">${Danca.ui.avatarConteudo(autor)}</span>
             ${Danca.ui.escapar(autor ? autor.nome : "Aluno")}
           </span>
           ${Danca.ui.estrelasHtml(avaliacao.nota)}

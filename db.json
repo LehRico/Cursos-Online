@@ -6,7 +6,9 @@
       "email": "marina.ferraz@danca.com",
       "senha": "danca123",
       "role": "admin",
-      "ativo": true
+      "ativo": true,
+      "demo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marina%20Ferraz"
     },
     {
       "id": "u2",
@@ -14,7 +16,9 @@
       "email": "isadora.nunes@danca.com",
       "senha": "danca123",
       "role": "professor",
-      "ativo": true
+      "ativo": true,
+      "demo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Isadora%20Nunes"
     },
     {
       "id": "u3",
@@ -22,7 +26,8 @@
       "email": "kadu.bispo@danca.com",
       "senha": "danca123",
       "role": "professor",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Kadu%20Bispo"
     },
     {
       "id": "u4",
@@ -30,7 +35,17 @@
       "email": "renata.villas@danca.com",
       "senha": "danca123",
       "role": "professor",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Renata%20Villas"
+    },
+    {
+      "id": "u12",
+      "nome": "Thiago Meireles",
+      "email": "thiago.meireles@danca.com",
+      "senha": "danca123",
+      "role": "professor",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Thiago%20Meireles"
     },
     {
       "id": "u5",
@@ -38,7 +53,9 @@
       "email": "camila.rocha@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "demo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Camila%20Rocha"
     },
     {
       "id": "u6",
@@ -46,7 +63,8 @@
       "email": "bruno.costa@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Bruno%20Costa"
     },
     {
       "id": "u7",
@@ -54,7 +72,8 @@
       "email": "larissa.prado@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Larissa%20Prado"
     },
     {
       "id": "u8",
@@ -62,7 +81,8 @@
       "email": "felipe.andrade@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Felipe%20Andrade"
     },
     {
       "id": "u9",
@@ -70,7 +90,8 @@
       "email": "sofia.martins@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia%20Martins"
     },
     {
       "id": "u10",
@@ -78,7 +99,8 @@
       "email": "diego.almeida@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Diego%20Almeida"
     },
     {
       "id": "u11",
@@ -86,7 +108,62 @@
       "email": "rafael.souza@email.com",
       "senha": "danca123",
       "role": "aluno",
-      "ativo": true
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rafael%20Souza"
+    },
+    {
+      "id": "u13",
+      "nome": "Juliana Prates",
+      "email": "juliana.prates@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Juliana%20Prates"
+    },
+    {
+      "id": "u14",
+      "nome": "Marcos Vinícius Tavares",
+      "email": "marcos.tavares@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcos%20Vin%C3%ADcius%20Tavares"
+    },
+    {
+      "id": "u15",
+      "nome": "Beatriz Lemos",
+      "email": "beatriz.lemos@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Beatriz%20Lemos"
+    },
+    {
+      "id": "u16",
+      "nome": "Gustavo Henrique Ramos",
+      "email": "gustavo.ramos@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Gustavo%20Henrique%20Ramos"
+    },
+    {
+      "id": "u17",
+      "nome": "Patrícia Nogueira",
+      "email": "patricia.nogueira@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Patr%C3%ADcia%20Nogueira"
+    },
+    {
+      "id": "u18",
+      "nome": "André Luiz Coutinho",
+      "email": "andre.coutinho@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": false,
+      "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Andr%C3%A9%20Luiz%20Coutinho"
     }
   ],
   "modalidades": [
@@ -153,6 +230,16 @@
       "cargaHoraria": 30
     },
     {
+      "id": "c16",
+      "titulo": "Ballet: Repertório Clássico",
+      "descricao": "Variações de repertório clássico e refinamento de porte e expressão.",
+      "modalidadeId": "ballet",
+      "instrutorId": "u2",
+      "status": "rascunho",
+      "nivel": "avançado",
+      "cargaHoraria": 28
+    },
+    {
       "id": "c3",
       "titulo": "Hip Hop: Groove e Fundamentos",
       "descricao": "Postura, isolamentos e a primeira coreografia de 8 contagens.",
@@ -161,6 +248,16 @@
       "status": "publicado",
       "nivel": "iniciante",
       "cargaHoraria": 16
+    },
+    {
+      "id": "c13",
+      "titulo": "Hip Hop Intermediário: Coreografia e Musicalidade",
+      "descricao": "Aprofunda groove e isolamentos numa coreografia mais longa e musical.",
+      "modalidadeId": "hip-hop",
+      "instrutorId": "u3",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 20
     },
     {
       "id": "c4",
@@ -183,6 +280,16 @@
       "cargaHoraria": 18
     },
     {
+      "id": "c17",
+      "titulo": "Contemporânea: Composição Coreográfica",
+      "descricao": "Ferramentas de composição para criar frases coreográficas autorais.",
+      "modalidadeId": "contemporanea",
+      "instrutorId": "u12",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 20
+    },
+    {
       "id": "c6",
       "titulo": "Danças Urbanas: Breaking e Popping",
       "descricao": "Fundamentos de popping, toprock e footwork de breaking.",
@@ -191,6 +298,16 @@
       "status": "publicado",
       "nivel": "intermediário",
       "cargaHoraria": 22
+    },
+    {
+      "id": "c18",
+      "titulo": "Danças Urbanas: Locking e Musicalidade",
+      "descricao": "Points, locks e a musicalidade característica do locking.",
+      "modalidadeId": "dancas-urbanas",
+      "instrutorId": "u3",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 18
     },
     {
       "id": "c7",
@@ -223,6 +340,16 @@
       "cargaHoraria": 16
     },
     {
+      "id": "c15",
+      "titulo": "Jazz Avançado: Coreografia de Palco",
+      "descricao": "Saltos técnicos, presença de palco e uma coreografia de repertório.",
+      "modalidadeId": "jazz",
+      "instrutorId": "u4",
+      "status": "publicado",
+      "nivel": "avançado",
+      "cargaHoraria": 22
+    },
+    {
       "id": "c10",
       "titulo": "Sapateado: Ritmo nos Pés",
       "descricao": "Toe, heel, shuffle e flap — os primeiros sons do sapateado.",
@@ -231,6 +358,16 @@
       "status": "publicado",
       "nivel": "iniciante",
       "cargaHoraria": 18
+    },
+    {
+      "id": "c14",
+      "titulo": "Sapateado Intermediário: Combinações Rítmicas",
+      "descricao": "Wings, pullbacks e combinações rítmicas mais elaboradas.",
+      "modalidadeId": "sapateado",
+      "instrutorId": "u12",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 20
     },
     {
       "id": "c11",
@@ -493,6 +630,126 @@
       "conteudo": "https://video.exemplo.com/aula30",
       "ordem": 3,
       "duracaoMinutos": 22
+    },
+    {
+      "id": "a31",
+      "cursoId": "c13",
+      "titulo": "Aquecimento e Groove Avançado",
+      "conteudo": "https://video.exemplo.com/aula31",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a32",
+      "cursoId": "c13",
+      "titulo": "Musicalidade e Batida",
+      "conteudo": "https://video.exemplo.com/aula32",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a33",
+      "cursoId": "c13",
+      "titulo": "Coreografia Intermediária Completa",
+      "conteudo": "https://video.exemplo.com/aula33",
+      "ordem": 3,
+      "duracaoMinutos": 24
+    },
+    {
+      "id": "a34",
+      "cursoId": "c14",
+      "titulo": "Revisão de Toe, Heel e Shuffle",
+      "conteudo": "https://video.exemplo.com/aula34",
+      "ordem": 1,
+      "duracaoMinutos": 16
+    },
+    {
+      "id": "a35",
+      "cursoId": "c14",
+      "titulo": "Wings e Pullbacks",
+      "conteudo": "https://video.exemplo.com/aula35",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a36",
+      "cursoId": "c14",
+      "titulo": "Combinação Rítmica Completa",
+      "conteudo": "https://video.exemplo.com/aula36",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a37",
+      "cursoId": "c15",
+      "titulo": "Técnica Avançada de Saltos",
+      "conteudo": "https://video.exemplo.com/aula37",
+      "ordem": 1,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a38",
+      "cursoId": "c15",
+      "titulo": "Expressão Cênica e Presença de Palco",
+      "conteudo": "https://video.exemplo.com/aula38",
+      "ordem": 2,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a39",
+      "cursoId": "c15",
+      "titulo": "Coreografia de Palco Completa",
+      "conteudo": "https://video.exemplo.com/aula39",
+      "ordem": 3,
+      "duracaoMinutos": 26
+    },
+    {
+      "id": "a40",
+      "cursoId": "c17",
+      "titulo": "Princípios de Composição",
+      "conteudo": "https://video.exemplo.com/aula40",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a41",
+      "cursoId": "c17",
+      "titulo": "Uso do Espaço e Trajetórias",
+      "conteudo": "https://video.exemplo.com/aula41",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a42",
+      "cursoId": "c17",
+      "titulo": "Criação de Frase Coreográfica Própria",
+      "conteudo": "https://video.exemplo.com/aula42",
+      "ordem": 3,
+      "duracaoMinutos": 24
+    },
+    {
+      "id": "a43",
+      "cursoId": "c18",
+      "titulo": "Fundamentos do Locking: Points e Locks",
+      "conteudo": "https://video.exemplo.com/aula43",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a44",
+      "cursoId": "c18",
+      "titulo": "Musicalidade em Danças Urbanas",
+      "conteudo": "https://video.exemplo.com/aula44",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a45",
+      "cursoId": "c18",
+      "titulo": "Sequência de Locking Completa",
+      "conteudo": "https://video.exemplo.com/aula45",
+      "ordem": 3,
+      "duracaoMinutos": 22
     }
   ],
   "matriculas": [
@@ -607,6 +864,126 @@
       "progresso": 5,
       "status": "em andamento",
       "id": "JjLWaDC"
+    },
+    {
+      "id": "mat12",
+      "usuarioId": "u13",
+      "cursoId": "c13",
+      "dataMatricula": "2026-04-12T13:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat13",
+      "usuarioId": "u13",
+      "cursoId": "c1",
+      "dataMatricula": "2026-07-05T13:00:00Z",
+      "progresso": 35,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat14",
+      "usuarioId": "u14",
+      "cursoId": "c14",
+      "dataMatricula": "2026-06-18T15:00:00Z",
+      "progresso": 55,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat15",
+      "usuarioId": "u14",
+      "cursoId": "c6",
+      "dataMatricula": "2026-03-08T15:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat16",
+      "usuarioId": "u15",
+      "cursoId": "c15",
+      "dataMatricula": "2026-06-30T12:00:00Z",
+      "progresso": 40,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat17",
+      "usuarioId": "u15",
+      "cursoId": "c9",
+      "dataMatricula": "2026-02-25T12:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat18",
+      "usuarioId": "u16",
+      "cursoId": "c17",
+      "dataMatricula": "2026-07-15T10:00:00Z",
+      "progresso": 25,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat19",
+      "usuarioId": "u16",
+      "cursoId": "c18",
+      "dataMatricula": "2026-05-20T10:00:00Z",
+      "progresso": 65,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat20",
+      "usuarioId": "u17",
+      "cursoId": "c7",
+      "dataMatricula": "2026-01-22T17:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat21",
+      "usuarioId": "u17",
+      "cursoId": "c14",
+      "dataMatricula": "2026-07-20T17:00:00Z",
+      "progresso": 10,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat22",
+      "usuarioId": "u18",
+      "cursoId": "c11",
+      "dataMatricula": "2025-11-10T09:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat23",
+      "usuarioId": "u8",
+      "cursoId": "c9",
+      "dataMatricula": "2026-01-15T14:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat24",
+      "usuarioId": "u16",
+      "cursoId": "c1",
+      "dataMatricula": "2026-02-20T14:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat25",
+      "usuarioId": "u6",
+      "cursoId": "c7",
+      "dataMatricula": "2026-03-05T09:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat26",
+      "usuarioId": "u11",
+      "cursoId": "c9",
+      "dataMatricula": "2026-04-18T09:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
     }
   ],
   "avaliacoes": [
@@ -649,6 +1026,70 @@
       "nota": 4,
       "comentario": "Contemporânea abriu minha cabeça pra outras formas de me expressar através do corpo.",
       "data": "2026-02-10T17:00:00Z"
+    },
+    {
+      "id": "av6",
+      "usuarioId": "u13",
+      "cursoId": "c13",
+      "nota": 5,
+      "comentario": "Curso intermediário muito bem estruturado, a coreografia final ficou show.",
+      "data": "2026-04-25T19:00:00Z"
+    },
+    {
+      "id": "av7",
+      "usuarioId": "u14",
+      "cursoId": "c6",
+      "nota": 4,
+      "comentario": "Aprendi bastante de popping e footwork, só achei o ritmo das aulas um pouco corrido.",
+      "data": "2026-03-22T18:30:00Z"
+    },
+    {
+      "id": "av8",
+      "usuarioId": "u15",
+      "cursoId": "c9",
+      "nota": 5,
+      "comentario": "Professora Renata ensina jazz com muita energia, a coreografia jazz funk é o ponto alto do curso.",
+      "data": "2026-03-10T21:00:00Z"
+    },
+    {
+      "id": "av9",
+      "usuarioId": "u17",
+      "cursoId": "c7",
+      "nota": 5,
+      "comentario": "Segunda vez fazendo um curso de zouk aqui e continua excelente, condução muito bem explicada.",
+      "data": "2026-02-05T20:00:00Z"
+    },
+    {
+      "id": "av10",
+      "usuarioId": "u8",
+      "cursoId": "c9",
+      "nota": 4,
+      "comentario": "Coreografia jazz funk é muito boa, só senti que o ritmo das aulas podia ser um pouco mais devagar no começo.",
+      "data": "2026-01-28T20:00:00Z"
+    },
+    {
+      "id": "av11",
+      "usuarioId": "u16",
+      "cursoId": "c1",
+      "nota": 5,
+      "comentario": "Melhor curso de ballet iniciante que já fiz, a professora Isadora tem muita paciência com quem está começando.",
+      "data": "2026-03-01T19:00:00Z"
+    },
+    {
+      "id": "av12",
+      "usuarioId": "u6",
+      "cursoId": "c7",
+      "nota": 4,
+      "comentario": "Zouk muito divertido, aprendi a conduzir e ser conduzido em poucas semanas.",
+      "data": "2026-03-12T21:00:00Z"
+    },
+    {
+      "id": "av13",
+      "usuarioId": "u11",
+      "cursoId": "c9",
+      "nota": 5,
+      "comentario": "Energia contagiante nas aulas de jazz, terminei o curso já criando minhas próprias variações.",
+      "data": "2026-04-25T20:30:00Z"
     }
   ]
 }

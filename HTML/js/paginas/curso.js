@@ -124,7 +124,7 @@
     cartao.innerHTML = `
       <h3 class="texto-tamanho-md" style="margin-bottom: var(--espaco-4)">Quem leciona</h3>
       <div style="display: flex; align-items: center; gap: var(--espaco-3)">
-        <span class="avatar" style="width: 3rem; height: 3rem; font-size: var(--tamanho-md)">${Danca.ui.iniciais(instrutor.nome)}</span>
+        <span class="avatar" style="width: 3rem; height: 3rem; font-size: var(--tamanho-md)">${Danca.ui.avatarConteudo(instrutor)}</span>
         <div>
           <strong>${Danca.ui.escapar(instrutor.nome)}</strong>
           <div class="texto-pequeno" style="color: var(--ivory-dim)">${Danca.ui.rotuloRole(instrutor.role)} de dança</div>

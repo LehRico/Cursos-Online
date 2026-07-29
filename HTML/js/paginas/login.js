@@ -11,15 +11,18 @@
     try {
       const usuarios = await Danca.api.listar("usuarios");
       const ordemRole = { admin: 0, professor: 1, aluno: 2 };
+      // Só as contas marcadas com demo:true aparecem aqui — uma por papel
+      // (admin, professor, aluno) — mesmo que o db.json tenha muito mais
+      // usuários "de verdade" por trás pra dar volume aos cursos e turmas.
       const contas = usuarios
-        .filter((u) => u.ativo)
+        .filter((u) => u.ativo && u.demo)
         .sort((a, b) => ordemRole[a.role] - ordemRole[b.role]);
 
       lista.innerHTML = contas
         .map(
           (usuario) => `
           <button type="button" class="usuario-demo" data-email="${Danca.ui.escapar(usuario.email)}" data-senha="${Danca.ui.escapar(usuario.senha)}">
-            <span class="avatar">${Danca.ui.iniciais(usuario.nome)}</span>
+            <span class="avatar">${Danca.ui.avatarConteudo(usuario)}</span>
             <span class="usuario-demo__info">
               <span class="usuario-demo__nome">${Danca.ui.escapar(usuario.nome)}</span>
               <span class="usuario-demo__papel">${Danca.ui.escapar(usuario.email)}</span>

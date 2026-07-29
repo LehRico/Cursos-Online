@@ -149,6 +149,63 @@ Danca.ui = Danca.ui || {};
       </article>`;
   };
 
+  /* ---- Carrossel de fotos (usado na capa do card de curso) ---- */
+  Danca.ui.carrosselCapaHtml = function (fotos, nomeModalidade) {
+    if (!fotos || fotos.length === 0) return "";
+    const alt = nomeModalidade ? `Turma de ${Danca.ui.escapar(nomeModalidade)} em aula` : "";
+    const slides = fotos
+      .map(
+        (src, indice) =>
+          `<img src="${src}" alt="${alt}" loading="lazy" class="carrossel-capa__img${indice === 0 ? " esta-ativo" : ""}" data-indice="${indice}" onerror="this.remove()" />`
+      )
+      .join("");
+    const pontos =
+      fotos.length > 1
+        ? `<div class="carrossel-capa__pontos">${fotos
+            .map((_, indice) => `<button type="button" class="carrossel-capa__ponto${indice === 0 ? " esta-ativo" : ""}" data-indice="${indice}" aria-label="Foto ${indice + 1} de ${fotos.length}"></button>`)
+            .join("")}</div>`
+        : "";
+
+    return `<div class="carrossel-capa" data-total="${fotos.length}">${slides}${pontos}</div>`;
+  };
+
+  /* Avança os carrosséis de capa visíveis; chamada de tempos em tempos por um
+     intervalo único (evita 1 setInterval por card). */
+  Danca.ui.avancarCarrosseisCapa = function (raiz = document) {
+    raiz.querySelectorAll(".carrossel-capa").forEach((carrossel) => {
+      const imagens = carrossel.querySelectorAll(".carrossel-capa__img");
+      if (imagens.length < 2) return;
+      const atual = carrossel.querySelector(".carrossel-capa__img.esta-ativo");
+      const indiceAtual = atual ? Number(atual.dataset.indice) : 0;
+      Danca.ui.irParaSlideCapa(carrossel, (indiceAtual + 1) % imagens.length);
+    });
+  };
+
+  Danca.ui.irParaSlideCapa = function (carrossel, indiceAlvo) {
+    carrossel.querySelectorAll(".carrossel-capa__img").forEach((img) => {
+      img.classList.toggle("esta-ativo", Number(img.dataset.indice) === indiceAlvo);
+    });
+    carrossel.querySelectorAll(".carrossel-capa__ponto").forEach((ponto) => {
+      ponto.classList.toggle("esta-ativo", Number(ponto.dataset.indice) === indiceAlvo);
+    });
+  };
+
+  let intervaloCarrossel = null;
+  Danca.ui.iniciarCarrosseisCapa = function (raiz = document) {
+    raiz.querySelectorAll(".carrossel-capa__ponto").forEach((ponto) => {
+      if (ponto.dataset.ligado) return;
+      ponto.dataset.ligado = "1";
+      ponto.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        evento.stopPropagation();
+        Danca.ui.irParaSlideCapa(ponto.closest(".carrossel-capa"), Number(ponto.dataset.indice));
+      });
+    });
+
+    if (intervaloCarrossel || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    intervaloCarrossel = setInterval(() => Danca.ui.avancarCarrosseisCapa(), 4000);
+  };
+
   /* ---- Card de curso ---- */
   Danca.ui.cartaoCursoHtml = function (curso, { modalidade, instrutor, mostrarStatus = false } = {}) {
     const corGel = modalidade ? `var(${modalidade.corVar})` : "var(--gold)";
@@ -156,13 +213,13 @@ Danca.ui = Danca.ui || {};
       mostrarStatus && curso.status === "rascunho"
         ? '<span class="selo selo--rascunho cartao-curso__selo">Rascunho</span>'
         : "";
-    const imagem = Danca.modalidades.imagemCapa(curso.modalidadeId);
+    const fotos = Danca.modalidades.fotosCurso(curso.modalidadeId);
 
     return `
       <article class="cartao-curso revelar" style="--gel:${corGel}">
         <div class="cartao-curso__capa">
           ${Danca.ui.svgPlaceholderCapa()}
-          <img src="${imagem}" alt="" loading="lazy" onerror="this.remove()" />
+          ${Danca.ui.carrosselCapaHtml(fotos, modalidade ? modalidade.nome : "")}
           ${seloStatus}
         </div>
         <div class="cartao-curso__corpo">

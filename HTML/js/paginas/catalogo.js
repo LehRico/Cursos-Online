@@ -140,5 +140,6 @@
       .join("");
 
     Danca.ui.observarRevelacao(".grade-cursos .revelar");
+    Danca.ui.iniciarCarrosseisCapa(grade);
   }
 })();

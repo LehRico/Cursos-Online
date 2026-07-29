@@ -392,19 +392,12 @@
   overflow: hidden;
 }
 
-.cartao-curso__capa img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  mix-blend-mode: luminosity;
-  opacity: 0.9;
-}
-
 .cartao-curso__capa::after {
-  /* overlay duotone — garante coesão visual quando fotos reais entrarem */
+  /* overlay duotone — garante coesão visual entre fotos de fontes diferentes */
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(155deg, color-mix(in srgb, var(--gel, var(--gold)) 55%, transparent) 0%, rgba(21, 13, 18, 0.75) 100%);
   mix-blend-mode: color;
 }
@@ -415,6 +408,64 @@
   width: 100%;
   height: 100%;
   opacity: 0.55;
+}
+
+/* ---- Carrossel de fotos na capa do card de curso ---- */
+
+.carrossel-capa {
+  position: absolute;
+  inset: 0;
+}
+
+.carrossel-capa__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: luminosity;
+  opacity: 0;
+  transition: opacity 900ms var(--facilitador);
+}
+
+.carrossel-capa__img.esta-ativo {
+  opacity: 0.9;
+}
+
+.carrossel-capa__pontos {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: var(--espaco-3);
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.4rem;
+}
+
+.carrossel-capa__ponto {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: rgba(246, 238, 228, 0.45);
+  cursor: pointer;
+  transition: background var(--duracao-rapida), transform var(--duracao-rapida);
+}
+
+.carrossel-capa__ponto:hover {
+  background: rgba(246, 238, 228, 0.75);
+}
+
+.carrossel-capa__ponto.esta-ativo {
+  background: var(--gold);
+  transform: scale(1.25);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carrossel-capa__img {
+    transition: none;
+  }
 }
 
 .cartao-curso__selo {

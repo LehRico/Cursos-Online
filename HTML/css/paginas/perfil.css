@@ -1,3 +1,17 @@
+/*
+  Fundo animado do "Meu perfil" (Vanta.js, efeito CLOUDS) — igual ao que já
+  existiu na home, mas agora só nesta página, pra qualquer papel de usuário
+  (aluno, professor ou admin). O Vanta injeta um <canvas> dentro dessa div e
+  a redimensiona sozinho pra preencher a tela; fica atrás de tudo (z-index -1)
+  e não recebe clique/toque, já que é só decoração.
+*/
+.vanta-fundo {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
 .perfil-cabecalho {
   display: flex;
   align-items: center;

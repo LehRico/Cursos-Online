@@ -76,7 +76,7 @@
   }
 
   function renderizarCabecalho() {
-    document.title = `${curso.titulo} — Palco Dança`;
+    document.title = `${curso.titulo} — LeKa Dance Studio`;
     const corGel = modalidadeMeta ? `var(${modalidadeMeta.corVar})` : "var(--gold)";
     document.documentElement.style.setProperty("--gel", corGel);
 

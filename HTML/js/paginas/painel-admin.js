@@ -55,9 +55,11 @@
                 ${usuario.ativo ? "Ativo" : "Inativo"}
               </label>
             </td>
-            <td class="tabela__acoes">
-              <button class="botao botao--fantasma botao--pequeno" data-editar-usuario="${usuario.id}" type="button">Editar</button>
-              <button class="botao botao--perigo botao--pequeno" data-excluir-usuario="${usuario.id}" type="button" ${ehVoce ? "disabled" : ""}>Excluir</button>
+            <td>
+              <div class="tabela__acoes">
+                <button class="botao botao--fantasma botao--pequeno" data-editar-usuario="${usuario.id}" type="button">Editar</button>
+                <button class="botao botao--perigo botao--pequeno" data-excluir-usuario="${usuario.id}" type="button" ${ehVoce ? "disabled" : ""}>Excluir</button>
+              </div>
             </td>
           </tr>`;
       })
@@ -192,7 +194,12 @@
       }
     }
 
-    if (!window.confirm(`Excluir "${usuario.nome}"? Isso também remove matrículas e avaliações relacionadas.`)) return;
+    const confirmado = await Danca.ui.confirmar(`Excluir "${usuario.nome}"? Isso também remove matrículas e avaliações relacionadas.`, {
+      titulo: "Excluir usuário",
+      textoConfirmar: "Excluir",
+      perigo: true,
+    });
+    if (!confirmado) return;
 
     try {
       const [matriculasRelacionadas, avaliacoesRelacionadas] = await Promise.all([

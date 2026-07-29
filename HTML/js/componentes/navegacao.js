@@ -32,7 +32,7 @@ Danca.ui = Danca.ui || {};
 
     alvo.innerHTML = `
       <div class="cabecalho__envolucro envolucro">
-        <a class="marca" href="index.html">Palco <em>Dança</em></a>
+        <a class="marca" href="index.html">LeKa <em>Dance</em> Studio</a>
         <nav class="navegacao" id="navegacao-principal">${linksHtml}</nav>
         <div class="cabecalho__usuario">${areaUsuarioHtml}</div>
         <button class="menu-alternar" id="menu-alternar" type="button" aria-expanded="false" aria-controls="navegacao-principal" aria-label="Abrir menu">☰</button>

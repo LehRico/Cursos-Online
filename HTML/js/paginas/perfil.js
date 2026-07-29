@@ -9,6 +9,7 @@
     Danca.ui.montarNavegacao("perfil.html");
     renderizarCabecalhoPerfil();
     Danca.ui.observarRevelacao();
+    iniciarFundoDeNuvens();
     document.getElementById("formulario-perfil").addEventListener("submit", salvarPerfil);
     document.getElementById("campo-foto").addEventListener("change", aoEscolherFoto);
 
@@ -21,6 +22,37 @@
       Danca.ui.observarRevelacao();
     }
   });
+
+  /*
+    Fundo de nuvens animado (Vanta.js, efeito CLOUDS), igual ao que a home já
+    usou — só que aqui vale pra qualquer papel (aluno, professor ou admin),
+    já que "Meu perfil" é a mesma tela pros três. Cores tiradas de
+    css/tokens.css (paleta "cortina de veludo" + dourado de marquise).
+
+    Se o usuário pede menos movimento no sistema, ou as bibliotecas não
+    carregaram (ex: sem internet), simplesmente não ativamos.
+  */
+  function iniciarFundoDeNuvens() {
+    const prefereMenosMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefereMenosMovimento || typeof VANTA === "undefined") return;
+
+    VANTA.CLOUDS({
+      el: "#vanta-fundo",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      speed: 0.9,
+      backgroundColor: 0x150d12, // --ink
+      skyColor: 0x2a1420, // --curtain
+      cloudColor: 0x401f33, // --curtain-alto
+      cloudShadowColor: 0x0f0810,
+      sunColor: 0xe3b23c, // --gold
+      sunGlareColor: 0xf0cc74, // --gold-soft
+      sunlightColor: 0xe3b23c, // --gold
+    });
+  }
 
   function renderizarCabecalhoPerfil() {
     document.getElementById("perfil-avatar").innerHTML = Danca.ui.avatarConteudo(usuarioSessao);

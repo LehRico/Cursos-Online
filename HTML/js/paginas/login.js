@@ -1,10 +1,35 @@
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
+    // Quem já está logado não precisa ver a tela de login de novo — manda
+    // direto pra página que ela queria (ou pro catálogo, se não tinha nenhuma).
+    if (Danca.sessao.obter()) {
+      window.location.href = obterDestinoRedirecionamento();
+      return;
+    }
+
     Danca.ui.montarNavegacao("login.html");
     Danca.ui.observarRevelacao();
     carregarContasDemo();
     document.getElementById("formulario-login").addEventListener("submit", aoEnviarFormulario);
   });
+
+  /*
+    Descobre pra onde mandar a pessoa depois do login: a página que ela
+    tentava abrir antes de ser barrada por Danca.sessao.exigir() (guardada
+    na query string "?redirecionar=..."), ou o catálogo por padrão.
+
+    Só aceitamos um nome de arquivo do próprio site (ex: "curso.html?id=c3"),
+    nunca uma URL completa — isso evita que alguém monte um link tipo
+    "login.html?redirecionar=https://site-malicioso.com" e use nosso login
+    pra redirecionar a vítima pra fora do site depois que ela loga.
+  */
+  function obterDestinoRedirecionamento() {
+    const parametro = new URLSearchParams(window.location.search).get("redirecionar");
+    if (!parametro || parametro.startsWith("http://") || parametro.startsWith("https://") || parametro.startsWith("//")) {
+      return "index.html";
+    }
+    return parametro;
+  }
 
   async function carregarContasDemo() {
     const lista = document.getElementById("lista-usuarios-demo");
@@ -85,7 +110,7 @@
 
       Danca.sessao.definir(usuario);
       Danca.ui.mostrarAviso(`Bem-vindo(a), ${usuario.nome.split(" ")[0]}!`, "sucesso");
-      window.location.href = "index.html";
+      window.location.href = obterDestinoRedirecionamento();
     } catch (erro) {
       mostrarErro("campo-grupo-senha", erro.message);
     } finally {

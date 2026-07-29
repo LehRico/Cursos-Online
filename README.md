@@ -1,4 +1,4 @@
-# Palco Dança — Plataforma de Cursos de Dança Online
+# LeKa Dance Studio — Plataforma de Cursos de Dança Online
 
 Atividade acadêmica: plataforma de cursos de dança (ballet, hip hop, contemporânea, danças urbanas, dança de salão, jazz, sapateado e dança do ventre) com controle de acesso por papel de usuário (aluno, professor, admin), construída em **HTML/CSS/JS puro** (sem framework, sem build) sobre um backend simulado com **json-server**.
 

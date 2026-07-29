@@ -28,7 +28,11 @@ window.Danca = window.Danca || {};
     exigir(rolesPermitidas) {
       const usuario = this.obter();
       if (!usuario) {
-        window.location.href = "login.html";
+        // Guarda a página que a pessoa queria abrir (path + query, ex:
+        // "curso.html?id=c3") pra login.js poder mandar ela de volta pra lá
+        // depois de entrar, em vez de sempre cair no catálogo.
+        const destino = encodeURIComponent(window.location.pathname.split("/").pop() + window.location.search);
+        window.location.href = `login.html?redirecionar=${destino}`;
         return null;
       }
       if (rolesPermitidas && !rolesPermitidas.includes(usuario.role)) {

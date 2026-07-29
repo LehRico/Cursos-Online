@@ -206,6 +206,11 @@
       "id": "danca-do-ventre",
       "nome": "Dança do Ventre",
       "descricao": "Ondulações, isolamentos de quadril e a riqueza da dança oriental."
+    },
+    {
+      "nome": "dança",
+      "descricao": "sdsdsd",
+      "id": "OgESBcd"
     }
   ],
   "cursos": [
@@ -984,6 +989,22 @@
       "dataMatricula": "2026-04-18T09:00:00Z",
       "progresso": 100,
       "status": "concluído"
+    },
+    {
+      "usuarioId": "u5",
+      "cursoId": "c17",
+      "dataMatricula": "2026-07-29T16:58:19.877Z",
+      "progresso": 100,
+      "status": "concluído",
+      "id": "TeezfQz"
+    },
+    {
+      "usuarioId": "u5",
+      "cursoId": "c2",
+      "dataMatricula": "2026-07-29T17:22:10.234Z",
+      "progresso": 100,
+      "status": "concluído",
+      "id": "lwC1jyz"
     }
   ],
   "avaliacoes": [
@@ -1090,6 +1111,22 @@
       "nota": 5,
       "comentario": "Energia contagiante nas aulas de jazz, terminei o curso já criando minhas próprias variações.",
       "data": "2026-04-25T20:30:00Z"
+    },
+    {
+      "usuarioId": "u5",
+      "cursoId": "c17",
+      "nota": 4,
+      "comentario": "muito bom",
+      "data": "2026-07-29T17:02:04.938Z",
+      "id": "a7YalPc"
+    },
+    {
+      "usuarioId": "u5",
+      "cursoId": "c2",
+      "nota": 3,
+      "comentario": "muito bom",
+      "data": "2026-07-29T17:22:50.213Z",
+      "id": "OhsDgMK"
     }
   ]
 }

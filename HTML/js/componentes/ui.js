@@ -87,6 +87,57 @@ Danca.ui = Danca.ui || {};
     });
   };
 
+  /*
+    Modal de confirmação com a cara do site, pra substituir o window.confirm()
+    nativo do navegador (aquela caixinha cinza do sistema operacional, que
+    destoa completamente do visual escuro/dourado daqui) nas ações de
+    excluir. Cria (uma única vez) um <dialog class="modal"> no fim do
+    <body> e devolve uma Promise<boolean>: true se a pessoa confirmou,
+    false se cancelou (clicando em "Cancelar", clicando fora, ou apertando
+    Esc — o <dialog> nativo já dispara o evento "cancel" nesses casos).
+
+    Uso: if (!(await Danca.ui.confirmar("Excluir este curso?"))) return;
+  */
+  Danca.ui.confirmar = function (mensagem, opcoes = {}) {
+    const { titulo = "Confirmar ação", textoConfirmar = "Confirmar", textoCancelar = "Cancelar", perigo = false } = opcoes;
+
+    let dialogo = document.getElementById("dialogo-confirmacao");
+    if (!dialogo) {
+      dialogo = document.createElement("dialog");
+      dialogo.id = "dialogo-confirmacao";
+      dialogo.className = "modal";
+      document.body.appendChild(dialogo);
+    }
+
+    dialogo.innerHTML = `
+      <div class="modal__cabecalho">
+        <h3>${Danca.ui.escapar(titulo)}</h3>
+      </div>
+      <p class="modal__corpo">${Danca.ui.escapar(mensagem)}</p>
+      <div class="modal__rodape">
+        <button class="botao botao--fantasma" type="button" data-acao="cancelar">${Danca.ui.escapar(textoCancelar)}</button>
+        <button class="botao ${perigo ? "botao--perigo" : "botao--primario"}" type="button" data-acao="confirmar">${Danca.ui.escapar(textoConfirmar)}</button>
+      </div>`;
+
+    return new Promise((resolve) => {
+      function finalizar(resultado) {
+        dialogo.removeEventListener("cancel", aoCancelarComEsc);
+        dialogo.close();
+        resolve(resultado);
+      }
+      function aoCancelarComEsc(evento) {
+        evento.preventDefault(); // evita o fechamento "cru" do <dialog>, deixamos finalizar() cuidar disso
+        finalizar(false);
+      }
+
+      dialogo.querySelector('[data-acao="cancelar"]').addEventListener("click", () => finalizar(false), { once: true });
+      dialogo.querySelector('[data-acao="confirmar"]').addEventListener("click", () => finalizar(true), { once: true });
+      dialogo.addEventListener("cancel", aoCancelarComEsc, { once: true });
+
+      dialogo.showModal();
+    });
+  };
+
   Danca.ui.formatarData = function (isoOuData) {
     const data = new Date(isoOuData);
     if (Number.isNaN(data.getTime())) return "";

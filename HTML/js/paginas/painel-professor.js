@@ -81,9 +81,11 @@
             <td>${Danca.ui.capitalizar(curso.nivel)}</td>
             <td class="numerico">${curso.cargaHoraria}h</td>
             <td><span class="selo selo--${curso.status === "publicado" ? "publicado" : "rascunho"}">${Danca.ui.capitalizar(curso.status)}</span></td>
-            <td class="tabela__acoes">
-              <button class="botao botao--fantasma botao--pequeno" data-editar-curso="${curso.id}" type="button">Editar</button>
-              <button class="botao botao--perigo botao--pequeno" data-excluir-curso="${curso.id}" type="button">Excluir</button>
+            <td>
+              <div class="tabela__acoes">
+                <button class="botao botao--fantasma botao--pequeno" data-editar-curso="${curso.id}" type="button">Editar</button>
+                <button class="botao botao--perigo botao--pequeno" data-excluir-curso="${curso.id}" type="button">Excluir</button>
+              </div>
             </td>
           </tr>`;
       })
@@ -164,7 +166,12 @@
   async function excluirCurso(id) {
     const curso = cursos.find((c) => c.id === id);
     if (!curso) return;
-    if (!window.confirm(`Excluir "${curso.titulo}"? Isso também remove aulas, matrículas e avaliações relacionadas.`)) return;
+    const confirmado = await Danca.ui.confirmar(`Excluir "${curso.titulo}"? Isso também remove aulas, matrículas e avaliações relacionadas.`, {
+      titulo: "Excluir curso",
+      textoConfirmar: "Excluir",
+      perigo: true,
+    });
+    if (!confirmado) return;
 
     try {
       const [aulasRelacionadas, matriculasRelacionadas, avaliacoesRelacionadas] = await Promise.all([
@@ -227,9 +234,11 @@
           <td class="numerico">${aula.ordem}</td>
           <td>${Danca.ui.escapar(aula.titulo)}</td>
           <td class="numerico">${aula.duracaoMinutos} min</td>
-          <td class="tabela__acoes">
-            <button class="botao botao--fantasma botao--pequeno" data-editar-aula="${aula.id}" type="button">Editar</button>
-            <button class="botao botao--perigo botao--pequeno" data-excluir-aula="${aula.id}" type="button">Excluir</button>
+          <td>
+            <div class="tabela__acoes">
+              <button class="botao botao--fantasma botao--pequeno" data-editar-aula="${aula.id}" type="button">Editar</button>
+              <button class="botao botao--perigo botao--pequeno" data-excluir-aula="${aula.id}" type="button">Excluir</button>
+            </div>
           </td>
         </tr>`
       )
@@ -292,7 +301,8 @@
   }
 
   async function excluirAula(id) {
-    if (!window.confirm("Excluir esta aula?")) return;
+    const confirmado = await Danca.ui.confirmar("Excluir esta aula?", { titulo: "Excluir aula", textoConfirmar: "Excluir", perigo: true });
+    if (!confirmado) return;
     try {
       await Danca.api.remover("aulas", id);
       aulasCursoAtual = aulasCursoAtual.filter((a) => a.id !== id);
@@ -317,9 +327,11 @@
         <tr>
           <td>${Danca.ui.escapar(modalidade.nome)}</td>
           <td>${Danca.ui.escapar(modalidade.descricao || "")}</td>
-          <td class="tabela__acoes">
-            <button class="botao botao--fantasma botao--pequeno" data-editar-modalidade="${modalidade.id}" type="button">Editar</button>
-            <button class="botao botao--perigo botao--pequeno" data-excluir-modalidade="${modalidade.id}" type="button">Excluir</button>
+          <td>
+            <div class="tabela__acoes">
+              <button class="botao botao--fantasma botao--pequeno" data-editar-modalidade="${modalidade.id}" type="button">Editar</button>
+              <button class="botao botao--perigo botao--pequeno" data-excluir-modalidade="${modalidade.id}" type="button">Excluir</button>
+            </div>
           </td>
         </tr>`
       )
@@ -376,7 +388,8 @@
       Danca.ui.mostrarAviso("Existem cursos usando esta modalidade. Altere-os antes de excluir.", "erro");
       return;
     }
-    if (!window.confirm("Excluir esta modalidade?")) return;
+    const confirmado = await Danca.ui.confirmar("Excluir esta modalidade?", { titulo: "Excluir modalidade", textoConfirmar: "Excluir", perigo: true });
+    if (!confirmado) return;
 
     try {
       await Danca.api.remover("modalidades", id);

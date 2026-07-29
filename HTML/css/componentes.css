@@ -540,12 +540,26 @@
 .campo input,
 .campo select,
 .campo textarea {
-  background: var(--ink);
+  /*
+    Antes era var(--ink) — quase preto puro — batendo contra o roxo mais
+    quente do modal (--curtain-soft) e lendo como um "buraco" no meio do
+    formulário. Esse degradê fica um pouco mais quente/claro que --ink, e a
+    sombra interna (inset) dá a sensação de campo "afundado" de verdade, em
+    vez de só um retângulo de cor lisa.
+  */
+  background: linear-gradient(180deg, var(--ink), color-mix(in srgb, var(--ink) 80%, var(--curtain) 20%));
   border: 1px solid var(--line-forte);
   border-radius: var(--raio-sm);
   padding: 0.7rem 0.9rem;
   color: var(--ivory);
+  box-shadow: inset 0 1px 4px rgba(5, 2, 4, 0.45);
   transition: border-color var(--duracao-rapida) var(--facilitador), box-shadow var(--duracao-rapida);
+}
+
+.campo input:hover,
+.campo select:hover,
+.campo textarea:hover {
+  border-color: color-mix(in srgb, var(--line-forte) 55%, var(--gold) 45%);
 }
 
 .campo input:focus,
@@ -553,12 +567,73 @@
 .campo textarea:focus {
   outline: none;
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(227, 178, 60, 0.18);
+  box-shadow: inset 0 1px 4px rgba(5, 2, 4, 0.45), 0 0 0 3px rgba(227, 178, 60, 0.18);
 }
 
 .campo textarea {
   resize: vertical;
   min-height: 6rem;
+}
+
+.campo select {
+  appearance: none;
+  padding-right: 2.4rem;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23e3b23c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, var(--ink), color-mix(in srgb, var(--ink) 80%, var(--curtain) 20%));
+  background-repeat: no-repeat;
+  background-position: right 1em center, 0 0;
+}
+
+/*
+  A lista de opções de um <select> aberto é renderizada pelo próprio
+  sistema operacional/navegador — CSS normal (cor de fundo do modal, etc)
+  não chega nela. Isso é o máximo que dá pra estilizar de forma confiável
+  entre navegadores: cor de fundo e do texto de cada <option>, pra pelo
+  menos não abrir uma lista branca chapada no meio de um site escuro.
+*/
+.campo select option,
+.campo-select-inline option {
+  background: var(--curtain-soft);
+  color: var(--ivory);
+}
+
+/*
+  Botão de escolher arquivo (foto de perfil): estiliza o pseudo-elemento
+  nativo ::file-selector-button pra virar um botão dourado como os outros
+  do site, em vez do botão cinza padrão do sistema operacional que
+  destoava de tudo — sem precisar de nenhum HTML/JS extra pra isso.
+*/
+.campo input[type="file"] {
+  background: transparent;
+  border: 1px dashed var(--line-forte);
+  box-shadow: none;
+  color: var(--ivory-dim);
+  font-size: var(--tamanho-sm);
+  cursor: pointer;
+}
+
+.campo input[type="file"]:hover {
+  border-color: var(--gold);
+}
+
+.campo input[type="file"]::file-selector-button {
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  border-radius: var(--raio-pilula);
+  padding: 0.5rem 1.1rem;
+  margin-right: var(--espaco-3);
+  font-weight: 600;
+  font-size: var(--tamanho-xs);
+  cursor: pointer;
+  transition: background var(--duracao-rapida);
+}
+
+.campo input[type="file"]::file-selector-button:hover {
+  background: var(--gold-soft);
 }
 
 .campo__ajuda {
@@ -690,8 +765,18 @@
   border-bottom: none;
 }
 
+/*
+  .tabela__acoes fica numa <div> dentro do <td>, nunca no <td> em si: um
+  <td class="tabela__acoes"> com display:flex vira uma caixa flex comum
+  (o navegador para de tratá-lo como célula de verdade e gera uma célula
+  "fantasma" ao redor dela), e essa caixa só ocupa a altura do próprio
+  conteúdo — bem menor que as outras células da linha. Isso fazia a borda
+  de baixo dessa coluna ficar mais alta que a das colunas vizinhas (a
+  linha "torta"). Com a <div> só o <td> comum cuida da altura da linha.
+*/
 .tabela__acoes {
   display: flex;
+  align-items: center;
   gap: var(--espaco-2);
 }
 
@@ -734,12 +819,22 @@
 /* ============ Modal (dialog nativo) ============ */
 
 dialog.modal {
+  /*
+    margin: auto é o que centraliza um <dialog> nativo — é assim que o
+    navegador já faz por padrão (a caixa do <dialog> aberto ocupa a tela
+    toda via inset:0, e margin:auto centraliza o conteúdo dentro dela).
+    Só que o reset global "* { margin: 0 }" do base.css anula isso, então
+    precisamos declarar de novo aqui, só pra essa classe.
+  */
+  margin: auto;
   background: var(--curtain-soft);
   color: var(--ivory);
   border: 1px solid var(--line-forte);
   border-radius: var(--raio-lg);
   padding: var(--espaco-6);
   width: min(92vw, 560px);
+  max-height: min(88vh, 720px);
+  overflow-y: auto;
   box-shadow: 0 30px 80px var(--sombra);
 }
 
@@ -757,16 +852,35 @@ dialog.modal[open] {
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--espaco-4);
+  padding-bottom: var(--espaco-4);
   margin-bottom: var(--espaco-5);
+  border-bottom: 1px solid var(--line);
 }
 
 .modal__fechar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin-top: -0.25rem;
   background: none;
   border: none;
+  border-radius: 50%;
   color: var(--ivory-dim);
   cursor: pointer;
   font-size: var(--tamanho-lg);
   line-height: 1;
+  transition: background var(--duracao-rapida), color var(--duracao-rapida);
+}
+
+.modal__fechar:hover {
+  background: var(--line);
+  color: var(--ivory);
+}
+
+.modal__corpo {
+  color: var(--ivory-dim);
 }
 
 .modal__rodape {
@@ -939,12 +1053,30 @@ dialog.modal[open] {
 }
 
 .campo-select-inline {
-  background: var(--ink);
+  /* fundo um degrau mais claro que --ink: no --ink puro, a seta nativa do
+     navegador quase some (fica escura sobre escuro), daí o efeito "tudo
+     preto"; com a seta própria abaixo (appearance: none) isso deixa de ser
+     um problema, mas mantemos esse tom pra dar contraste com os cartões. */
+  background: var(--curtain-alto);
   border: 1px solid var(--line-forte);
   border-radius: var(--raio-pilula);
-  padding: 0.55em 1.15em;
+  padding: 0.55em 2.2em 0.55em 1.15em;
   color: var(--ivory);
   font-size: var(--tamanho-xs);
+  cursor: pointer;
+  transition: border-color var(--duracao-rapida), background var(--duracao-rapida);
+
+  /* substitui a setinha nativa (que em modo escuro fica praticamente
+     invisível) por uma só nossa, na cor dourada da marca. */
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23e3b23c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1em center;
+}
+
+.campo-select-inline:hover {
+  border-color: var(--line-forte);
+  background-color: color-mix(in srgb, var(--curtain-alto) 80%, var(--ivory) 5%);
 }
 
 .campo-select-inline:focus-visible {
@@ -1006,6 +1138,14 @@ dialog.modal[open] {
 
 .usuario-demo__info {
   flex: 1;
+  /*
+    min-width: 0 é o que permite esse item flexível encolher além do
+    tamanho do seu conteúdo (o padrão de um filho flex é min-width: auto,
+    ou seja, nunca menor que o próprio conteúdo). Sem isso, o e-mail vira
+    uma "palavra" indivisível que empurra a linha inteira pra fora da tela
+    em celulares estreitos.
+  */
+  min-width: 0;
 }
 
 .usuario-demo__nome {
@@ -1014,8 +1154,12 @@ dialog.modal[open] {
 }
 
 .usuario-demo__papel {
+  display: block;
   font-size: var(--tamanho-xs);
   color: var(--ivory-dim);
+  /* e-mail não tem espaços pra quebrar sozinho — sem isso, ele ultrapassa
+     a largura do card em vez de quebrar linha ou cortar. */
+  overflow-wrap: anywhere;
 }
 
 /* ============ Hero (catálogo) ============ */

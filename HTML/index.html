@@ -1,10 +1,86 @@
-<html lang="en">
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palco Dança — Cursos de dança online</title>
+  <meta name="description" content="Catálogo de cursos de dança online: ballet, hip hop, contemporânea, danças urbanas, dança de salão, jazz, sapateado e dança do ventre." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/catalogo.css" />
 </head>
 <body>
-    
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="hero">
+      <div class="envolucro hero__envolucro">
+        <span class="hero__ovelho"><i class="ph ph-bold ph-sparkle"></i> 8 modalidades, um só palco</span>
+        <h1 class="hero__titulo">Onde o <em>movimento</em> vira técnica.</h1>
+        <p class="hero__descricao">
+          Aulas de ballet, hip hop, contemporânea, danças urbanas, dança de salão, jazz, sapateado e dança
+          do ventre — com professores que também dançam fora da tela. Escolha um ritmo e comece hoje.
+        </p>
+        <div class="hero__acoes" id="hero-acoes">
+          <a class="botao botao--primario" href="#catalogo">Ver cursos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao" style="padding-top: 0">
+      <div class="envolucro">
+        <h2 class="revelar">Escolha sua modalidade</h2>
+        <p class="revelar" style="color: var(--ivory-dim); margin-block: var(--espaco-2) var(--espaco-6)">
+          Cada estilo tem sua própria luz de palco.
+        </p>
+        <div class="grade-modalidades" id="grade-modalidades"></div>
+      </div>
+    </section>
+
+    <section class="secao" id="catalogo">
+      <div class="envolucro">
+        <div class="cabecalho-secao">
+          <h2>Catálogo de cursos</h2>
+          <div class="filtros">
+            <div class="filtros__chips" id="filtros-chips"></div>
+            <select class="campo-select-inline" id="filtro-nivel" aria-label="Filtrar por nível">
+              <option value="todos">Todos os níveis</option>
+              <option value="iniciante">Iniciante</option>
+              <option value="intermediário">Intermediário</option>
+              <option value="avançado">Avançado</option>
+            </select>
+            <input class="filtros__busca campo-select-inline" type="search" id="filtro-busca" placeholder="Buscar por título…" aria-label="Buscar curso por título" />
+          </div>
+        </div>
+        <div class="grade-cursos" id="grade-cursos">
+          <p class="carregando">Carregando cursos</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/catalogo.js"></script>
 </body>
 </html>

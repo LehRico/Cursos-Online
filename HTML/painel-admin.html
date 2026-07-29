@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuários — Palco Dança</title>
+  <meta name="description" content="Painel administrativo: gerencie usuários, papéis e contas ativas da plataforma." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/painel.css" />
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="secao" style="padding-bottom: 0">
+      <div class="envolucro">
+        <span class="hero__ovelho"><i class="ph ph-bold ph-shield-star"></i> Painel administrativo</span>
+        <h1 style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)">Quem entra <em>no palco</em>.</h1>
+        <p style="color: var(--ivory-dim); max-width: 60ch">
+          Único papel com acesso ao cadastro de usuários: crie contas, altere papéis e ative ou desative acessos.
+        </p>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="envolucro">
+        <div class="cabecalho-secao">
+          <h2 class="texto-tamanho-md">Usuários</h2>
+          <button class="botao botao--primario botao--pequeno" id="botao-novo-usuario" type="button"><i class="ph ph-bold ph-user-plus"></i> Novo usuário</button>
+        </div>
+        <div class="tabela-envolucro">
+          <table class="tabela">
+            <thead><tr><th>Usuário</th><th>Papel</th><th>Status</th><th></th></tr></thead>
+            <tbody id="tabela-usuarios"><tr><td colspan="4" class="carregando">Carregando</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <dialog class="modal" id="modal-usuario">
+    <div class="modal__cabecalho">
+      <h3 id="modal-usuario-titulo">Novo usuário</h3>
+      <button class="modal__fechar" type="button" data-fechar-modal="modal-usuario" aria-label="Fechar">✕</button>
+    </div>
+    <form class="formulario" id="formulario-usuario" novalidate>
+      <input type="hidden" id="usuario-id" />
+      <div class="campo" id="campo-grupo-usuario-nome">
+        <label class="campo__rotulo" for="usuario-nome">Nome</label>
+        <input id="usuario-nome" required />
+        <span class="campo__erro"></span>
+      </div>
+      <div class="campo" id="campo-grupo-usuario-email">
+        <label class="campo__rotulo" for="usuario-email">E-mail</label>
+        <input id="usuario-email" type="email" required />
+        <span class="campo__erro"></span>
+      </div>
+      <div class="formulario formulario--duas-colunas">
+        <div class="campo" id="campo-grupo-usuario-senha">
+          <label class="campo__rotulo" for="usuario-senha">Senha</label>
+          <input id="usuario-senha" type="password" />
+          <span class="campo__ajuda">Mín. 6 caracteres.</span>
+          <span class="campo__erro"></span>
+        </div>
+        <div class="campo" id="campo-grupo-usuario-role">
+          <label class="campo__rotulo" for="usuario-role">Papel</label>
+          <select id="usuario-role" required>
+            <option value="aluno">Aluno</option>
+            <option value="professor">Professor</option>
+            <option value="admin">Admin</option>
+          </select>
+          <span class="campo__erro"></span>
+        </div>
+      </div>
+      <div class="modal__rodape">
+        <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-usuario">Cancelar</button>
+        <button class="botao botao--primario" type="submit">Salvar usuário</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/painel-admin.js"></script>
+</body>
+</html>

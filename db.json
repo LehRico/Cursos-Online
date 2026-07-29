@@ -1,0 +1,654 @@
+{
+  "usuarios": [
+    {
+      "id": "u1",
+      "nome": "Marina Ferraz",
+      "email": "marina.ferraz@danca.com",
+      "senha": "danca123",
+      "role": "admin",
+      "ativo": true
+    },
+    {
+      "id": "u2",
+      "nome": "Isadora Nunes",
+      "email": "isadora.nunes@danca.com",
+      "senha": "danca123",
+      "role": "professor",
+      "ativo": true
+    },
+    {
+      "id": "u3",
+      "nome": "Kadu Bispo",
+      "email": "kadu.bispo@danca.com",
+      "senha": "danca123",
+      "role": "professor",
+      "ativo": true
+    },
+    {
+      "id": "u4",
+      "nome": "Renata Villas",
+      "email": "renata.villas@danca.com",
+      "senha": "danca123",
+      "role": "professor",
+      "ativo": true
+    },
+    {
+      "id": "u5",
+      "nome": "Camila Rocha",
+      "email": "camila.rocha@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u6",
+      "nome": "Bruno Costa",
+      "email": "bruno.costa@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u7",
+      "nome": "Larissa Prado",
+      "email": "larissa.prado@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u8",
+      "nome": "Felipe Andrade",
+      "email": "felipe.andrade@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u9",
+      "nome": "Sofia Martins",
+      "email": "sofia.martins@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u10",
+      "nome": "Diego Almeida",
+      "email": "diego.almeida@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    },
+    {
+      "id": "u11",
+      "nome": "Rafael Souza",
+      "email": "rafael.souza@email.com",
+      "senha": "danca123",
+      "role": "aluno",
+      "ativo": true
+    }
+  ],
+  "modalidades": [
+    {
+      "id": "ballet",
+      "nome": "Ballet",
+      "descricao": "Técnica clássica, alinhamento e elegância — a base de toda dança."
+    },
+    {
+      "id": "hip-hop",
+      "nome": "Hip Hop",
+      "descricao": "Groove, isolamentos e freestyle com raiz na cultura de rua."
+    },
+    {
+      "id": "contemporanea",
+      "nome": "Contemporânea",
+      "descricao": "Expressividade, quedas e improviso — o corpo como linguagem."
+    },
+    {
+      "id": "dancas-urbanas",
+      "nome": "Danças Urbanas",
+      "descricao": "Breaking, popping e locking — a energia das batalhas de rua."
+    },
+    {
+      "id": "danca-de-salao",
+      "nome": "Dança de Salão",
+      "descricao": "Condução a dois, do zouk ao tango — sofisticação em cada passo."
+    },
+    {
+      "id": "jazz",
+      "nome": "Jazz",
+      "descricao": "Técnica, potência e teatralidade em coreografias cheias de energia."
+    },
+    {
+      "id": "sapateado",
+      "nome": "Sapateado",
+      "descricao": "O ritmo nasce nos pés — percussão pura em cada sapatilha."
+    },
+    {
+      "id": "danca-do-ventre",
+      "nome": "Dança do Ventre",
+      "descricao": "Ondulações, isolamentos de quadril e a riqueza da dança oriental."
+    }
+  ],
+  "cursos": [
+    {
+      "id": "c1",
+      "titulo": "Ballet Clássico para Iniciantes",
+      "descricao": "Postura, alinhamento e as primeiras posições na barra e no centro.",
+      "modalidadeId": "ballet",
+      "instrutorId": "u2",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 24
+    },
+    {
+      "id": "c2",
+      "titulo": "Ballet Intermediário: Técnica e Pontas",
+      "descricao": "Trabalho de pontas, piqués e adágio para quem já domina o básico.",
+      "modalidadeId": "ballet",
+      "instrutorId": "u2",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 30
+    },
+    {
+      "id": "c3",
+      "titulo": "Hip Hop: Groove e Fundamentos",
+      "descricao": "Postura, isolamentos e a primeira coreografia de 8 contagens.",
+      "modalidadeId": "hip-hop",
+      "instrutorId": "u3",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 16
+    },
+    {
+      "id": "c4",
+      "titulo": "Hip Hop Avançado: Freestyle e Battle",
+      "descricao": "Musicalidade avançada, criação de vocabulário próprio e postura de battle.",
+      "modalidadeId": "hip-hop",
+      "instrutorId": "u3",
+      "status": "rascunho",
+      "nivel": "avançado",
+      "cargaHoraria": 20
+    },
+    {
+      "id": "c5",
+      "titulo": "Dança Contemporânea: Corpo e Espaço",
+      "descricao": "Respiração, quedas, recuperações e improvisação guiada.",
+      "modalidadeId": "contemporanea",
+      "instrutorId": "u2",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 18
+    },
+    {
+      "id": "c6",
+      "titulo": "Danças Urbanas: Breaking e Popping",
+      "descricao": "Fundamentos de popping, toprock e footwork de breaking.",
+      "modalidadeId": "dancas-urbanas",
+      "instrutorId": "u3",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 22
+    },
+    {
+      "id": "c7",
+      "titulo": "Dança de Salão: Zouk para Casais",
+      "descricao": "Condução, cabeceio e as primeiras sequências a dois.",
+      "modalidadeId": "danca-de-salao",
+      "instrutorId": "u4",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 20
+    },
+    {
+      "id": "c8",
+      "titulo": "Dança de Salão: Tango Argentino",
+      "descricao": "A caminhada, ochos, giros e musicalidade do tango.",
+      "modalidadeId": "danca-de-salao",
+      "instrutorId": "u4",
+      "status": "publicado",
+      "nivel": "intermediário",
+      "cargaHoraria": 24
+    },
+    {
+      "id": "c9",
+      "titulo": "Jazz Dance: Energia e Técnica",
+      "descricao": "Isolamentos, chassé, pirueta e uma coreografia jazz funk.",
+      "modalidadeId": "jazz",
+      "instrutorId": "u4",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 16
+    },
+    {
+      "id": "c10",
+      "titulo": "Sapateado: Ritmo nos Pés",
+      "descricao": "Toe, heel, shuffle e flap — os primeiros sons do sapateado.",
+      "modalidadeId": "sapateado",
+      "instrutorId": "u3",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 18
+    },
+    {
+      "id": "c11",
+      "titulo": "Dança do Ventre: Fundamentos e Isolamentos",
+      "descricao": "Isolamentos de quadril, ondulações e shimmy.",
+      "modalidadeId": "danca-do-ventre",
+      "instrutorId": "u4",
+      "status": "publicado",
+      "nivel": "iniciante",
+      "cargaHoraria": 20
+    },
+    {
+      "id": "c12",
+      "titulo": "Dança do Ventre Avançado: Véu e Espada",
+      "descricao": "Combinações avançadas com acessórios e musicalidade oriental.",
+      "modalidadeId": "danca-do-ventre",
+      "instrutorId": "u4",
+      "status": "rascunho",
+      "nivel": "avançado",
+      "cargaHoraria": 24
+    }
+  ],
+  "aulas": [
+    {
+      "id": "a1",
+      "cursoId": "c1",
+      "titulo": "Postura e Alinhamento na Barra",
+      "conteudo": "https://video.exemplo.com/aula1",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a2",
+      "cursoId": "c1",
+      "titulo": "Posições dos Braços e dos Pés",
+      "conteudo": "https://video.exemplo.com/aula2",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a3",
+      "cursoId": "c1",
+      "titulo": "Primeira Sequência no Centro",
+      "conteudo": "https://video.exemplo.com/aula3",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a4",
+      "cursoId": "c2",
+      "titulo": "Trabalho de Pontas: Preparação",
+      "conteudo": "https://video.exemplo.com/aula4",
+      "ordem": 1,
+      "duracaoMinutos": 25
+    },
+    {
+      "id": "a5",
+      "cursoId": "c2",
+      "titulo": "Piqués e Equilíbrio",
+      "conteudo": "https://video.exemplo.com/aula5",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a6",
+      "cursoId": "c2",
+      "titulo": "Adágio: Fluidez e Controle",
+      "conteudo": "https://video.exemplo.com/aula6",
+      "ordem": 3,
+      "duracaoMinutos": 24
+    },
+    {
+      "id": "a7",
+      "cursoId": "c3",
+      "titulo": "Groove e Postura Corporal",
+      "conteudo": "https://video.exemplo.com/aula7",
+      "ordem": 1,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a8",
+      "cursoId": "c3",
+      "titulo": "Isolamentos: Cabeça, Peito e Quadril",
+      "conteudo": "https://video.exemplo.com/aula8",
+      "ordem": 2,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a9",
+      "cursoId": "c3",
+      "titulo": "Coreografia Básica: 8 Contagens",
+      "conteudo": "https://video.exemplo.com/aula9",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a10",
+      "cursoId": "c5",
+      "titulo": "Consciência Corporal e Respiração",
+      "conteudo": "https://video.exemplo.com/aula10",
+      "ordem": 1,
+      "duracaoMinutos": 16
+    },
+    {
+      "id": "a11",
+      "cursoId": "c5",
+      "titulo": "Quedas e Recuperações no Chão",
+      "conteudo": "https://video.exemplo.com/aula11",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a12",
+      "cursoId": "c5",
+      "titulo": "Improvisação Guiada",
+      "conteudo": "https://video.exemplo.com/aula12",
+      "ordem": 3,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a13",
+      "cursoId": "c6",
+      "titulo": "Fundamentos do Popping: Hit e Bounce",
+      "conteudo": "https://video.exemplo.com/aula13",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a14",
+      "cursoId": "c6",
+      "titulo": "Toprock e Entradas de Breaking",
+      "conteudo": "https://video.exemplo.com/aula14",
+      "ordem": 2,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a15",
+      "cursoId": "c6",
+      "titulo": "Footwork Básico",
+      "conteudo": "https://video.exemplo.com/aula15",
+      "ordem": 3,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a16",
+      "cursoId": "c7",
+      "titulo": "Postura a Dois e Condução",
+      "conteudo": "https://video.exemplo.com/aula16",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a17",
+      "cursoId": "c7",
+      "titulo": "Cabeceio e Ondulação",
+      "conteudo": "https://video.exemplo.com/aula17",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a18",
+      "cursoId": "c7",
+      "titulo": "Sequência de Casal: Giros Básicos",
+      "conteudo": "https://video.exemplo.com/aula18",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a19",
+      "cursoId": "c8",
+      "titulo": "A Caminhada do Tango",
+      "conteudo": "https://video.exemplo.com/aula19",
+      "ordem": 1,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a20",
+      "cursoId": "c8",
+      "titulo": "Ochos e Giros",
+      "conteudo": "https://video.exemplo.com/aula20",
+      "ordem": 2,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a21",
+      "cursoId": "c8",
+      "titulo": "Musicalidade e Pausas",
+      "conteudo": "https://video.exemplo.com/aula21",
+      "ordem": 3,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a22",
+      "cursoId": "c9",
+      "titulo": "Aquecimento e Isolamentos de Jazz",
+      "conteudo": "https://video.exemplo.com/aula22",
+      "ordem": 1,
+      "duracaoMinutos": 15
+    },
+    {
+      "id": "a23",
+      "cursoId": "c9",
+      "titulo": "Técnica de Chassé e Pirueta",
+      "conteudo": "https://video.exemplo.com/aula23",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a24",
+      "cursoId": "c9",
+      "titulo": "Coreografia Jazz Funk",
+      "conteudo": "https://video.exemplo.com/aula24",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    },
+    {
+      "id": "a25",
+      "cursoId": "c10",
+      "titulo": "Sons Básicos: Toe e Heel",
+      "conteudo": "https://video.exemplo.com/aula25",
+      "ordem": 1,
+      "duracaoMinutos": 14
+    },
+    {
+      "id": "a26",
+      "cursoId": "c10",
+      "titulo": "Shuffle e Flap",
+      "conteudo": "https://video.exemplo.com/aula26",
+      "ordem": 2,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a27",
+      "cursoId": "c10",
+      "titulo": "Sequência Rítmica Simples",
+      "conteudo": "https://video.exemplo.com/aula27",
+      "ordem": 3,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a28",
+      "cursoId": "c11",
+      "titulo": "Isolamentos de Quadril",
+      "conteudo": "https://video.exemplo.com/aula28",
+      "ordem": 1,
+      "duracaoMinutos": 18
+    },
+    {
+      "id": "a29",
+      "cursoId": "c11",
+      "titulo": "Ondulações e Shimmy",
+      "conteudo": "https://video.exemplo.com/aula29",
+      "ordem": 2,
+      "duracaoMinutos": 20
+    },
+    {
+      "id": "a30",
+      "cursoId": "c11",
+      "titulo": "Combinação com Véu",
+      "conteudo": "https://video.exemplo.com/aula30",
+      "ordem": 3,
+      "duracaoMinutos": 22
+    }
+  ],
+  "matriculas": [
+    {
+      "id": "mat1",
+      "usuarioId": "u5",
+      "cursoId": "c1",
+      "dataMatricula": "2026-05-10T13:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat2",
+      "usuarioId": "u5",
+      "cursoId": "c3",
+      "dataMatricula": "2026-06-20T13:00:00Z",
+      "progresso": 45,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat3",
+      "usuarioId": "u6",
+      "cursoId": "c3",
+      "dataMatricula": "2026-04-02T10:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat4",
+      "usuarioId": "u6",
+      "cursoId": "c10",
+      "dataMatricula": "2026-07-01T10:00:00Z",
+      "progresso": 30,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat5",
+      "usuarioId": "u7",
+      "cursoId": "c7",
+      "dataMatricula": "2026-03-15T09:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat6",
+      "usuarioId": "u7",
+      "cursoId": "c9",
+      "dataMatricula": "2026-06-05T09:00:00Z",
+      "progresso": 60,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat7",
+      "usuarioId": "u8",
+      "cursoId": "c6",
+      "dataMatricula": "2026-06-25T14:00:00Z",
+      "progresso": 20,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat8",
+      "usuarioId": "u9",
+      "cursoId": "c11",
+      "dataMatricula": "2026-02-18T11:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "id": "mat9",
+      "usuarioId": "u9",
+      "cursoId": "c1",
+      "dataMatricula": "2026-07-10T11:00:00Z",
+      "progresso": 70,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat10",
+      "usuarioId": "u10",
+      "cursoId": "c8",
+      "dataMatricula": "2026-05-22T16:00:00Z",
+      "progresso": 50,
+      "status": "em andamento"
+    },
+    {
+      "id": "mat11",
+      "usuarioId": "u10",
+      "cursoId": "c5",
+      "dataMatricula": "2026-01-30T16:00:00Z",
+      "progresso": 100,
+      "status": "concluído"
+    },
+    {
+      "usuarioId": "u10",
+      "cursoId": "c11",
+      "dataMatricula": "2026-07-29T13:57:08.212Z",
+      "progresso": 0,
+      "status": "em andamento",
+      "id": "yuwKCwG"
+    },
+    {
+      "usuarioId": "u11",
+      "cursoId": "c1",
+      "dataMatricula": "2026-07-29T14:04:29.930Z",
+      "progresso": 89,
+      "status": "em andamento",
+      "id": "rYkkwI7"
+    },
+    {
+      "usuarioId": "u11",
+      "cursoId": "c6",
+      "dataMatricula": "2026-07-29T14:05:39.203Z",
+      "progresso": 5,
+      "status": "em andamento",
+      "id": "JjLWaDC"
+    }
+  ],
+  "avaliacoes": [
+    {
+      "id": "av1",
+      "usuarioId": "u5",
+      "cursoId": "c1",
+      "nota": 5,
+      "comentario": "Aulas maravilhosas, a professora Isadora explica cada movimento com muita clareza. Recomendo demais!",
+      "data": "2026-05-30T18:00:00Z"
+    },
+    {
+      "id": "av2",
+      "usuarioId": "u6",
+      "cursoId": "c3",
+      "nota": 4,
+      "comentario": "Curso ótimo pra pegar a base do hip hop, só senti falta de mais variação musical nas coreografias.",
+      "data": "2026-04-20T19:30:00Z"
+    },
+    {
+      "id": "av3",
+      "usuarioId": "u7",
+      "cursoId": "c7",
+      "nota": 5,
+      "comentario": "Zouk incrível — a professora Renata conduz muito bem cada passo. Virei fã do estilo!",
+      "data": "2026-03-28T20:15:00Z"
+    },
+    {
+      "id": "av4",
+      "usuarioId": "u9",
+      "cursoId": "c11",
+      "nota": 5,
+      "comentario": "Isolamentos muito bem explicados, professora Renata é excelente e super paciente.",
+      "data": "2026-03-02T20:00:00Z"
+    },
+    {
+      "id": "av5",
+      "usuarioId": "u10",
+      "cursoId": "c5",
+      "nota": 4,
+      "comentario": "Contemporânea abriu minha cabeça pra outras formas de me expressar através do corpo.",
+      "data": "2026-02-10T17:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meu perfil — Palco Dança</title>
+  <meta name="description" content="Edite seus dados, acompanhe suas matrículas e avaliações." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/perfil.css" />
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="secao" style="padding-bottom: 0">
+      <div class="envolucro perfil-cabecalho">
+        <span class="avatar" id="perfil-avatar" style="width: 4rem; height: 4rem; font-size: var(--tamanho-lg)"></span>
+        <div>
+          <h1 style="font-size: var(--tamanho-2xl)" id="perfil-nome-atual"></h1>
+          <p style="color: var(--ivory-dim)" id="perfil-email-atual"></p>
+          <span class="selo" id="perfil-role-atual" style="margin-top: var(--espaco-2); display: inline-flex"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="envolucro perfil-grade">
+        <div class="cartao revelar">
+          <h2 class="texto-tamanho-md" style="margin-bottom: var(--espaco-4)">Editar meus dados</h2>
+          <form class="formulario" id="formulario-perfil" novalidate>
+            <div class="campo" id="campo-grupo-nome">
+              <label class="campo__rotulo" for="campo-nome">Nome</label>
+              <input id="campo-nome" required />
+              <span class="campo__erro"></span>
+            </div>
+            <div class="campo" id="campo-grupo-senha">
+              <label class="campo__rotulo" for="campo-senha">Nova senha</label>
+              <input id="campo-senha" type="password" placeholder="Deixe em branco para manter a atual" />
+              <span class="campo__ajuda">Mín. 6 caracteres.</span>
+              <span class="campo__erro"></span>
+            </div>
+            <p class="campo__ajuda">O e-mail e o papel (aluno, professor ou admin) só podem ser alterados por um administrador.</p>
+            <button class="botao botao--primario" type="submit">Salvar alterações</button>
+          </form>
+        </div>
+
+        <div class="perfil-coluna-lateral">
+          <div id="secao-aluno" hidden>
+            <div class="cartao revelar" style="margin-bottom: var(--espaco-6)">
+              <h2 class="texto-tamanho-md" style="margin-bottom: var(--espaco-4)">Minhas matrículas</h2>
+              <div class="lista-matriculas" id="lista-minhas-matriculas"><p class="carregando">Carregando</p></div>
+            </div>
+            <div class="cartao revelar">
+              <h2 class="texto-tamanho-md" style="margin-bottom: var(--espaco-4)">Minhas avaliações</h2>
+              <div class="lista-avaliacoes" id="lista-minhas-avaliacoes"><p class="carregando">Carregando</p></div>
+            </div>
+          </div>
+
+          <div id="secao-equipe" hidden class="cartao revelar">
+            <h2 class="texto-tamanho-md" style="margin-bottom: var(--espaco-3)">Atalhos</h2>
+            <p style="color: var(--ivory-dim); margin-bottom: var(--espaco-4)">
+              Como <span id="perfil-role-atalho"></span>, você também gerencia conteúdo da plataforma.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: var(--espaco-3)" id="perfil-links-atalho"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/perfil.js"></script>
+</body>
+</html>

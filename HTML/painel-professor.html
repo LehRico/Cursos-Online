@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel do professor — Palco Dança</title>
+  <meta name="description" content="Gerencie cursos, aulas, modalidades e acompanhe o desempenho das suas turmas." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/painel.css" />
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="secao" style="padding-bottom: 0">
+      <div class="envolucro">
+        <span class="hero__ovelho"><i class="ph ph-bold ph-chalkboard-teacher"></i> Painel do professor</span>
+        <h1 style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)">Gerencie <em>suas</em> turmas.</h1>
+        <p style="color: var(--ivory-dim); max-width: 60ch">
+          Crie e edite cursos, aulas e modalidades. Acompanhe matrículas e avaliações das turmas que você leciona.
+        </p>
+      </div>
+    </section>
+
+    <section class="secao">
+      <div class="envolucro">
+        <div class="abas__lista" role="tablist">
+          <button class="abas__botao" role="tab" id="aba-cursos" aria-selected="true" aria-controls="painel-cursos" type="button">Cursos</button>
+          <button class="abas__botao" role="tab" id="aba-aulas" aria-selected="false" aria-controls="painel-aulas" type="button">Aulas</button>
+          <button class="abas__botao" role="tab" id="aba-modalidades" aria-selected="false" aria-controls="painel-modalidades" type="button">Modalidades</button>
+          <button class="abas__botao" role="tab" id="aba-desempenho" aria-selected="false" aria-controls="painel-desempenho" type="button">Desempenho</button>
+        </div>
+
+        <div class="abas__painel" id="painel-cursos" role="tabpanel">
+          <div class="cabecalho-secao">
+            <h2 class="texto-tamanho-md">Cursos</h2>
+            <button class="botao botao--primario botao--pequeno" id="botao-novo-curso" type="button"><i class="ph ph-bold ph-plus"></i> Novo curso</button>
+          </div>
+          <div class="tabela-envolucro">
+            <table class="tabela">
+              <thead>
+                <tr><th>Título</th><th>Modalidade</th><th>Instrutor</th><th>Nível</th><th>Carga</th><th>Status</th><th></th></tr>
+              </thead>
+              <tbody id="tabela-cursos"><tr><td colspan="7" class="carregando">Carregando</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="abas__painel" id="painel-aulas" role="tabpanel" hidden>
+          <div class="cabecalho-secao">
+            <h2 class="texto-tamanho-md">Aulas</h2>
+            <div class="filtros">
+              <select class="campo-select-inline" id="filtro-curso-aulas" aria-label="Selecionar curso"></select>
+              <button class="botao botao--primario botao--pequeno" id="botao-nova-aula" type="button"><i class="ph ph-bold ph-plus"></i> Nova aula</button>
+            </div>
+          </div>
+          <div class="tabela-envolucro">
+            <table class="tabela">
+              <thead><tr><th>Ordem</th><th>Título</th><th>Duração</th><th></th></tr></thead>
+              <tbody id="tabela-aulas"><tr><td colspan="4" class="carregando">Carregando</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="abas__painel" id="painel-modalidades" role="tabpanel" hidden>
+          <div class="cabecalho-secao">
+            <h2 class="texto-tamanho-md">Modalidades</h2>
+            <button class="botao botao--primario botao--pequeno" id="botao-nova-modalidade" type="button"><i class="ph ph-bold ph-plus"></i> Nova modalidade</button>
+          </div>
+          <div class="tabela-envolucro">
+            <table class="tabela">
+              <thead><tr><th>Nome</th><th>Descrição</th><th></th></tr></thead>
+              <tbody id="tabela-modalidades"><tr><td colspan="3" class="carregando">Carregando</td></tr></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="abas__painel" id="painel-desempenho" role="tabpanel" hidden>
+          <div class="cabecalho-secao">
+            <h2 class="texto-tamanho-md">Desempenho das turmas</h2>
+            <select class="campo-select-inline" id="filtro-curso-desempenho" aria-label="Selecionar curso"></select>
+          </div>
+          <div id="desempenho-conteudo"><p class="carregando">Carregando</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <dialog class="modal" id="modal-curso">
+    <div class="modal__cabecalho">
+      <h3 id="modal-curso-titulo">Novo curso</h3>
+      <button class="modal__fechar" type="button" data-fechar-modal="modal-curso" aria-label="Fechar">✕</button>
+    </div>
+    <form class="formulario" id="formulario-curso" novalidate>
+      <input type="hidden" id="curso-id" />
+      <div class="campo" id="campo-grupo-curso-titulo">
+        <label class="campo__rotulo" for="curso-titulo">Título</label>
+        <input id="curso-titulo" required />
+        <span class="campo__erro"></span>
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="curso-descricao">Descrição</label>
+        <textarea id="curso-descricao"></textarea>
+      </div>
+      <div class="formulario formulario--duas-colunas">
+        <div class="campo" id="campo-grupo-curso-modalidade">
+          <label class="campo__rotulo" for="curso-modalidade">Modalidade</label>
+          <select id="curso-modalidade" required></select>
+          <span class="campo__erro"></span>
+        </div>
+        <div class="campo" id="campo-grupo-curso-instrutor">
+          <label class="campo__rotulo" for="curso-instrutor">Instrutor</label>
+          <select id="curso-instrutor" required></select>
+          <span class="campo__erro"></span>
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="curso-nivel">Nível</label>
+          <select id="curso-nivel">
+            <option value="iniciante">Iniciante</option>
+            <option value="intermediário">Intermediário</option>
+            <option value="avançado">Avançado</option>
+          </select>
+        </div>
+        <div class="campo">
+          <label class="campo__rotulo" for="curso-status">Status</label>
+          <select id="curso-status">
+            <option value="rascunho">Rascunho</option>
+            <option value="publicado">Publicado</option>
+          </select>
+        </div>
+        <div class="campo" id="campo-grupo-curso-carga">
+          <label class="campo__rotulo" for="curso-carga">Carga horária (h)</label>
+          <input id="curso-carga" type="number" min="1" />
+          <span class="campo__erro"></span>
+        </div>
+      </div>
+      <div class="modal__rodape">
+        <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-curso">Cancelar</button>
+        <button class="botao botao--primario" type="submit">Salvar curso</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="modal-aula">
+    <div class="modal__cabecalho">
+      <h3 id="modal-aula-titulo">Nova aula</h3>
+      <button class="modal__fechar" type="button" data-fechar-modal="modal-aula" aria-label="Fechar">✕</button>
+    </div>
+    <form class="formulario" id="formulario-aula" novalidate>
+      <input type="hidden" id="aula-id" />
+      <div class="campo" id="campo-grupo-aula-titulo">
+        <label class="campo__rotulo" for="aula-titulo">Título</label>
+        <input id="aula-titulo" required />
+        <span class="campo__erro"></span>
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="aula-conteudo">Link do conteúdo (vídeo)</label>
+        <input id="aula-conteudo" type="url" placeholder="https://…" />
+      </div>
+      <div class="formulario formulario--duas-colunas">
+        <div class="campo" id="campo-grupo-aula-ordem">
+          <label class="campo__rotulo" for="aula-ordem">Ordem</label>
+          <input id="aula-ordem" type="number" min="1" step="1" required />
+          <span class="campo__erro"></span>
+        </div>
+        <div class="campo" id="campo-grupo-aula-duracao">
+          <label class="campo__rotulo" for="aula-duracao">Duração (min)</label>
+          <input id="aula-duracao" type="number" min="1" required />
+          <span class="campo__erro"></span>
+        </div>
+      </div>
+      <div class="modal__rodape">
+        <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-aula">Cancelar</button>
+        <button class="botao botao--primario" type="submit">Salvar aula</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog class="modal" id="modal-modalidade">
+    <div class="modal__cabecalho">
+      <h3 id="modal-modalidade-titulo">Nova modalidade</h3>
+      <button class="modal__fechar" type="button" data-fechar-modal="modal-modalidade" aria-label="Fechar">✕</button>
+    </div>
+    <form class="formulario" id="formulario-modalidade" novalidate>
+      <input type="hidden" id="modalidade-id" />
+      <div class="campo" id="campo-grupo-modalidade-nome">
+        <label class="campo__rotulo" for="modalidade-nome">Nome</label>
+        <input id="modalidade-nome" required />
+        <span class="campo__erro"></span>
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="modalidade-descricao">Descrição</label>
+        <textarea id="modalidade-descricao"></textarea>
+      </div>
+      <div class="modal__rodape">
+        <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-modalidade">Cancelar</button>
+        <button class="botao botao--primario" type="submit">Salvar modalidade</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/painel-professor.js"></script>
+</body>
+</html>

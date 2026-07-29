@@ -1,0 +1,177 @@
+/* Reset enxuto + estilos globais */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--curtain);
+  color: var(--ivory);
+  font-family: var(--fonte-corpo);
+  font-size: var(--tamanho-base);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body::before {
+  /* textura sutil de "cortina" — vinhetas radiais no fundo, nada de imagem pesada */
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse 60% 45% at 18% -10%, rgba(227, 178, 60, 0.14), transparent 60%),
+    radial-gradient(ellipse 55% 40% at 100% 0%, rgba(199, 125, 201, 0.12), transparent 55%),
+    var(--curtain);
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--fonte-display);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: var(--tamanho-3xl);
+}
+
+h2 {
+  font-size: var(--tamanho-2xl);
+}
+
+h3 {
+  font-size: var(--tamanho-xl);
+}
+
+p {
+  max-width: var(--largura-leitura);
+}
+
+small,
+.texto-pequeno {
+  font-size: var(--tamanho-sm);
+}
+
+.numerico {
+  font-family: var(--fonte-dados);
+  font-feature-settings: "tnum";
+}
+
+::selection {
+  background: var(--gold);
+  color: var(--ink);
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--curtain);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--curtain-alto);
+  border-radius: var(--raio-pilula);
+  border: 3px solid var(--curtain);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: var(--raio-sm);
+}
+
+.envolucro {
+  width: min(100% - 2.5rem, var(--largura-conteudo));
+  margin-inline: auto;
+}
+
+.secao {
+  padding-block: var(--espaco-8);
+}
+
+.somente-leitor {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.pular-para-conteudo {
+  position: fixed;
+  top: -100%;
+  left: var(--espaco-4);
+  z-index: 100;
+  background: var(--gold);
+  color: var(--ink);
+  padding: var(--espaco-2) var(--espaco-4);
+  border-radius: var(--raio-sm);
+  font-weight: 600;
+  transition: top var(--duracao-rapida) var(--facilitador);
+}
+
+.pular-para-conteudo:focus {
+  top: var(--espaco-4);
+}
+
+main {
+  flex: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

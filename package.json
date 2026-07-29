@@ -1,0 +1,14 @@
+{
+  "name": "cursos-online-danca",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Plataforma de cursos de dança online — backend simulado com json-server e front-end estático (HTML/CSS/JS puro).",
+  "scripts": {
+    "api": "json-server --watch db.json --port 3001",
+    "web": "npx --yes http-server HTML -p 5500 -c-1"
+  },
+  "devDependencies": {
+    "json-server": "^0.17.4",
+    "http-server": "^14.1.1"
+  }
+}

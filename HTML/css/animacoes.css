@@ -1,0 +1,132 @@
+/* ============ Keyframes ============ */
+
+@keyframes aparecer-modal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes subir-desvanecer {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes brilhar-pulso {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes girar-lento {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============ Entrada escalonada do hero ============ */
+
+/*
+  Atrasos propositalmente curtos: como a arquitetura é multi-página, essa
+  entrada roda de novo a cada navegação — atrasos longos (300ms+) deixavam o
+  título "sumido" por um instante perceptível toda vez que a página carregava.
+*/
+.hero__ovelho,
+.hero__titulo,
+.hero__descricao,
+.hero__acoes {
+  animation: subir-desvanecer 480ms var(--facilitador) both;
+}
+
+.hero__ovelho {
+  animation-delay: 0ms;
+}
+
+.hero__titulo {
+  animation-delay: 50ms;
+}
+
+.hero__descricao {
+  animation-delay: 110ms;
+}
+
+.hero__acoes {
+  animation-delay: 170ms;
+}
+
+/* ============ Revelação ao rolar a página ============ */
+
+/*
+  .revelar sozinha não esconde nada — é só um marcador para o JS encontrar
+  candidatos. Só quando Danca.ui.observarRevelacao() arma o elemento (classe
+  .revelar-ativo) é que ele começa oculto para depois animar. Isso evita que
+  conteúdo suma para sempre caso alguma página esqueça de chamar o observer.
+*/
+
+.revelar-ativo {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--duracao-lenta) var(--facilitador), transform var(--duracao-lenta) var(--facilitador);
+  transition-delay: var(--atraso, 0ms);
+}
+
+.revelar-ativo.esta-visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============ Loading / carregando ============ */
+
+.carregando {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  color: var(--ivory-dim);
+  font-size: var(--tamanho-sm);
+}
+
+.carregando::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--line-forte);
+  border-top-color: var(--gold);
+  animation: girar-lento 0.7s linear infinite;
+}
+
+/* ============ Sublinhado de destaque em texto de marca ============ */
+
+.marca svg {
+  animation: brilhar-pulso 3.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__ovelho,
+  .hero__titulo,
+  .hero__descricao,
+  .hero__acoes {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .revelar-ativo {
+    opacity: 1;
+    transform: none;
+  }
+}

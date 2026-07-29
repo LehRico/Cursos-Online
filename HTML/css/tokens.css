@@ -1,0 +1,72 @@
+/*
+  Tokens do sistema de design "Palco" — bastidor de teatro com holofotes.
+  Fundo profundo tipo cortina de veludo, superfícies em marfim quente,
+  dourado de marquise como acento de marca, e uma cor-gel por modalidade
+  de dança (como um filtro de luz de palco), em vez de ilustrações clichê.
+*/
+
+:root {
+  /* ---- Cores base ---- */
+  --ink: #150d12;
+  --curtain: #2a1420;
+  --curtain-soft: #34192a;
+  --curtain-alto: #401f33;
+  --ivory: #f6eee4;
+  --ivory-dim: #e9ddcc;
+  --ink-text: #241318;
+  --gold: #e3b23c;
+  --gold-soft: #f0cc74;
+  --line: rgba(246, 238, 228, 0.14);
+  --line-forte: rgba(246, 238, 228, 0.28);
+  --sombra: rgba(10, 5, 8, 0.5);
+
+  /* ---- Cores-gel por modalidade ---- */
+  --gel-ballet: #f0b8ce;
+  --gel-hip-hop: #ff7a45;
+  --gel-contemporanea: #7fc8c4;
+  --gel-dancas-urbanas: #d64550;
+  --gel-danca-de-salao: #c9a05a;
+  --gel-jazz: #e8c94a;
+  --gel-sapateado: #9fb2c7;
+  --gel-danca-do-ventre: #c77dc9;
+  --gel-padrao: var(--gold);
+
+  /* ---- Tipografia ---- */
+  --fonte-display: "Fraunces", "Iowan Old Style", "Palatino Linotype", ui-serif, serif;
+  --fonte-corpo: "General Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --fonte-dados: "Space Mono", "SFMono-Regular", ui-monospace, monospace;
+
+  --tamanho-xs: 0.75rem;
+  --tamanho-sm: 0.875rem;
+  --tamanho-base: 1rem;
+  --tamanho-md: 1.125rem;
+  --tamanho-lg: 1.375rem;
+  --tamanho-xl: 1.9rem;
+  --tamanho-2xl: clamp(2.25rem, 1.7rem + 2.3vw, 3.4rem);
+  --tamanho-3xl: clamp(3rem, 2rem + 4.5vw, 5.5rem);
+
+  /* ---- Espaçamento (escala ~4px) ---- */
+  --espaco-1: 0.25rem;
+  --espaco-2: 0.5rem;
+  --espaco-3: 0.75rem;
+  --espaco-4: 1rem;
+  --espaco-5: 1.5rem;
+  --espaco-6: 2rem;
+  --espaco-7: 3rem;
+  --espaco-8: 4.5rem;
+  --espaco-9: 6.5rem;
+
+  /* ---- Raio, sombra e movimento ---- */
+  --raio-sm: 8px;
+  --raio-md: 14px;
+  --raio-lg: 24px;
+  --raio-pilula: 999px;
+
+  --duracao-rapida: 160ms;
+  --duracao-normal: 320ms;
+  --duracao-lenta: 620ms;
+  --facilitador: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --largura-conteudo: 1180px;
+  --largura-leitura: 720px;
+}

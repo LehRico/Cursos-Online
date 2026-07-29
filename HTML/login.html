@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrar — Palco Dança</title>
+  <meta name="description" content="Entre na Palco Dança, plataforma de cursos de dança online, com login simulado por conta demo." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/login.css" />
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="secao login-secao">
+      <div class="envolucro">
+        <div class="login-grade">
+          <div class="login-introducao revelar">
+            <span class="hero__ovelho"><i class="ph ph-bold ph-ticket"></i> Acesso simulado</span>
+            <h1>Seu <em>crachá</em> de bastidor</h1>
+            <p class="hero__descricao">
+              Este projeto não tem autenticação real: o <code class="numerico">json-server</code> aceita
+              qualquer requisição HTTP. O controle de papéis (aluno, professor, admin) é simulado aqui no
+              front-end — escolha uma conta demo para entrar direto no papel correspondente.
+            </p>
+          </div>
+
+          <div class="cartao cartao-login revelar" style="--atraso: 120ms">
+            <h2 class="texto-tamanho-md">Contas demo</h2>
+            <p class="texto-pequeno" style="color: var(--ivory-dim)">Clique numa conta para entrar direto.</p>
+
+            <div class="lista-usuarios-demo" id="lista-usuarios-demo">
+              <p class="carregando">Carregando contas</p>
+            </div>
+
+            <div class="divisor-ou"><span>ou entre manualmente</span></div>
+
+            <form class="formulario" id="formulario-login" novalidate>
+              <div class="campo" id="campo-grupo-email">
+                <label class="campo__rotulo" for="campo-email">E-mail</label>
+                <input type="email" id="campo-email" name="email" autocomplete="email" required />
+                <span class="campo__erro"></span>
+              </div>
+              <div class="campo" id="campo-grupo-senha">
+                <label class="campo__rotulo" for="campo-senha">Senha</label>
+                <input type="password" id="campo-senha" name="senha" autocomplete="current-password" required />
+                <span class="campo__erro"></span>
+              </div>
+              <button class="botao botao--primario botao--bloco" type="submit">Entrar</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/login.js"></script>
+</body>
+</html>

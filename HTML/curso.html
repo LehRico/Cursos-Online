@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curso — Palco Dança</title>
+  <meta name="description" content="Detalhes do curso, aulas, progresso e avaliações." />
+  <link rel="icon" href="data:," />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+  <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/componentes.css" />
+  <link rel="stylesheet" href="css/animacoes.css" />
+  <link rel="stylesheet" href="css/paginas/curso.css" />
+</head>
+<body>
+  <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
+  <header class="cabecalho" id="cabecalho"></header>
+
+  <main id="conteudo-principal">
+    <section class="secao curso-secao-cabecalho">
+      <div class="envolucro" id="curso-cabecalho">
+        <p class="carregando">Carregando curso</p>
+      </div>
+    </section>
+
+    <section class="secao" style="padding-top: 0" id="curso-conteudo" hidden>
+      <div class="envolucro curso-grade">
+        <div class="curso-coluna-principal">
+          <div class="cartao revelar" id="cartao-matricula"></div>
+
+          <h2 class="revelar" style="margin-top: var(--espaco-8)">Aulas</h2>
+          <ol class="lista-aulas" id="lista-aulas"></ol>
+
+          <h2 class="revelar" style="margin-top: var(--espaco-8)">Avaliações</h2>
+          <div id="area-avaliacao"></div>
+          <div class="lista-avaliacoes" id="lista-avaliacoes"></div>
+        </div>
+
+        <aside class="curso-coluna-lateral">
+          <div class="cartao revelar" id="cartao-instrutor"></div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="rodape__envolucro envolucro">
+      <span>© 2026 Palco Dança — atividade acadêmica.</span>
+      <span class="rodape__nota">Controle de acesso simulado no front-end; o json-server não autentica requisições.</span>
+    </div>
+  </footer>
+
+  <script src="js/dados/api.js"></script>
+  <script src="js/dados/modalidades.js"></script>
+  <script src="js/sessao.js"></script>
+  <script src="js/validacoes.js"></script>
+  <script src="js/componentes/ui.js"></script>
+  <script src="js/componentes/navegacao.js"></script>
+  <script src="js/paginas/curso.js"></script>
+</body>
+</html>

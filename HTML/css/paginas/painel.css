@@ -1,0 +1,23 @@
+.tabela__acoes {
+  justify-content: flex-end;
+}
+
+.tabela th:last-child,
+.tabela td:last-child {
+  text-align: right;
+}
+
+#desempenho-conteudo .lista-avaliacoes {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-4);
+}
+
+@media (max-width: 640px) {
+  .cabecalho-secao .filtros {
+    width: 100%;
+  }
+  .cabecalho-secao .filtros select {
+    flex: 1;
+  }
+}

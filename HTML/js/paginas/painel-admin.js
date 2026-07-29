@@ -1,0 +1,191 @@
+(function () {
+  let usuarioSessao;
+  let usuarios = [];
+
+  document.addEventListener("DOMContentLoaded", async () => {
+    usuarioSessao = Danca.sessao.exigir(["admin"]);
+    if (!usuarioSessao) return;
+
+    Danca.ui.montarNavegacao("painel-admin.html");
+    document.querySelectorAll("[data-fechar-modal]").forEach((botao) => {
+      botao.addEventListener("click", () => document.getElementById(botao.dataset.fecharModal).close());
+    });
+    document.getElementById("botao-novo-usuario").addEventListener("click", () => abrirModalUsuario());
+    document.getElementById("formulario-usuario").addEventListener("submit", salvarUsuario);
+
+    await carregarUsuarios();
+  });
+
+  async function carregarUsuarios() {
+    usuarios = await Danca.api.listar("usuarios");
+    renderizarTabela();
+  }
+
+  function renderizarTabela() {
+    const corpo = document.getElementById("tabela-usuarios");
+    const ordenados = usuarios.slice().sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+
+    corpo.innerHTML = ordenados
+      .map((usuario) => {
+        const ehVoce = usuario.id === usuarioSessao.id;
+        return `
+          <tr>
+            <td>
+              <div style="display: flex; align-items: center; gap: var(--espaco-3)">
+                <span class="avatar">${Danca.ui.iniciais(usuario.nome)}</span>
+                <div>
+                  <strong>${Danca.ui.escapar(usuario.nome)}</strong>${ehVoce ? ' <span class="texto-pequeno" style="color: var(--gold-soft)">(você)</span>' : ""}
+                  <div class="texto-pequeno" style="color: var(--ivory-dim)">${Danca.ui.escapar(usuario.email)}</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <select class="campo-select-inline" data-role-usuario="${usuario.id}" ${ehVoce ? "disabled" : ""} aria-label="Papel de ${Danca.ui.escapar(usuario.nome)}">
+                <option value="aluno" ${usuario.role === "aluno" ? "selected" : ""}>Aluno</option>
+                <option value="professor" ${usuario.role === "professor" ? "selected" : ""}>Professor</option>
+                <option value="admin" ${usuario.role === "admin" ? "selected" : ""}>Admin</option>
+              </select>
+            </td>
+            <td>
+              <label class="interruptor">
+                <input type="checkbox" data-ativo-usuario="${usuario.id}" ${usuario.ativo ? "checked" : ""} ${ehVoce ? "disabled" : ""} />
+                <span class="interruptor__trilho"></span>
+                ${usuario.ativo ? "Ativo" : "Inativo"}
+              </label>
+            </td>
+            <td class="tabela__acoes">
+              <button class="botao botao--fantasma botao--pequeno" data-editar-usuario="${usuario.id}" type="button">Editar</button>
+              <button class="botao botao--perigo botao--pequeno" data-excluir-usuario="${usuario.id}" type="button" ${ehVoce ? "disabled" : ""}>Excluir</button>
+            </td>
+          </tr>`;
+      })
+      .join("");
+
+    corpo.querySelectorAll("[data-role-usuario]").forEach((select) => {
+      select.addEventListener("change", (evento) => atualizarRole(select.dataset.roleUsuario, evento.target.value));
+    });
+    corpo.querySelectorAll("[data-ativo-usuario]").forEach((input) => {
+      input.addEventListener("change", (evento) => atualizarAtivo(input.dataset.ativoUsuario, evento.target.checked));
+    });
+    corpo.querySelectorAll("[data-editar-usuario]").forEach((b) => b.addEventListener("click", () => abrirModalUsuario(b.dataset.editarUsuario)));
+    corpo.querySelectorAll("[data-excluir-usuario]").forEach((b) => b.addEventListener("click", () => excluirUsuario(b.dataset.excluirUsuario)));
+  }
+
+  async function atualizarRole(id, novoRole) {
+    try {
+      const atualizado = await Danca.api.atualizar("usuarios", id, { role: novoRole });
+      usuarios = usuarios.map((u) => (u.id === id ? atualizado : u));
+      Danca.ui.mostrarAviso("Papel atualizado.", "sucesso");
+    } catch (erro) {
+      Danca.ui.mostrarAviso(erro.message, "erro");
+      renderizarTabela();
+    }
+  }
+
+  async function atualizarAtivo(id, ativo) {
+    try {
+      const atualizado = await Danca.api.atualizar("usuarios", id, { ativo });
+      usuarios = usuarios.map((u) => (u.id === id ? atualizado : u));
+      renderizarTabela();
+    } catch (erro) {
+      Danca.ui.mostrarAviso(erro.message, "erro");
+      renderizarTabela();
+    }
+  }
+
+  function abrirModalUsuario(id) {
+    const usuario = id ? usuarios.find((u) => u.id === id) : null;
+    document.getElementById("modal-usuario-titulo").textContent = usuario ? "Editar usuário" : "Novo usuário";
+    document.getElementById("usuario-id").value = usuario ? usuario.id : "";
+    document.getElementById("usuario-nome").value = usuario ? usuario.nome : "";
+    document.getElementById("usuario-email").value = usuario ? usuario.email : "";
+    document.getElementById("usuario-role").value = usuario ? usuario.role : "aluno";
+    document.getElementById("usuario-role").disabled = !!(usuario && usuario.id === usuarioSessao.id);
+    document.getElementById("usuario-senha").value = "";
+    document.getElementById("usuario-senha").placeholder = usuario ? "Deixe em branco para manter a atual" : "";
+
+    Danca.ui.limparErrosCampos(["campo-grupo-usuario-nome", "campo-grupo-usuario-email", "campo-grupo-usuario-senha", "campo-grupo-usuario-role"]);
+    document.getElementById("modal-usuario").showModal();
+  }
+
+  async function salvarUsuario(evento) {
+    evento.preventDefault();
+    const id = document.getElementById("usuario-id").value || null;
+    const senha = document.getElementById("usuario-senha").value;
+    const dados = {
+      nome: document.getElementById("usuario-nome").value.trim(),
+      email: document.getElementById("usuario-email").value.trim(),
+      role: document.getElementById("usuario-role").value,
+    };
+    const exigirSenha = !id || senha.length > 0;
+
+    Danca.ui.limparErrosCampos(["campo-grupo-usuario-nome", "campo-grupo-usuario-email", "campo-grupo-usuario-senha", "campo-grupo-usuario-role"]);
+    const erros = Danca.validar.usuario({ ...dados, senha }, { usuariosExistentes: usuarios, idAtual: id, exigirSenha });
+    const mapaGrupos = {
+      nome: "campo-grupo-usuario-nome",
+      email: "campo-grupo-usuario-email",
+      senha: "campo-grupo-usuario-senha",
+      role: "campo-grupo-usuario-role",
+    };
+
+    if (Object.keys(erros).length > 0) {
+      Object.entries(erros).forEach(([campo, mensagem]) => Danca.ui.mostrarErroCampo(mapaGrupos[campo], mensagem));
+      return;
+    }
+
+    if (senha) dados.senha = senha;
+    if (!id) dados.ativo = true;
+
+    try {
+      if (id) {
+        const atualizado = await Danca.api.atualizar("usuarios", id, dados);
+        usuarios = usuarios.map((u) => (u.id === id ? atualizado : u));
+      } else {
+        const criado = await Danca.api.criar("usuarios", dados);
+        usuarios.push(criado);
+      }
+      document.getElementById("modal-usuario").close();
+      renderizarTabela();
+      Danca.ui.mostrarAviso("Usuário salvo com sucesso!", "sucesso");
+    } catch (erro) {
+      Danca.ui.mostrarAviso(erro.message, "erro");
+    }
+  }
+
+  async function excluirUsuario(id) {
+    if (id === usuarioSessao.id) {
+      Danca.ui.mostrarAviso("Você não pode excluir a própria conta.", "erro");
+      return;
+    }
+    const usuario = usuarios.find((u) => u.id === id);
+    if (!usuario) return;
+
+    if (usuario.role !== "aluno") {
+      const cursosDoInstrutor = await Danca.api.listar("cursos", { instrutorId: id });
+      if (cursosDoInstrutor.length > 0) {
+        Danca.ui.mostrarAviso("Este usuário leciona cursos. Reatribua-os a outro professor antes de excluir.", "erro");
+        return;
+      }
+    }
+
+    if (!window.confirm(`Excluir "${usuario.nome}"? Isso também remove matrículas e avaliações relacionadas.`)) return;
+
+    try {
+      const [matriculasRelacionadas, avaliacoesRelacionadas] = await Promise.all([
+        Danca.api.listar("matriculas", { usuarioId: id }),
+        Danca.api.listar("avaliacoes", { usuarioId: id }),
+      ]);
+      await Promise.all([
+        ...matriculasRelacionadas.map((m) => Danca.api.remover("matriculas", m.id)),
+        ...avaliacoesRelacionadas.map((a) => Danca.api.remover("avaliacoes", a.id)),
+      ]);
+      await Danca.api.remover("usuarios", id);
+
+      usuarios = usuarios.filter((u) => u.id !== id);
+      renderizarTabela();
+      Danca.ui.mostrarAviso("Usuário removido.", "sucesso");
+    } catch (erro) {
+      Danca.ui.mostrarAviso(erro.message, "erro");
+    }
+  }
+})();

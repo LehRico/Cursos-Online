@@ -1,0 +1,47 @@
+.perfil-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: var(--espaco-5);
+}
+
+.perfil-grade {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: var(--espaco-8);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .perfil-grade {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lista-matriculas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-3);
+}
+
+.matricula-item {
+  display: block;
+  padding: var(--espaco-4);
+  border: 1px solid var(--line);
+  border-radius: var(--raio-md);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--duracao-rapida), transform var(--duracao-rapida);
+}
+
+.matricula-item:hover {
+  border-color: var(--gel, var(--gold));
+  transform: translateY(-3px);
+}
+
+.matricula-item__cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--espaco-3);
+  margin-bottom: var(--espaco-3);
+}

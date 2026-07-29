@@ -103,7 +103,7 @@ Todas com luminosidade/saturação parecidas de propósito — para lerem como u
 
 - Vanilla CSS + `IntersectionObserver` para *scroll reveal* dos cards (sem dependência).
 - `GSAP` (core, via CDN, sem build) reservado só para o momento de assinatura no hero (ver abaixo) — é a ferramenta certa para orquestrar um *timeline* e desenhar um traço SVG.
-- Transição entre páginas: como a arquitetura é multi-página, uso a **View Transitions API** nativa (`@view-transition` / `document.startViewTransition`) com *fallback* silencioso em navegadores sem suporte — dá a sensação de troca fluida de tela mesmo sem SPA.
+- Transição entre páginas: cada tela usa uma entrada animada e escalonada (hero/cabeçalho, cards) via `IntersectionObserver` + CSS; testei a View Transitions API nativa para cruzar documentos, mas ela gerava avisos de console inconsistentes entre navegadores — removida em favor de algo mais previsível.
 - `prefers-reduced-motion` sempre respeitado.
 
 ### Elemento de assinatura: "Linha de Ritmo"
@@ -173,7 +173,8 @@ Buscas feitas via skill `find-skills` não retornaram nenhuma skill de terceiros
 
 ---
 
-## 9. Pendências antes de codar
+## 9. Status
 
-1. Confirmação final deste plano.
-2. Fotos das 8 modalidades (opcional agora — o placeholder autoral cobre o lançamento).
+Plano confirmado e implementação concluída — HTML/CSS/JS das 6 telas, `db.json` com seed completo e `README.md` já estão no repositório. Testado em Chrome headless (login, catálogo, painel do professor, painel admin, curso, perfil) de 320px a desktop, sem erros de console além dos 404 esperados das imagens de modalidade ainda não enviadas.
+
+Pendência real: fotos das 8 modalidades (opcional — o placeholder autoral cobre o lançamento; ver `HTML/assets/img/modalidades/LEIA-ME.txt`).

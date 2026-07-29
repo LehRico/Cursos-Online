@@ -103,7 +103,9 @@
     document.getElementById("usuario-id").value = usuario ? usuario.id : "";
     document.getElementById("usuario-nome").value = usuario ? usuario.nome : "";
     document.getElementById("usuario-email").value = usuario ? usuario.email : "";
-    document.getElementById("usuario-role").value = usuario ? usuario.role : "aluno";
+    // "Novo usuário" sugere professor por padrão — é o caso mais comum de
+    // onboarding pelo admin. Ele pode trocar pra aluno/admin no próprio select.
+    document.getElementById("usuario-role").value = usuario ? usuario.role : "professor";
     document.getElementById("usuario-role").disabled = !!(usuario && usuario.id === usuarioSessao.id);
     document.getElementById("usuario-senha").value = "";
     document.getElementById("usuario-senha").placeholder = usuario ? "Deixe em branco para manter a atual" : "";

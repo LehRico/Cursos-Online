@@ -61,7 +61,7 @@ window.Danca = window.Danca || {};
       if (!preenchido(dados.instrutorId) || !instrutores.some((i) => i.id === dados.instrutorId)) {
         erros.instrutorId = "Selecione um instrutor (professor ou admin) válido.";
       }
-      if (!["rascunho", "publicado"].includes(dados.status)) {
+      if (!["rascunho", "publicado", "ferias"].includes(dados.status)) {
         erros.status = "Selecione um status válido.";
       }
       if (!["iniciante", "intermediário", "avançado"].includes(dados.nivel)) {
@@ -127,11 +127,6 @@ window.Danca = window.Danca || {};
       }
 
       return erros;
-    },
-
-    progressoValido(valor) {
-      const numero = Number(valor);
-      return Number.isFinite(numero) && numero >= 0 && numero <= 100;
     },
   };
 })();

@@ -320,14 +320,19 @@ Danca.ui = Danca.ui || {};
     intervaloCarrossel = setInterval(() => Danca.ui.avancarCarrosseisCapa(), 4000);
   };
 
+  const ROTULO_STATUS_CURSO = { rascunho: "Rascunho", ferias: "Período de férias" };
+
   /* ---- Card de curso ---- */
   Danca.ui.cartaoCursoHtml = function (curso, { modalidade, instrutor, mostrarStatus = false, todosCursos = [curso] } = {}) {
     const corGel = modalidade ? `var(${modalidade.corVar})` : "var(--gold)";
     const seloStatus =
-      mostrarStatus && curso.status === "rascunho"
-        ? '<span class="selo selo--rascunho cartao-curso__selo">Rascunho</span>'
+      mostrarStatus && curso.status !== "publicado"
+        ? `<span class="selo selo--${curso.status === "ferias" ? "ferias" : "rascunho"} cartao-curso__selo">${ROTULO_STATUS_CURSO[curso.status] || Danca.ui.capitalizar(curso.status)}</span>`
         : "";
-    const fotos = Danca.modalidades.fotosDoCurso(curso, todosCursos);
+    // Foto(s) cadastrada(s) no próprio curso têm prioridade; sem elas, cai no
+    // esquema antigo de fotos por modalidade (repartidas entre os cursos
+    // "irmãos" da mesma modalidade), que segue servindo de placeholder.
+    const fotos = curso.fotos && curso.fotos.length > 0 ? curso.fotos : Danca.modalidades.fotosDoCurso(curso, todosCursos);
 
     return `
       <article class="cartao-curso revelar" style="--gel:${corGel}">

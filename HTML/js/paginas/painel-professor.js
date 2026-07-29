@@ -7,17 +7,22 @@
   let aulasCursoAtual = [];
   let cursoAulasSelecionado = null;
 
+  const ROTULO_STATUS_CURSO = { rascunho: "Rascunho", publicado: "Publicado", ferias: "Período de férias" };
+  const ROTULO_STATUS_SELO = { rascunho: "rascunho", publicado: "publicado", ferias: "ferias" };
+
   document.addEventListener("DOMContentLoaded", async () => {
     usuarioSessao = Danca.sessao.exigir(["professor", "admin"]);
     if (!usuarioSessao) return;
 
     Danca.ui.montarNavegacao("painel-professor.html");
+    personalizarHeroPorPapel();
     configurarAbas();
     configurarFechamentoModais();
 
     document.getElementById("botao-novo-curso").addEventListener("click", () => abrirModalCurso());
     document.getElementById("botao-nova-aula").addEventListener("click", () => abrirModalAula());
     document.getElementById("botao-nova-modalidade").addEventListener("click", () => abrirModalModalidade());
+    document.getElementById("curso-fotos-adicionar").addEventListener("click", () => adicionarCampoFoto());
     document.getElementById("formulario-curso").addEventListener("submit", salvarCurso);
     document.getElementById("formulario-aula").addEventListener("submit", salvarAula);
     document.getElementById("formulario-modalidade").addEventListener("submit", salvarModalidade);
@@ -39,6 +44,22 @@
     montarSelectCursosAulas();
     renderizarTabelaModalidades();
     montarSelectCursosDesempenho();
+  }
+
+  /*
+    Essa tela é compartilhada entre professor e admin (o admin herda as
+    permissões do professor), mas o texto do hero era fixo pra "professor" —
+    dava a impressão de ser uma ferramenta exclusiva dele. Ajusta o
+    título/descrição conforme quem está logado, sem duplicar a página.
+  */
+  function personalizarHeroPorPapel() {
+    const ehAdmin = usuarioSessao.role === "admin";
+    document.title = `${ehAdmin ? "Painel do Administrador" : "Painel do professor"} — LeKa Dance Studio`;
+    document.getElementById("painel-etiqueta").innerHTML = `<i class="ph ph-bold ${ehAdmin ? "ph-shield-star" : "ph-chalkboard-teacher"}" aria-hidden="true"></i> ${ehAdmin ? "Painel do administrador" : "Painel do professor"}`;
+    document.getElementById("painel-titulo").innerHTML = ehAdmin ? "Gerencie as <em>turmas</em>." : "Gerencie <em>suas</em> turmas.";
+    document.getElementById("painel-descricao").textContent = ehAdmin
+      ? "Crie e edite cursos, aulas e modalidades de toda a escola. Acompanhe matrículas e avaliações de qualquer turma."
+      : "Crie e edite cursos, aulas e modalidades. Acompanhe matrículas e avaliações das turmas que você leciona.";
   }
 
   /* ================= Abas e modais ================= */
@@ -80,7 +101,7 @@
             <td>${Danca.ui.escapar(instrutor ? instrutor.nome : "—")}</td>
             <td>${Danca.ui.capitalizar(curso.nivel)}</td>
             <td class="numerico">${curso.cargaHoraria}h</td>
-            <td><span class="selo selo--${curso.status === "publicado" ? "publicado" : "rascunho"}">${Danca.ui.capitalizar(curso.status)}</span></td>
+            <td><span class="selo selo--${ROTULO_STATUS_SELO[curso.status] || "rascunho"}">${ROTULO_STATUS_CURSO[curso.status] || Danca.ui.capitalizar(curso.status)}</span></td>
             <td>
               <div class="tabela__acoes">
                 <button class="botao botao--fantasma botao--pequeno" data-editar-curso="${curso.id}" type="button">Editar</button>
@@ -104,6 +125,7 @@
     document.getElementById("curso-nivel").value = curso ? curso.nivel : "iniciante";
     document.getElementById("curso-status").value = curso ? curso.status : "rascunho";
     document.getElementById("curso-carga").value = curso ? curso.cargaHoraria : "";
+    renderizarCamposFotos(curso && curso.fotos ? curso.fotos : []);
 
     const selectModalidade = document.getElementById("curso-modalidade");
     selectModalidade.innerHTML = modalidades.map((m) => `<option value="${m.id}">${Danca.ui.escapar(m.nome)}</option>`).join("");
@@ -119,6 +141,51 @@
     document.getElementById("modal-curso").showModal();
   }
 
+  /*
+    Lista de links de foto do card do curso: sempre pelo menos uma linha (em
+    branco se o curso ainda não tem foto própria), com botão pra adicionar
+    mais. Sem nenhuma foto preenchida, o card cai no placeholder por
+    modalidade (ver Danca.ui.cartaoCursoHtml).
+  */
+  function renderizarCamposFotos(fotos) {
+    const lista = document.getElementById("curso-fotos-lista");
+    const valores = fotos.length > 0 ? fotos : [""];
+    lista.innerHTML = valores
+      .map(
+        (url) => `
+        <div class="campo-linha-foto">
+          <input type="url" class="campo-foto-url" placeholder="https://…" value="${Danca.ui.escapar(url)}" />
+          <button class="botao botao--fantasma botao--pequeno" type="button" data-remover-foto aria-label="Remover foto"><i class="ph ph-bold ph-x" aria-hidden="true"></i></button>
+        </div>`
+      )
+      .join("");
+    ligarBotoesRemoverFoto();
+  }
+
+  function ligarBotoesRemoverFoto() {
+    document.querySelectorAll("#curso-fotos-lista [data-remover-foto]").forEach((botao) => {
+      botao.addEventListener("click", () => {
+        const lista = document.getElementById("curso-fotos-lista");
+        const linha = botao.closest(".campo-linha-foto");
+        if (lista.children.length > 1) linha.remove();
+        else linha.querySelector("input").value = "";
+      });
+    });
+  }
+
+  const MAXIMO_FOTOS_CURSO = 6;
+  function adicionarCampoFoto() {
+    const lista = document.getElementById("curso-fotos-lista");
+    if (lista.children.length >= MAXIMO_FOTOS_CURSO) return;
+    const linha = document.createElement("div");
+    linha.className = "campo-linha-foto";
+    linha.innerHTML = `
+      <input type="url" class="campo-foto-url" placeholder="https://…" />
+      <button class="botao botao--fantasma botao--pequeno" type="button" data-remover-foto aria-label="Remover foto"><i class="ph ph-bold ph-x" aria-hidden="true"></i></button>`;
+    lista.appendChild(linha);
+    ligarBotoesRemoverFoto();
+  }
+
   async function salvarCurso(evento) {
     evento.preventDefault();
     const id = document.getElementById("curso-id").value || null;
@@ -130,6 +197,9 @@
       nivel: document.getElementById("curso-nivel").value,
       status: document.getElementById("curso-status").value,
       cargaHoraria: Number(document.getElementById("curso-carga").value),
+      fotos: Array.from(document.querySelectorAll(".campo-foto-url"))
+        .map((campo) => campo.value.trim())
+        .filter(Boolean),
     };
 
     Danca.ui.limparErrosCampos(["campo-grupo-curso-titulo", "campo-grupo-curso-modalidade", "campo-grupo-curso-instrutor", "campo-grupo-curso-carga"]);
@@ -347,6 +417,7 @@
     document.getElementById("modalidade-id").value = modalidade ? modalidade.id : "";
     document.getElementById("modalidade-nome").value = modalidade ? modalidade.nome : "";
     document.getElementById("modalidade-descricao").value = modalidade ? modalidade.descricao || "" : "";
+    document.getElementById("modalidade-foto").value = modalidade ? modalidade.foto || "" : "";
 
     Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome"]);
     document.getElementById("modal-modalidade").showModal();
@@ -358,6 +429,7 @@
     const dados = {
       nome: document.getElementById("modalidade-nome").value.trim(),
       descricao: document.getElementById("modalidade-descricao").value.trim(),
+      foto: document.getElementById("modalidade-foto").value.trim(),
     };
 
     Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome"]);

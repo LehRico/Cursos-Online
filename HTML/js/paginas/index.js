@@ -1,9 +1,9 @@
 (function () {
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     Danca.ui.montarNavegacao("index.html");
     montarAcoesHero();
     Danca.ui.observarRevelacao();
-    montarGradeModalidades();
+    await montarGradeModalidades();
     montarCarrossel();
   });
 
@@ -19,18 +19,30 @@
         <a class="botao botao--primario" href="catalogo.html">Ver cursos</a>
         <a class="botao botao--contorno" href="perfil.html">Minhas matrículas</a>`;
     } else {
+      const rotuloPainel = usuario.role === "admin" ? "Painel do administrador" : "Painel do professor";
       acoes.innerHTML = `
         <a class="botao botao--primario" href="catalogo.html">Ver cursos</a>
-        <a class="botao botao--contorno" href="painel-professor.html">Painel do professor</a>`;
+        <a class="botao botao--contorno" href="painel-professor.html">${rotuloPainel}</a>`;
     }
   }
 
-  function montarGradeModalidades() {
+  async function montarGradeModalidades() {
     const grade = document.getElementById("grade-modalidades");
+    // Cada modalidade pode ter uma foto própria cadastrada pelo professor/admin
+    // (Danca.api); sem ela, cai no placeholder autoral por modalidade.
+    let modalidadesApi = [];
+    try {
+      modalidadesApi = await Danca.api.listar("modalidades");
+    } catch {
+      modalidadesApi = [];
+    }
+
     grade.innerHTML = Danca.modalidades.LISTA_FIXA.map((meta) => {
+      const dadosApi = modalidadesApi.find((m) => m.id === meta.id);
+      const foto = dadosApi && dadosApi.foto ? dadosApi.foto : Danca.modalidades.imagemCapa(meta.id);
       return `
         <a href="catalogo.html?modalidade=${encodeURIComponent(meta.id)}" class="cartao-modalidade revelar" style="--gel: var(${meta.corVar})" data-modalidade="${meta.id}">
-          <img src="${Danca.modalidades.imagemCapa(meta.id)}" alt="" loading="lazy" onerror="this.remove()" />
+          <img src="${foto}" alt="" loading="lazy" onerror="this.remove()" />
           <span class="cartao-modalidade__nome">${Danca.ui.escapar(meta.nome)}</span>
         </a>`;
     }).join("");

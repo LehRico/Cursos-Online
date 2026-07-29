@@ -24,9 +24,9 @@
   <main id="conteudo-principal">
     <section class="secao" style="padding-bottom: 0">
       <div class="envolucro">
-        <span class="hero__ovelho"><i class="ph ph-bold ph-chalkboard-teacher"></i> Painel do professor</span>
-        <h1 style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)">Gerencie <em>suas</em> turmas.</h1>
-        <p style="color: var(--ivory-dim); max-width: 60ch">
+        <span class="hero__ovelho" id="painel-etiqueta"><i class="ph ph-bold ph-chalkboard-teacher" aria-hidden="true"></i> Painel do professor</span>
+        <h1 id="painel-titulo" style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)">Gerencie <em>suas</em> turmas.</h1>
+        <p id="painel-descricao" style="color: var(--ivory-dim); max-width: 60ch">
           Crie e edite cursos, aulas e modalidades. Acompanhe matrículas e avaliações das turmas que você leciona.
         </p>
       </div>
@@ -119,6 +119,14 @@
         <label class="campo__rotulo" for="curso-descricao">Descrição</label>
         <textarea id="curso-descricao"></textarea>
       </div>
+      <div class="campo">
+        <label class="campo__rotulo">Fotos do card (opcional)</label>
+        <div id="curso-fotos-lista"></div>
+        <button class="botao botao--fantasma botao--pequeno" type="button" id="curso-fotos-adicionar" style="margin-top: var(--espaco-2)">
+          <i class="ph ph-bold ph-plus" aria-hidden="true"></i> Adicionar outra foto
+        </button>
+        <p class="texto-pequeno" style="color: var(--ivory-dim); margin-top: var(--espaco-2)">Cole o link de uma ou mais imagens. Sem nenhuma, o card usa a foto padrão da modalidade.</p>
+      </div>
       <div class="formulario formulario--duas-colunas">
         <div class="campo" id="campo-grupo-curso-modalidade">
           <label class="campo__rotulo" for="curso-modalidade">Modalidade</label>
@@ -143,6 +151,7 @@
           <select id="curso-status">
             <option value="rascunho">Rascunho</option>
             <option value="publicado">Publicado</option>
+            <option value="ferias">Período de férias</option>
           </select>
         </div>
         <div class="campo" id="campo-grupo-curso-carga">
@@ -171,8 +180,8 @@
         <span class="campo__erro"></span>
       </div>
       <div class="campo">
-        <label class="campo__rotulo" for="aula-conteudo">Link do conteúdo (vídeo)</label>
-        <input id="aula-conteudo" type="url" placeholder="https://…" />
+        <label class="campo__rotulo" for="aula-conteudo">Link da aula (Google Meet)</label>
+        <input id="aula-conteudo" type="url" placeholder="https://meet.google.com/…" />
       </div>
       <div class="formulario formulario--duas-colunas">
         <div class="campo" id="campo-grupo-aula-ordem">
@@ -208,6 +217,11 @@
       <div class="campo">
         <label class="campo__rotulo" for="modalidade-descricao">Descrição</label>
         <textarea id="modalidade-descricao"></textarea>
+      </div>
+      <div class="campo">
+        <label class="campo__rotulo" for="modalidade-foto">Foto do card (opcional)</label>
+        <input id="modalidade-foto" type="url" placeholder="https://…" />
+        <p class="texto-pequeno" style="color: var(--ivory-dim); margin-top: var(--espaco-2)">Sem foto, o card usa a imagem padrão da modalidade.</p>
       </div>
       <div class="modal__rodape">
         <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-modalidade">Cancelar</button>

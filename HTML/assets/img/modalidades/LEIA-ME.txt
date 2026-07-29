@@ -1,0 +1,16 @@
+Pasta de imagens por modalidade de dança.
+
+Quando for enviar as fotos, salve cada uma com o nome exato abaixo (mantém tudo em minúsculo, sem acento, .jpg ou .png):
+
+  ballet.jpg
+  hip-hop.jpg
+  contemporanea.jpg
+  dancas-urbanas.jpg
+  danca-de-salao.jpg
+  jazz.jpg
+  sapateado.jpg
+  danca-do-ventre.jpg
+
+Cada imagem deve ser de preferência horizontal (proporção 4:3 ou 16:9), boa resolução (mín. 1200px de largura), mostrando movimento/pessoas dançando (evitar sapatilha isolada, clip-art ou banco de imagem genérico).
+
+Até a chegada das fotos reais, os cards usam um placeholder visual próprio (gradiente + traço coreográfico na cor de cada modalidade), então o site já funciona e fica bonito sem elas. Quando as fotos forem colocadas aqui com esses nomes, o CSS aplica um overlay duotone na cor da modalidade automaticamente, pra tudo ficar visualmente coeso mesmo com fotos de fontes diferentes.

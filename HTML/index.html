@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Palco Dança — Cursos de dança online</title>
-  <meta name="description" content="Catálogo de cursos de dança online: ballet, hip hop, contemporânea, danças urbanas, dança de salão, jazz, sapateado e dança do ventre." />
+  <meta name="description" content="Plataforma de cursos de dança online: ballet, hip hop, contemporânea, danças urbanas, dança de salão, jazz, sapateado e dança do ventre." />
   <link rel="icon" href="data:," />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/componentes.css" />
   <link rel="stylesheet" href="css/animacoes.css" />
-  <link rel="stylesheet" href="css/paginas/catalogo.css" />
+  <link rel="stylesheet" href="css/paginas/inicial.css" />
 </head>
 <body>
   <a class="pular-para-conteudo" href="#conteudo-principal">Pular para o conteúdo</a>
@@ -31,8 +31,9 @@
           do ventre — com professores que também dançam fora da tela. Escolha um ritmo e comece hoje.
         </p>
         <div class="hero__acoes" id="hero-acoes">
-          <a class="botao botao--primario" href="#catalogo">Ver cursos</a>
+          <a class="botao botao--primario" href="catalogo.html">Ver cursos</a>
         </div>
+        <img class="hero__bailarina" src="assets/img/marca/bailarina-fundo.webp" alt="" aria-hidden="true" />
       </div>
     </section>
 
@@ -42,27 +43,14 @@
         <p class="revelar" style="color: var(--ivory-dim); margin-block: var(--espaco-2) var(--espaco-6)">
           Cada estilo tem sua própria luz de palco.
         </p>
-        <div class="grade-modalidades" id="grade-modalidades"></div>
-      </div>
-    </section>
-
-    <section class="secao" id="catalogo">
-      <div class="envolucro">
-        <div class="cabecalho-secao">
-          <h2>Catálogo de cursos</h2>
-          <div class="filtros">
-            <div class="filtros__chips" id="filtros-chips"></div>
-            <select class="campo-select-inline" id="filtro-nivel" aria-label="Filtrar por nível">
-              <option value="todos">Todos os níveis</option>
-              <option value="iniciante">Iniciante</option>
-              <option value="intermediário">Intermediário</option>
-              <option value="avançado">Avançado</option>
-            </select>
-            <input class="filtros__busca campo-select-inline" type="search" id="filtro-busca" placeholder="Buscar por título…" aria-label="Buscar curso por título" />
-          </div>
-        </div>
-        <div class="grade-cursos" id="grade-cursos">
-          <p class="carregando">Carregando cursos</p>
+        <div class="carrossel-modalidades">
+          <button type="button" class="carrossel-modalidades__seta carrossel-modalidades__seta--anterior" id="carrossel-anterior" aria-label="Modalidades anteriores">
+            <i class="ph ph-bold ph-arrow-left"></i>
+          </button>
+          <div class="grade-modalidades" id="grade-modalidades"></div>
+          <button type="button" class="carrossel-modalidades__seta carrossel-modalidades__seta--proximo" id="carrossel-proximo" aria-label="Próximas modalidades">
+            <i class="ph ph-bold ph-arrow-right"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -81,6 +69,6 @@
   <script src="js/validacoes.js"></script>
   <script src="js/componentes/ui.js"></script>
   <script src="js/componentes/navegacao.js"></script>
-  <script src="js/paginas/catalogo.js"></script>
+  <script src="js/paginas/index.js"></script>
 </body>
 </html>

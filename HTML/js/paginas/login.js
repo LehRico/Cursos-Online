@@ -85,7 +85,7 @@
 
       Danca.sessao.definir(usuario);
       Danca.ui.mostrarAviso(`Bem-vindo(a), ${usuario.nome.split(" ")[0]}!`, "sucesso");
-      window.location.href = "index.html";
+      window.location.href = "catalogo.html";
     } catch (erro) {
       mostrarErro("campo-grupo-senha", erro.message);
     } finally {

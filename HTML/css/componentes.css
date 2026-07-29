@@ -1071,3 +1071,30 @@ dialog.modal[open] {
 .hero__envolucro {
   position: relative;
 }
+
+.hero__bailarina {
+  /* Traço da bailarina.gif original (fundo removido, recolorido em
+     dourado translúcido) — decoração ao lado do título, à direita, onde o
+     texto já deixa espaço de propósito (ver .hero__titulo/.hero__descricao
+     acima). Não usa position: fixed para não disputar stacking context com
+     os cards .revelar (transform) mais abaixo na página. */
+  position: absolute;
+  top: 50%;
+  right: -5vw;
+  transform: translateY(-50%);
+  width: min(46vw, 620px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1280px) {
+  .hero__bailarina {
+    width: min(40vw, 480px);
+  }
+}
+
+@media (max-width: 1100px) {
+  .hero__bailarina {
+    display: none;
+  }
+}

@@ -164,46 +164,6 @@
       "role": "aluno",
       "ativo": false,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Andr%C3%A9%20Luiz%20Coutinho"
-    },
-    {
-      "nome": "Usuário De Teste",
-      "email": "teste.1785360147530@exemplo.com",
-      "role": "professor",
-      "senha": "200senha123",
-      "ativo": true,
-      "id": "uii8Xz4"
-    },
-    {
-      "nome": "Usuário Debug EmailJS",
-      "email": "teste.1785360170746@exemplo.com",
-      "role": "aluno",
-      "senha": "100senha123",
-      "ativo": true,
-      "id": "O3sI0Vz"
-    },
-    {
-      "nome": "Teste Envio Real",
-      "email": "leticia.rico+teste1785360943935@itlean.com.br",
-      "role": "professor",
-      "senha": "200senha123",
-      "ativo": true,
-      "id": "tPSsgNv"
-    },
-    {
-      "nome": "Teste Prefixo Senha",
-      "email": "teste.senha.1785361897389@exemplo.com",
-      "role": "admin",
-      "senha": "300t4p6n",
-      "ativo": true,
-      "id": "f2oG_4A"
-    },
-    {
-      "nome": "Usuario Pos Merge",
-      "email": "posmerge.1785378310058@exemplo.com",
-      "role": "professor",
-      "senha": "200xyz789",
-      "ativo": true,
-      "id": "PHZEgYH"
     }
   ],
   "modalidades": [

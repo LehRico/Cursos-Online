@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Entrar — LeKa Dance Studio</title>
-  <meta name="description" content="Entre na LeKa Dance Studio, plataforma de cursos de dança online." />
+  <title>Criar conta — LeKa Dance Studio</title>
+  <meta name="description" content="Crie sua conta de aluno na LeKa Dance Studio e comece a se matricular nos cursos de dança." />
   <link rel="icon" href="data:," />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,20 +26,24 @@
       <div class="envolucro">
         <div class="login-grade">
           <div class="login-introducao revelar">
-            <span class="hero__ovelho"><i class="ph ph-bold ph-ticket"></i> Acesso por perfil</span>
-            <h1>Seu <em>crachá</em> de bastidor</h1>
+            <span class="hero__ovelho"><i class="ph ph-bold ph-sparkle"></i> Novo por aqui?</span>
+            <h1>Entre <em>no palco</em></h1>
             <p class="hero__descricao">
-              Cada perfil de acesso enxerga o palco de um jeito diferente: o aluno acompanha suas
-              matrículas, o professor gerencia turmas e conteúdo, e o admin cuida de toda a plataforma.
-              Entre com suas credenciais para continuar.
+              Crie sua conta de aluno gratuitamente e comece a se matricular nos cursos de dança
+              assim que quiser. Se você é professor ou já tem conta, fale com um administrador.
             </p>
           </div>
 
           <div class="cartao cartao-login revelar" style="--atraso: 120ms">
-            <h2 class="texto-tamanho-md">Entrar</h2>
-            <p class="texto-pequeno" style="color: var(--ivory-dim)">Use o e-mail e a senha da sua conta.</p>
+            <h2 class="texto-tamanho-md">Criar conta de aluno</h2>
+            <p class="texto-pequeno" style="color: var(--ivory-dim)">Leva menos de um minuto.</p>
 
-            <form class="formulario" id="formulario-login" novalidate style="margin-top: var(--espaco-4)">
+            <form class="formulario" id="formulario-cadastro" novalidate style="margin-top: var(--espaco-4)">
+              <div class="campo" id="campo-grupo-nome">
+                <label class="campo__rotulo" for="campo-nome">Nome</label>
+                <input id="campo-nome" name="nome" autocomplete="name" required />
+                <span class="campo__erro"></span>
+              </div>
               <div class="campo" id="campo-grupo-email">
                 <label class="campo__rotulo" for="campo-email">E-mail</label>
                 <input type="email" id="campo-email" name="email" autocomplete="email" required />
@@ -47,14 +51,15 @@
               </div>
               <div class="campo" id="campo-grupo-senha">
                 <label class="campo__rotulo" for="campo-senha">Senha</label>
-                <input type="password" id="campo-senha" name="senha" autocomplete="current-password" required />
+                <input type="password" id="campo-senha" name="senha" autocomplete="new-password" required />
+                <span class="campo__ajuda" id="dica-prefixo-senha-cadastro">Mín. 3 caracteres.</span>
                 <span class="campo__erro"></span>
               </div>
-              <button class="botao botao--primario botao--bloco" type="submit">Entrar</button>
+              <button class="botao botao--primario botao--bloco" type="submit">Criar conta</button>
             </form>
 
             <p class="texto-pequeno" style="color: var(--ivory-dim); margin-top: var(--espaco-5); text-align: center">
-              Ainda não tem conta? <a href="cadastro.html" style="color: var(--gold-soft); text-decoration: underline">Criar conta de aluno</a>
+              Já tem conta? <a href="login.html" style="color: var(--gold-soft); text-decoration: underline">Entrar</a>
             </p>
           </div>
         </div>
@@ -74,6 +79,6 @@
   <script src="js/dados/faq.js"></script>
   <script src="js/componentes/rodape.js"></script>
   <script src="js/componentes/chatbot.js"></script>
-  <script src="js/paginas/login.js"></script>
+  <script src="js/paginas/cadastro.js"></script>
 </body>
 </html>

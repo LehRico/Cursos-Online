@@ -8,6 +8,8 @@
 
   document.addEventListener("DOMContentLoaded", async () => {
     Danca.ui.montarNavegacao("catalogo.html");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     Danca.ui.observarRevelacao();
 
     const parametros = new URLSearchParams(window.location.search);

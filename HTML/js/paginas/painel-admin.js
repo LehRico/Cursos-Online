@@ -8,6 +8,8 @@
     if (!usuarioSessao) return;
 
     Danca.ui.montarNavegacao("painel-admin.html");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     document.querySelectorAll("[data-fechar-modal]").forEach((botao) => {
       botao.addEventListener("click", () => document.getElementById(botao.dataset.fecharModal).close());
     });

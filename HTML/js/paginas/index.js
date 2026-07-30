@@ -1,6 +1,8 @@
 (function () {
   document.addEventListener("DOMContentLoaded", async () => {
     Danca.ui.montarNavegacao("index.html");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     montarAcoesHero();
     Danca.ui.observarRevelacao();
     await montarGradeModalidades();

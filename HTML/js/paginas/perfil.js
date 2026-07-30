@@ -7,6 +7,8 @@
     if (!usuarioSessao) return;
 
     Danca.ui.montarNavegacao("perfil.html");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     renderizarCabecalhoPerfil();
     Danca.ui.observarRevelacao();
     iniciarFundoDeNuvens();

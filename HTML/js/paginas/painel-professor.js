@@ -15,6 +15,8 @@
     if (!usuarioSessao) return;
 
     Danca.ui.montarNavegacao("painel-professor.html");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     personalizarHeroPorPapel();
     configurarAbas();
     configurarFechamentoModais();

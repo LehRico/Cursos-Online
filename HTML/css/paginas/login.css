@@ -21,25 +21,6 @@
   border-radius: 4px;
 }
 
-.divisor-ou {
-  display: flex;
-  align-items: center;
-  gap: var(--espaco-3);
-  margin-block: var(--espaco-5);
-  color: var(--ivory-dim);
-  font-size: var(--tamanho-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.divisor-ou::before,
-.divisor-ou::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: var(--line);
-}
-
 @media (max-width: 900px) {
   .login-grade {
     grid-template-columns: 1fr;

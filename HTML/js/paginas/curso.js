@@ -12,6 +12,8 @@
 
   document.addEventListener("DOMContentLoaded", async () => {
     Danca.ui.montarNavegacao("");
+    Danca.ui.montarRodape();
+    Danca.ui.montarChatbot();
     if (!idCurso) {
       mostrarNaoEncontrado();
       return;

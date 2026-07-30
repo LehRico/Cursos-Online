@@ -138,22 +138,88 @@
 
 .rodape {
   border-top: 1px solid var(--line);
-  padding-block: var(--espaco-6);
+  padding-top: var(--espaco-7);
   margin-top: var(--espaco-9);
 }
 
-.rodape__envolucro {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--espaco-4);
-  justify-content: space-between;
-  align-items: flex-start;
+.rodape__grade {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: var(--espaco-6);
+  padding-bottom: var(--espaco-6);
+}
+
+.rodape__coluna .marca {
+  font-size: var(--tamanho-sm);
+}
+
+.rodape__nota {
+  max-width: 40ch;
+  margin-top: var(--espaco-3);
   font-size: var(--tamanho-xs);
   color: var(--ivory-dim);
 }
 
-.rodape__nota {
-  max-width: 46ch;
+.rodape__titulo {
+  font-family: var(--fonte-corpo);
+  font-size: var(--tamanho-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ivory);
+  margin-bottom: var(--espaco-3);
+}
+
+.rodape__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+  font-size: var(--tamanho-sm);
+  color: var(--ivory-dim);
+}
+
+.rodape__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  transition: color var(--duracao-rapida);
+}
+
+.rodape__links a:hover {
+  color: var(--gold-soft);
+}
+
+.rodape__links span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+}
+
+.rodape__base {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espaco-2) var(--espaco-4);
+  justify-content: space-between;
+  padding-block: var(--espaco-5);
+  border-top: 1px solid var(--line);
+  font-size: var(--tamanho-xs);
+  color: var(--ivory-dim);
+}
+
+@media (max-width: 780px) {
+  .rodape__grade {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .rodape__coluna:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .rodape__grade {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* ============ Botões ============ */
@@ -604,6 +670,8 @@
 
 .campo select {
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   padding-right: 2.4rem;
   cursor: pointer;
   white-space: nowrap;
@@ -612,6 +680,14 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23e3b23c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(180deg, var(--ink), color-mix(in srgb, var(--ink) 80%, var(--curtain) 20%));
   background-repeat: no-repeat;
   background-position: right 1em center, 0 0;
+  /*
+    Windows/Chrome às vezes desenha um ring de foco azul nativo no <select>
+    fechado (renderizado pelo próprio controle do sistema, fora do alcance
+    normal de "outline" em alguns casos) — essas duas propriedades reforçam
+    que o navegador não deve usar o indicador de foco padrão dele aqui.
+  */
+  outline: none;
+  -webkit-focus-ring-color: transparent;
 }
 
 /*
@@ -1150,9 +1226,16 @@ dialog.modal[open] {
   /* substitui a setinha nativa (que em modo escuro fica praticamente
      invisível) por uma só nossa, na cor dourada da marca. */
   appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23e3b23c' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1em center;
+  -webkit-focus-ring-color: transparent;
+}
+
+.campo-select-inline:focus {
+  outline: none;
 }
 
 .campo-select-inline:hover {
@@ -1247,56 +1330,6 @@ dialog.modal[open] {
   margin-inline: auto;
 }
 
-.lista-usuarios-demo {
-  display: grid;
-  gap: var(--espaco-2);
-  margin-top: var(--espaco-2);
-}
-
-.usuario-demo {
-  display: flex;
-  align-items: center;
-  gap: var(--espaco-3);
-  width: 100%;
-  text-align: left;
-  padding: var(--espaco-3);
-  border: 1px solid var(--line);
-  border-radius: var(--raio-md);
-  background: var(--ink);
-  cursor: pointer;
-  transition: border-color var(--duracao-rapida), transform var(--duracao-rapida);
-}
-
-.usuario-demo:hover {
-  border-color: var(--gold);
-  transform: translateX(4px);
-}
-
-.usuario-demo__info {
-  flex: 1;
-  /*
-    min-width: 0 é o que permite esse item flexível encolher além do
-    tamanho do seu conteúdo (o padrão de um filho flex é min-width: auto,
-    ou seja, nunca menor que o próprio conteúdo). Sem isso, o e-mail vira
-    uma "palavra" indivisível que empurra a linha inteira pra fora da tela
-    em celulares estreitos.
-  */
-  min-width: 0;
-}
-
-.usuario-demo__nome {
-  font-weight: 600;
-  font-size: var(--tamanho-sm);
-}
-
-.usuario-demo__papel {
-  display: block;
-  font-size: var(--tamanho-xs);
-  color: var(--ivory-dim);
-  /* e-mail não tem espaços pra quebrar sozinho — sem isso, ele ultrapassa
-     a largura do card em vez de quebrar linha ou cortar. */
-  overflow-wrap: anywhere;
-}
 
 /* ============ Hero (catálogo) ============ */
 
@@ -1376,5 +1409,169 @@ dialog.modal[open] {
 @media (max-width: 1100px) {
   .hero__bailarina {
     display: none;
+  }
+}
+
+/* ============ Chatbot de FAQ ============ */
+
+.chatbot {
+  position: fixed;
+  right: var(--espaco-5);
+  bottom: var(--espaco-5);
+  z-index: 90;
+}
+
+.chatbot__botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  border: none;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 10px 28px var(--sombra);
+  transition: transform var(--duracao-rapida) var(--facilitador), background var(--duracao-rapida);
+}
+
+.chatbot__botao:hover {
+  background: var(--gold-soft);
+  transform: scale(1.05);
+}
+
+.chatbot__painel {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + var(--espaco-3));
+  width: min(92vw, 340px);
+  max-height: min(70vh, 480px);
+  display: flex;
+  flex-direction: column;
+  background: var(--curtain-soft);
+  border: 1px solid var(--line-forte);
+  border-radius: var(--raio-lg);
+  box-shadow: 0 24px 60px var(--sombra);
+  overflow: hidden;
+  animation: aparecer-modal var(--duracao-normal) var(--facilitador);
+}
+
+/*
+  .chatbot__painel define "display: flex" com especificidade de classe, que
+  por si só venceria o "display: none" do atributo [hidden] nativo (aplicado
+  pela UA stylesheet, de especificidade baixa) — sem esta regra o painel
+  continuaria ocupando espaço/visível mesmo com hidden="" presente.
+*/
+.chatbot__painel[hidden] {
+  display: none;
+}
+
+.chatbot__cabecalho {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--espaco-3);
+  padding: var(--espaco-4);
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+.chatbot__fechar {
+  background: none;
+  border: none;
+  color: var(--ivory-dim);
+  cursor: pointer;
+  font-size: var(--tamanho-md);
+  line-height: 1;
+  padding: var(--espaco-1);
+}
+
+.chatbot__fechar:hover {
+  color: var(--ivory);
+}
+
+.chatbot__corpo {
+  padding: var(--espaco-4);
+  overflow-y: auto;
+  flex: 1;
+}
+
+.chatbot__intro {
+  font-size: var(--tamanho-sm);
+  color: var(--ivory-dim);
+  margin-bottom: var(--espaco-3);
+}
+
+.chatbot__lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.chatbot__pergunta {
+  text-align: left;
+  background: var(--ink);
+  border: 1px solid var(--line-forte);
+  border-radius: var(--raio-md);
+  padding: var(--espaco-3);
+  color: var(--ivory);
+  font-size: var(--tamanho-sm);
+  cursor: pointer;
+  transition: border-color var(--duracao-rapida), transform var(--duracao-rapida);
+}
+
+.chatbot__pergunta:hover {
+  border-color: var(--gold);
+  transform: translateX(2px);
+}
+
+.chatbot__voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--espaco-2);
+  background: none;
+  border: none;
+  color: var(--gold-soft);
+  font-size: var(--tamanho-xs);
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: var(--espaco-3);
+  padding: 0;
+}
+
+.chatbot__voltar:hover {
+  color: var(--gold);
+}
+
+.chatbot__mensagem {
+  border-radius: var(--raio-md);
+  padding: var(--espaco-3);
+  font-size: var(--tamanho-sm);
+  margin-bottom: var(--espaco-3);
+}
+
+.chatbot__mensagem--usuario {
+  background: var(--curtain-alto);
+  color: var(--ivory);
+  margin-left: var(--espaco-5);
+}
+
+.chatbot__mensagem--bot {
+  background: var(--ink);
+  border: 1px solid var(--line);
+  color: var(--ivory-dim);
+  margin-right: var(--espaco-2);
+}
+
+@media (max-width: 480px) {
+  .chatbot {
+    right: var(--espaco-4);
+    bottom: var(--espaco-4);
+  }
+
+  .chatbot__painel {
+    width: min(94vw, 320px);
   }
 }

@@ -107,9 +107,6 @@ window.Danca = window.Danca || {};
       if (!(Number(dados.duracaoMinutos) > 0)) {
         erros.duracaoMinutos = "Informe uma duração positiva.";
       }
-      if (preenchido(dados.linkMeet) && !/^https:\/\/meet\.google\.com\/.+/.test(dados.linkMeet.trim())) {
-        erros.linkMeet = "Informe um link válido do Google Meet (https://meet.google.com/…).";
-      }
 
       return erros;
     },
@@ -148,11 +145,6 @@ window.Danca = window.Danca || {};
       }
 
       return erros;
-    },
-
-    progressoValido(valor) {
-      const numero = Number(valor);
-      return Number.isFinite(numero) && numero >= 0 && numero <= 100;
     },
   };
 })();

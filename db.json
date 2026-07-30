@@ -196,6 +196,14 @@
       "senha": "300t4p6n",
       "ativo": true,
       "id": "f2oG_4A"
+    },
+    {
+      "nome": "Usuario Pos Merge",
+      "email": "posmerge.1785378310058@exemplo.com",
+      "role": "professor",
+      "senha": "200xyz789",
+      "ativo": true,
+      "id": "PHZEgYH"
     }
   ],
   "modalidades": [
@@ -249,6 +257,12 @@
       "descricao": "",
       "foto": "https://exemplo.com/modalidade.jpg",
       "id": "qSek3o3"
+    },
+    {
+      "nome": "Modalidade Pós-Merge 1785378307580",
+      "descricao": "",
+      "foto": "https://exemplo.com/modalidade-merge.jpg",
+      "id": "2M0-AQ4"
     }
   ],
   "cursos": [
@@ -445,6 +459,19 @@
         "https://exemplo.com/foto2.jpg"
       ],
       "id": "0t3gam5"
+    },
+    {
+      "titulo": "Curso Pós-Merge Teste",
+      "descricao": "Teste após merge.",
+      "modalidadeId": "ballet",
+      "instrutorId": "u1",
+      "nivel": "iniciante",
+      "status": "ferias",
+      "cargaHoraria": 8,
+      "fotos": [
+        "https://exemplo.com/foto-merge.jpg"
+      ],
+      "id": "5uA3D96"
     }
   ],
   "aulas": [
@@ -816,6 +843,14 @@
       "ordem": 1,
       "duracaoMinutos": 30,
       "id": "6YgD-Cw"
+    },
+    {
+      "cursoId": "5uA3D96",
+      "titulo": "Aula Pós-Merge",
+      "conteudo": "https://meet.google.com/xyz-merge-test",
+      "ordem": 1,
+      "duracaoMinutos": 20,
+      "id": "hRdlLYa"
     }
   ],
   "matriculas": [
@@ -825,15 +860,23 @@
       "cursoId": "c1",
       "dataMatricula": "2026-05-10T13:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a1",
+        "a2",
+        "a3"
+      ]
     },
     {
       "id": "mat2",
       "usuarioId": "u5",
       "cursoId": "c3",
       "dataMatricula": "2026-06-20T13:00:00Z",
-      "progresso": 45,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a7"
+      ]
     },
     {
       "id": "mat3",
@@ -841,15 +884,23 @@
       "cursoId": "c3",
       "dataMatricula": "2026-04-02T10:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a7",
+        "a8",
+        "a9"
+      ]
     },
     {
       "id": "mat4",
       "usuarioId": "u6",
       "cursoId": "c10",
       "dataMatricula": "2026-07-01T10:00:00Z",
-      "progresso": 30,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a25"
+      ]
     },
     {
       "id": "mat5",
@@ -857,23 +908,35 @@
       "cursoId": "c7",
       "dataMatricula": "2026-03-15T09:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a16",
+        "a17",
+        "a18"
+      ]
     },
     {
       "id": "mat6",
       "usuarioId": "u7",
       "cursoId": "c9",
       "dataMatricula": "2026-06-05T09:00:00Z",
-      "progresso": 60,
-      "status": "em andamento"
+      "progresso": 67,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a22",
+        "a23"
+      ]
     },
     {
       "id": "mat7",
       "usuarioId": "u8",
       "cursoId": "c6",
       "dataMatricula": "2026-06-25T14:00:00Z",
-      "progresso": 20,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a13"
+      ]
     },
     {
       "id": "mat8",
@@ -881,23 +944,36 @@
       "cursoId": "c11",
       "dataMatricula": "2026-02-18T11:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a28",
+        "a29",
+        "a30"
+      ]
     },
     {
       "id": "mat9",
       "usuarioId": "u9",
       "cursoId": "c1",
       "dataMatricula": "2026-07-10T11:00:00Z",
-      "progresso": 70,
-      "status": "em andamento"
+      "progresso": 67,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a1",
+        "a2"
+      ]
     },
     {
       "id": "mat10",
       "usuarioId": "u10",
       "cursoId": "c8",
       "dataMatricula": "2026-05-22T16:00:00Z",
-      "progresso": 50,
-      "status": "em andamento"
+      "progresso": 67,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a19",
+        "a20"
+      ]
     },
     {
       "id": "mat11",
@@ -905,7 +981,12 @@
       "cursoId": "c5",
       "dataMatricula": "2026-01-30T16:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a10",
+        "a11",
+        "a12"
+      ]
     },
     {
       "usuarioId": "u10",
@@ -913,23 +994,30 @@
       "dataMatricula": "2026-07-29T13:57:08.212Z",
       "progresso": 0,
       "status": "em andamento",
-      "id": "yuwKCwG"
+      "id": "yuwKCwG",
+      "aulasConcluidas": []
     },
     {
       "usuarioId": "u11",
       "cursoId": "c1",
       "dataMatricula": "2026-07-29T14:04:29.930Z",
-      "progresso": 89,
-      "status": "em andamento",
-      "id": "rYkkwI7"
+      "progresso": 100,
+      "status": "concluído",
+      "id": "rYkkwI7",
+      "aulasConcluidas": [
+        "a1",
+        "a2",
+        "a3"
+      ]
     },
     {
       "usuarioId": "u11",
       "cursoId": "c6",
       "dataMatricula": "2026-07-29T14:05:39.203Z",
-      "progresso": 5,
+      "progresso": 0,
       "status": "em andamento",
-      "id": "JjLWaDC"
+      "id": "JjLWaDC",
+      "aulasConcluidas": []
     },
     {
       "id": "mat12",
@@ -937,23 +1025,35 @@
       "cursoId": "c13",
       "dataMatricula": "2026-04-12T13:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a31",
+        "a32",
+        "a33"
+      ]
     },
     {
       "id": "mat13",
       "usuarioId": "u13",
       "cursoId": "c1",
       "dataMatricula": "2026-07-05T13:00:00Z",
-      "progresso": 35,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a1"
+      ]
     },
     {
       "id": "mat14",
       "usuarioId": "u14",
       "cursoId": "c14",
       "dataMatricula": "2026-06-18T15:00:00Z",
-      "progresso": 55,
-      "status": "em andamento"
+      "progresso": 67,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a34",
+        "a35"
+      ]
     },
     {
       "id": "mat15",
@@ -961,15 +1061,23 @@
       "cursoId": "c6",
       "dataMatricula": "2026-03-08T15:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a13",
+        "a14",
+        "a15"
+      ]
     },
     {
       "id": "mat16",
       "usuarioId": "u15",
       "cursoId": "c15",
       "dataMatricula": "2026-06-30T12:00:00Z",
-      "progresso": 40,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a37"
+      ]
     },
     {
       "id": "mat17",
@@ -977,23 +1085,35 @@
       "cursoId": "c9",
       "dataMatricula": "2026-02-25T12:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a22",
+        "a23",
+        "a24"
+      ]
     },
     {
       "id": "mat18",
       "usuarioId": "u16",
       "cursoId": "c17",
       "dataMatricula": "2026-07-15T10:00:00Z",
-      "progresso": 25,
-      "status": "em andamento"
+      "progresso": 33,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a40"
+      ]
     },
     {
       "id": "mat19",
       "usuarioId": "u16",
       "cursoId": "c18",
       "dataMatricula": "2026-05-20T10:00:00Z",
-      "progresso": 65,
-      "status": "em andamento"
+      "progresso": 67,
+      "status": "em andamento",
+      "aulasConcluidas": [
+        "a43",
+        "a44"
+      ]
     },
     {
       "id": "mat20",
@@ -1001,15 +1121,21 @@
       "cursoId": "c7",
       "dataMatricula": "2026-01-22T17:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a16",
+        "a17",
+        "a18"
+      ]
     },
     {
       "id": "mat21",
       "usuarioId": "u17",
       "cursoId": "c14",
       "dataMatricula": "2026-07-20T17:00:00Z",
-      "progresso": 10,
-      "status": "em andamento"
+      "progresso": 0,
+      "status": "em andamento",
+      "aulasConcluidas": []
     },
     {
       "id": "mat22",
@@ -1017,7 +1143,12 @@
       "cursoId": "c11",
       "dataMatricula": "2025-11-10T09:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a28",
+        "a29",
+        "a30"
+      ]
     },
     {
       "id": "mat23",
@@ -1025,7 +1156,12 @@
       "cursoId": "c9",
       "dataMatricula": "2026-01-15T14:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a22",
+        "a23",
+        "a24"
+      ]
     },
     {
       "id": "mat24",
@@ -1033,7 +1169,12 @@
       "cursoId": "c1",
       "dataMatricula": "2026-02-20T14:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a1",
+        "a2",
+        "a3"
+      ]
     },
     {
       "id": "mat25",
@@ -1041,7 +1182,12 @@
       "cursoId": "c7",
       "dataMatricula": "2026-03-05T09:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a16",
+        "a17",
+        "a18"
+      ]
     },
     {
       "id": "mat26",
@@ -1049,7 +1195,12 @@
       "cursoId": "c9",
       "dataMatricula": "2026-04-18T09:00:00Z",
       "progresso": 100,
-      "status": "concluído"
+      "status": "concluído",
+      "aulasConcluidas": [
+        "a22",
+        "a23",
+        "a24"
+      ]
     },
     {
       "usuarioId": "u5",
@@ -1057,7 +1208,12 @@
       "dataMatricula": "2026-07-29T16:58:19.877Z",
       "progresso": 100,
       "status": "concluído",
-      "id": "TeezfQz"
+      "id": "TeezfQz",
+      "aulasConcluidas": [
+        "a40",
+        "a41",
+        "a42"
+      ]
     },
     {
       "usuarioId": "u5",
@@ -1065,7 +1221,21 @@
       "dataMatricula": "2026-07-29T17:22:10.234Z",
       "progresso": 100,
       "status": "concluído",
-      "id": "lwC1jyz"
+      "id": "lwC1jyz",
+      "aulasConcluidas": [
+        "a4",
+        "a5",
+        "a6"
+      ]
+    },
+    {
+      "usuarioId": "u5",
+      "cursoId": "c6",
+      "dataMatricula": "2026-07-29T20:22:14.530Z",
+      "progresso": 0,
+      "status": "em andamento",
+      "id": "F3lh3l8",
+      "aulasConcluidas": []
     }
   ],
   "avaliacoes": [

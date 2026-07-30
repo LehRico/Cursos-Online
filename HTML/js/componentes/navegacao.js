@@ -6,11 +6,7 @@ Danca.ui = Danca.ui || {};
 (function () {
   const ITENS = [
     { href: "catalogo.html", rotulo: "Catálogo", roles: null },
-    {
-      href: "painel-professor.html",
-      rotulo: (usuario) => (usuario.role === "admin" ? "Painel do Administrador" : "Painel do professor"),
-      roles: ["professor", "admin"],
-    },
+    { href: "painel-professor.html", rotulo: "Painel do professor", roles: ["professor", "admin"] },
     { href: "painel-admin.html", rotulo: "Usuários", roles: ["admin"] },
     { href: "perfil.html", rotulo: "Meu perfil", roles: ["aluno", "professor", "admin"] },
   ];
@@ -23,7 +19,10 @@ Danca.ui = Danca.ui || {};
 
     const linksHtml = ITENS.filter((item) => !item.roles || (usuario && item.roles.includes(usuario.role)))
       .map((item) => {
-        const rotulo = typeof item.rotulo === "function" ? item.rotulo(usuario) : item.rotulo;
+        // O painel de cursos/aulas/modalidades é o mesmo pra professor e
+        // admin (o admin herda as permissões do professor) — só o rótulo do
+        // link muda pra refletir quem está de fato logado.
+        const rotulo = item.href === "painel-professor.html" && usuario && usuario.role === "admin" ? "Painel do administrador" : item.rotulo;
         return `<a class="navegacao__link" href="${item.href}"${item.href === paginaAtual ? ' aria-current="page"' : ""}>${rotulo}</a>`;
       })
       .join("");

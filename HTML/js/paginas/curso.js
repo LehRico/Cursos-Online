@@ -82,17 +82,18 @@
 
     const alvo = document.getElementById("curso-cabecalho");
     alvo.innerHTML = `
-      <a class="curso-voltar" href="catalogo.html"><i class="ph ph-bold ph-arrow-left"></i> Voltar ao catálogo</a>
+      <a class="curso-voltar" href="catalogo.html"><i class="ph ph-bold ph-arrow-left" aria-hidden="true"></i> Voltar ao catálogo</a>
       <div class="curso-titulo-linha">
         <span class="etiqueta-modalidade" style="--gel: ${corGel}">${Danca.ui.escapar(dadosModalidade ? dadosModalidade.nome : "")}</span>
         ${curso.status === "rascunho" ? '<span class="selo selo--rascunho">Rascunho</span>' : ""}
+        ${curso.status === "ferias" ? '<span class="selo selo--ferias">Período de férias</span>' : ""}
       </div>
       <h1>${Danca.ui.escapar(curso.titulo)}</h1>
       <p class="hero__descricao">${Danca.ui.escapar(curso.descricao || "")}</p>
       <div class="cartao-curso__meta" style="font-size: var(--tamanho-sm); margin-top: var(--espaco-4)">
-        <span><i class="ph ph-bold ph-barbell"></i> ${Danca.ui.capitalizar(curso.nivel)}</span>
-        <span><i class="ph ph-bold ph-clock"></i> ${curso.cargaHoraria}h</span>
-        <span><i class="ph ph-bold ph-chalkboard-teacher"></i> Prof. ${Danca.ui.escapar(instrutor ? instrutor.nome : "—")}</span>
+        <span><i class="ph ph-bold ph-barbell" aria-hidden="true"></i> ${Danca.ui.capitalizar(curso.nivel)}</span>
+        <span><i class="ph ph-bold ph-clock" aria-hidden="true"></i> ${curso.cargaHoraria}h</span>
+        <span><i class="ph ph-bold ph-chalkboard-teacher" aria-hidden="true"></i> Prof. ${Danca.ui.escapar(instrutor ? instrutor.nome : "—")}</span>
       </div>`;
   }
 
@@ -103,26 +104,48 @@
       return;
     }
 
-    const usuarioSessao = Danca.sessao.obter();
-    const podeVerLinkMeet =
-      !!matriculaUsuario ||
-      (usuarioSessao && (usuarioSessao.role === "admin" || (usuarioSessao.role === "professor" && usuarioSessao.id === curso.instrutorId)));
+    // Só o próprio aluno matriculado pode marcar aulas como concluídas —
+    // pra qualquer outro visitante a lista é só informativa (numerada).
+    const concluidas = new Set(matriculaUsuario ? matriculaUsuario.aulasConcluidas || [] : []);
+    const interativo = Boolean(matriculaUsuario);
+    const usuarioSessaoAtual = Danca.sessao.obter();
 
     lista.innerHTML = aulas
-      .map(
-        (aula, indice) => `
-        <li class="aula-item revelar" style="--atraso: ${Math.min(indice, 8) * 60}ms">
-          <span class="aula-item__numero numerico">${String(aula.ordem).padStart(2, "0")}</span>
+      .map((aula, indice) => {
+        const concluida = concluidas.has(aula.id);
+        const marcador = interativo
+          ? `<button type="button" class="aula-item__concluir" data-aula-id="${aula.id}" aria-pressed="${concluida}" aria-label="Marcar aula '${Danca.ui.escapar(aula.titulo)}' como ${concluida ? "não concluída" : "concluída"}">
+              <i class="ph ph-bold ${concluida ? "ph-check-circle" : "ph-circle"}" aria-hidden="true"></i>
+            </button>`
+          : `<span class="aula-item__numero numerico">${String(aula.ordem).padStart(2, "0")}</span>`;
+
+        // O link só aparece pra quem realmente pode assistir (matriculado,
+        // ou o próprio instrutor/admin revisando) — pra um visitante não
+        // matriculado não faz sentido expor o link da videochamada.
+        const podeVerLink = interativo || (usuarioSessaoAtual && (usuarioSessaoAtual.role === "admin" || usuarioSessaoAtual.id === curso.instrutorId));
+        const linkMeet =
+          aula.conteudo && podeVerLink
+            ? `<a class="aula-item__meet" href="${Danca.ui.escapar(aula.conteudo)}" target="_blank" rel="noopener noreferrer">
+                <i class="ph ph-bold ph-video-camera" aria-hidden="true"></i> Entrar na aula
+              </a>`
+            : "";
+
+        return `
+        <li class="aula-item revelar${concluida ? " aula-item--concluida" : ""}" style="--atraso: ${Math.min(indice, 8) * 60}ms">
+          ${marcador}
           <span class="aula-item__corpo"><strong>${Danca.ui.escapar(aula.titulo)}</strong></span>
-          ${
-            podeVerLinkMeet && aula.linkMeet
-              ? `<a class="botao botao--contorno botao--pequeno" href="${Danca.ui.escapar(aula.linkMeet)}" target="_blank" rel="noopener"><i class="ph ph-bold ph-video-camera"></i> Entrar no Meet</a>`
-              : ""
-          }
+          ${linkMeet}
           <span class="aula-item__duracao">${aula.duracaoMinutos} min</span>
-        </li>`
-      )
+        </li>`;
+      })
       .join("");
+
+    if (interativo) {
+      lista.querySelectorAll(".aula-item__concluir").forEach((botao) => {
+        botao.addEventListener("click", () => alternarAulaConcluida(botao.dataset.aulaId));
+      });
+    }
+
     Danca.ui.observarRevelacao("#lista-aulas .revelar");
   }
 
@@ -164,6 +187,10 @@
     }
 
     if (!matriculaUsuario) {
+      if (curso.status === "ferias") {
+        cartao.innerHTML = `<h3>Turma em período de férias</h3><p style="color: var(--ivory-dim); margin-top: var(--espaco-2)">Novas matrículas estão pausadas temporariamente. Quem já estava matriculado mantém acesso normal ao conteúdo.</p>`;
+        return;
+      }
       if (curso.status !== "publicado") {
         cartao.innerHTML = `<h3>Curso ainda não publicado</h3><p style="color: var(--ivory-dim); margin-top: var(--espaco-2)">Você poderá se matricular assim que o professor publicar o curso.</p>`;
         return;
@@ -177,20 +204,17 @@
     }
 
     const corGel = modalidadeMeta ? `var(${modalidadeMeta.corVar})` : null;
+    const concluidas = (matriculaUsuario.aulasConcluidas || []).length;
+    const dica =
+      aulas.length === 0
+        ? "O professor ainda não publicou aulas — seu progresso passa a contar assim que a primeira aula sair."
+        : `Marque as aulas concluídas na lista ao lado — o progresso sobe sozinho. ${concluidas} de ${aulas.length} aulas concluídas.`;
+
     cartao.innerHTML = `
       <h3>Seu progresso</h3>
       <div style="margin-top: var(--espaco-4)">${Danca.ui.linhaRitmoHtml(matriculaUsuario.progresso, corGel)}</div>
       <span class="selo ${matriculaUsuario.status === "concluído" ? "selo--concluido" : "selo--andamento"}" style="margin-top: var(--espaco-3); display: inline-flex">${Danca.ui.capitalizar(matriculaUsuario.status)}</span>
-      <form class="formulario" id="formulario-progresso" style="margin-top: var(--espaco-5)">
-        <div class="campo" id="campo-grupo-progresso">
-          <label class="campo__rotulo" for="campo-progresso">Atualizar progresso (%)</label>
-          <input type="number" id="campo-progresso" min="0" max="100" value="${matriculaUsuario.progresso}" />
-          <span class="campo__erro"></span>
-        </div>
-        <button class="botao botao--contorno botao--bloco" type="submit">Salvar progresso</button>
-      </form>`;
-
-    document.getElementById("formulario-progresso").addEventListener("submit", atualizarProgresso);
+      <p class="texto-pequeno" style="color: var(--ivory-dim); margin-top: var(--espaco-3)">${dica}</p>`;
   }
 
   async function matricular() {
@@ -220,22 +244,33 @@
     }
   }
 
-  async function atualizarProgresso(evento) {
-    evento.preventDefault();
-    Danca.ui.limparErrosCampos(["campo-grupo-progresso"]);
-    const valor = Number(document.getElementById("campo-progresso").value);
+  /*
+    Regra de negócio: o aluno não digita mais uma porcentagem — ele marca as
+    aulas que já fez, e o progresso é 100% derivado disso (aulas concluídas /
+    total de aulas). Isso evita number solto sem relação com o conteúdo real
+    (ex: aluno colocar 100% sem ter assistido nada) e só libera "concluído"
+    (e, com isso, a avaliação do curso) quando todas as aulas publicadas
+    foram marcadas.
+  */
+  async function alternarAulaConcluida(aulaId) {
+    if (!matriculaUsuario) return;
 
-    if (!Danca.validar.progressoValido(valor)) {
-      Danca.ui.mostrarErroCampo("campo-grupo-progresso", "Informe um número entre 0 e 100.");
-      return;
-    }
+    const concluidas = new Set(matriculaUsuario.aulasConcluidas || []);
+    concluidas.has(aulaId) ? concluidas.delete(aulaId) : concluidas.add(aulaId);
+    const aulasConcluidas = aulas.filter((aula) => concluidas.has(aula.id)).map((aula) => aula.id);
 
-    const status = valor >= 100 ? "concluído" : "em andamento";
+    const progresso = aulas.length === 0 ? 0 : Math.round((aulasConcluidas.length / aulas.length) * 100);
+    const status = aulas.length > 0 && aulasConcluidas.length === aulas.length ? "concluído" : "em andamento";
+    const statusAnterior = matriculaUsuario.status;
+
     try {
-      matriculaUsuario = await Danca.api.atualizar("matriculas", matriculaUsuario.id, { progresso: valor, status });
-      Danca.ui.mostrarAviso("Progresso atualizado!", "sucesso");
+      matriculaUsuario = await Danca.api.atualizar("matriculas", matriculaUsuario.id, { aulasConcluidas, progresso, status });
+      renderizarAulas();
       renderizarAcaoMatricula();
-      renderizarAvaliacoes();
+      if (status !== statusAnterior) {
+        renderizarAvaliacoes();
+        if (status === "concluído") Danca.ui.mostrarAviso("Curso concluído! Agora você já pode avaliá-lo.", "sucesso");
+      }
     } catch (erro) {
       Danca.ui.mostrarAviso(erro.message, "erro");
     }

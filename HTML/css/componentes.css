@@ -288,6 +288,12 @@
   background: rgba(227, 178, 60, 0.08);
 }
 
+.selo--ferias {
+  color: var(--gel-sapateado);
+  border-color: color-mix(in srgb, var(--gel-sapateado) 40%, transparent);
+  background: color-mix(in srgb, var(--gel-sapateado) 8%, transparent);
+}
+
 .selo--inativo {
   color: var(--gel-dancas-urbanas);
   border-color: rgba(214, 69, 80, 0.35);
@@ -529,6 +535,21 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+#curso-fotos-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--espaco-2);
+}
+
+.campo-linha-foto {
+  display: flex;
+  gap: var(--espaco-2);
+}
+
+.campo-linha-foto input {
+  flex: 1;
+}
+
 .campo {
   display: flex;
   flex-direction: column;
@@ -596,14 +617,30 @@
 /*
   A lista de opções de um <select> aberto é renderizada pelo próprio
   sistema operacional/navegador — CSS normal (cor de fundo do modal, etc)
-  não chega nela. Isso é o máximo que dá pra estilizar de forma confiável
-  entre navegadores: cor de fundo e do texto de cada <option>, pra pelo
-  menos não abrir uma lista branca chapada no meio de um site escuro.
+  não chega nela. "color-scheme: dark" avisa o navegador que esse controle
+  vive num tema escuro, então a moldura da lista e o realce do item em foco
+  saem num tom escuro/dourado nativo em vez do azul padrão claro; "accent-color"
+  reforça esse realce com o dourado da marca onde o navegador suporta. Junto
+  com a cor de fundo/texto de cada <option> abaixo, é o máximo que dá pra
+  controlar de forma confiável entre navegadores.
 */
+.campo select,
+.campo-select-inline {
+  color-scheme: dark;
+  accent-color: var(--gold);
+}
+
 .campo select option,
 .campo-select-inline option {
   background: var(--curtain-soft);
   color: var(--ivory);
+  padding: 0.5em 0.75em;
+}
+
+.campo select option:checked,
+.campo-select-inline option:checked {
+  background: var(--curtain-alto);
+  color: var(--gold-soft);
 }
 
 /*
@@ -1140,6 +1177,61 @@ dialog.modal[open] {
 .filtros__busca {
   flex: 1;
   min-width: 220px;
+}
+
+/* Campo de busca do catálogo: mesma "pílula" visual do select inline, mas com
+   lupa em vez da setinha — pra não parecer um dropdown que não existe. */
+.campo-busca {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: var(--curtain-alto);
+  border: 1px solid var(--line-forte);
+  border-radius: var(--raio-pilula);
+  transition: border-color var(--duracao-rapida), background var(--duracao-rapida);
+}
+
+.campo-busca:hover {
+  border-color: var(--line-forte);
+  background-color: color-mix(in srgb, var(--curtain-alto) 80%, var(--ivory) 5%);
+}
+
+.campo-busca:focus-within {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-color: var(--gold);
+}
+
+.campo-busca i {
+  position: absolute;
+  left: 1.15em;
+  color: var(--ivory-dim);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.campo-busca__input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0.55em 1.15em 0.55em 3em;
+  color: var(--ivory);
+  font-size: var(--tamanho-xs);
+  font-family: inherit;
+}
+
+.campo-busca__input::placeholder {
+  color: var(--ivory-dim);
+}
+
+/* remove os ícones nativos do input[type=search] no Chrome/Edge (lupa e "x"
+   embutidos), já que temos os nossos próprios */
+.campo-busca__input::-webkit-search-decoration,
+.campo-busca__input::-webkit-search-cancel-button,
+.campo-busca__input::-webkit-search-results-button,
+.campo-busca__input::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 .filtros__chips {

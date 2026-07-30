@@ -19,14 +19,17 @@
         <a class="botao botao--primario" href="catalogo.html">Ver cursos</a>
         <a class="botao botao--contorno" href="perfil.html">Minhas matrículas</a>`;
     } else {
+      const rotuloPainel = usuario.role === "admin" ? "Painel do administrador" : "Painel do professor";
       acoes.innerHTML = `
         <a class="botao botao--primario" href="catalogo.html">Ver cursos</a>
-        <a class="botao botao--contorno" href="painel-professor.html">Painel do professor</a>`;
+        <a class="botao botao--contorno" href="painel-professor.html">${rotuloPainel}</a>`;
     }
   }
 
   async function montarGradeModalidades() {
     const grade = document.getElementById("grade-modalidades");
+    // Cada modalidade pode ter uma foto própria cadastrada pelo professor/admin
+    // (Danca.api); sem ela, cai no placeholder autoral por modalidade.
     let modalidadesApi = [];
     try {
       modalidadesApi = await Danca.api.listar("modalidades");

@@ -52,7 +52,14 @@ window.Danca = window.Danca || {};
       ) {
         erros.nome = "Já existe uma modalidade com esse nome.";
       }
-      if (preenchido(dados.foto) && !/^https?:\/\/.+/.test(dados.foto.trim())) {
+      /*
+        Foto obrigatória: sem ela, os cards de curso dessa modalidade não têm
+        nenhuma imagem de fallback (só as 8 modalidades de lançamento têm
+        fotos pré-carregadas em assets/img/modalidades/) — ver Danca.modalidades.
+      */
+      if (!preenchido(dados.foto)) {
+        erros.foto = "Informe uma foto para a modalidade (usada nos cards do catálogo).";
+      } else if (!/^https?:\/\/.+/.test(dados.foto.trim())) {
         erros.foto = "Informe um link válido (começando com http:// ou https://).";
       }
       return erros;

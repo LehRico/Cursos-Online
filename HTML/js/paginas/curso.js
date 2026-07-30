@@ -50,7 +50,7 @@
     ]);
 
     dadosModalidade = modalidades.find((m) => m.id === curso.modalidadeId) || null;
-    modalidadeMeta = Danca.modalidades.LISTA_FIXA.find((m) => m.id === curso.modalidadeId) || null;
+    modalidadeMeta = Danca.modalidades.meta(dadosModalidade);
     aulas = aulasCurso.slice().sort((a, b) => a.ordem - b.ordem);
     avaliacoes = avaliacoesCurso;
     usuarios = todosUsuarios;
@@ -79,7 +79,7 @@
 
   function renderizarCabecalho() {
     document.title = `${curso.titulo} — LeKa Dance Studio`;
-    const corGel = modalidadeMeta ? `var(${modalidadeMeta.corVar})` : "var(--gold)";
+    const corGel = modalidadeMeta ? modalidadeMeta.corGel : "var(--gold)";
     document.documentElement.style.setProperty("--gel", corGel);
 
     const alvo = document.getElementById("curso-cabecalho");
@@ -205,7 +205,7 @@
       return;
     }
 
-    const corGel = modalidadeMeta ? `var(${modalidadeMeta.corVar})` : null;
+    const corGel = modalidadeMeta ? modalidadeMeta.corGel : null;
     const concluidas = (matriculaUsuario.aulasConcluidas || []).length;
     const dica =
       aulas.length === 0

@@ -40,8 +40,45 @@ window.Danca = window.Danca || {};
     return fatia.length > 0 ? fatia : lista;
   }
 
+  /*
+    Cor-gel determinística pra modalidades criadas depois do lançamento (fora
+    da LISTA fixa acima, que só cobre as 8 originais): um hash simples do
+    nome vira matiz HSL, então a mesma modalidade sempre cai na mesma cor
+    entre reloads, sem precisar cadastrar nada a mais.
+  */
+  function corGelPorHash(nome) {
+    let hash = 0;
+    for (let i = 0; i < nome.length; i++) {
+      hash = (hash << 5) - hash + nome.charCodeAt(i);
+      hash |= 0;
+    }
+    const matiz = Math.abs(hash) % 360;
+    return `hsl(${matiz}, 55%, 68%)`;
+  }
+
   Danca.modalidades = {
     LISTA_FIXA: LISTA,
+
+    /*
+      Combina o registro vindo da API (fonte real — inclui modalidades
+      criadas pelo professor/admin depois do lançamento) com os metadados
+      fixos das 8 originais (cor-gel de marca, fotos de placeholder
+      pré-carregadas). Modalidades novas recebem cor gerada por hash e usam
+      a própria "foto" cadastrada (obrigatória no formulário) como capa.
+      Use isto — não LISTA_FIXA sozinha — sempre que precisar exibir/filtrar
+      modalidades de fato existentes no banco.
+    */
+    meta(modalidadeApi) {
+      if (!modalidadeApi) return null;
+      const fixa = LISTA.find((m) => m.id === modalidadeApi.id);
+      return {
+        id: modalidadeApi.id,
+        nome: modalidadeApi.nome,
+        corVar: fixa ? fixa.corVar : null,
+        corGel: fixa ? `var(${fixa.corVar})` : corGelPorHash(modalidadeApi.nome || modalidadeApi.id),
+      };
+    },
+
     corGel(id) {
       const item = LISTA.find((m) => m.id === id);
       return item ? `var(${item.corVar})` : "var(--gold)";
@@ -58,11 +95,16 @@ window.Danca = window.Danca || {};
     },
     /* fotos de um curso específico: recebe a lista completa de cursos (já
        carregada da API) pra saber em que posição este curso está dentro da
-       sua modalidade, e reparte as fotos da modalidade entre eles. */
-    fotosDoCurso(curso, todosCursos) {
+       sua modalidade, e reparte as fotos da modalidade entre eles. Recebe
+       também o registro da modalidade (vindo da API) pra cair na foto
+       cadastrada nela quando a modalidade não é uma das 8 com placeholder
+       pré-carregado (ex: modalidade nova, criada pelo professor/admin). */
+    fotosDoCurso(curso, todosCursos, dadosModalidade) {
       const modalidadeId = curso.modalidadeId;
       const fotos = FOTOS[modalidadeId] || [];
-      if (fotos.length === 0) return [];
+      if (fotos.length === 0) {
+        return dadosModalidade && dadosModalidade.foto ? [dadosModalidade.foto] : [];
+      }
 
       const irmaos = todosCursos
         .filter((c) => c.modalidadeId === modalidadeId)

@@ -511,8 +511,8 @@
     ]);
 
     const curso = cursos.find((c) => c.id === cursoId);
-    const meta = curso ? Danca.modalidades.LISTA_FIXA.find((m) => m.id === curso.modalidadeId) : null;
-    const corGel = meta ? `var(${meta.corVar})` : null;
+    const dadosModalidade = curso ? modalidades.find((m) => m.id === curso.modalidadeId) : null;
+    const corGel = dadosModalidade ? Danca.modalidades.meta(dadosModalidade).corGel : null;
 
     const linhasMatriculas = matriculas.length
       ? matriculas

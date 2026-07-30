@@ -323,16 +323,19 @@ Danca.ui = Danca.ui || {};
   const ROTULO_STATUS_CURSO = { rascunho: "Rascunho", ferias: "Período de férias" };
 
   /* ---- Card de curso ---- */
-  Danca.ui.cartaoCursoHtml = function (curso, { modalidade, instrutor, mostrarStatus = false, todosCursos = [curso] } = {}) {
-    const corGel = modalidade ? `var(${modalidade.corVar})` : "var(--gold)";
+  Danca.ui.cartaoCursoHtml = function (curso, { modalidade, dadosModalidade, instrutor, mostrarStatus = false, todosCursos = [curso] } = {}) {
+    // modalidade.corGel já vem pronta de Danca.modalidades.meta() — var(--gel-x)
+    // pras 8 originais, ou uma cor hsl() gerada por hash pras novas.
+    const corGel = modalidade ? modalidade.corGel || `var(${modalidade.corVar})` : "var(--gold)";
     const seloStatus =
       mostrarStatus && curso.status !== "publicado"
         ? `<span class="selo selo--${curso.status === "ferias" ? "ferias" : "rascunho"} cartao-curso__selo">${ROTULO_STATUS_CURSO[curso.status] || Danca.ui.capitalizar(curso.status)}</span>`
         : "";
     // Foto(s) cadastrada(s) no próprio curso têm prioridade; sem elas, cai no
     // esquema antigo de fotos por modalidade (repartidas entre os cursos
-    // "irmãos" da mesma modalidade), que segue servindo de placeholder.
-    const fotos = curso.fotos && curso.fotos.length > 0 ? curso.fotos : Danca.modalidades.fotosDoCurso(curso, todosCursos);
+    // "irmãos" da mesma modalidade) ou na foto da própria modalidade (caso
+    // de modalidade nova, sem placeholder pré-carregado).
+    const fotos = curso.fotos && curso.fotos.length > 0 ? curso.fotos : Danca.modalidades.fotosDoCurso(curso, todosCursos, dadosModalidade);
 
     return `
       <article class="cartao-curso revelar" style="--gel:${corGel}">

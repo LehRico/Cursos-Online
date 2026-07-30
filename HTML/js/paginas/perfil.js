@@ -133,16 +133,17 @@
   }
 
   async function carregarMinhasMatriculas() {
-    const [matriculas, cursos, avaliacoes] = await Promise.all([
+    const [matriculas, cursos, avaliacoes, modalidades] = await Promise.all([
       Danca.api.listar("matriculas", { usuarioId: usuarioSessao.id }),
       Danca.api.listar("cursos"),
       Danca.api.listar("avaliacoes", { usuarioId: usuarioSessao.id }),
+      Danca.api.listar("modalidades"),
     ]);
-    renderizarMatriculas(matriculas, cursos);
+    renderizarMatriculas(matriculas, cursos, modalidades);
     renderizarAvaliacoes(avaliacoes, cursos);
   }
 
-  function renderizarMatriculas(matriculas, cursos) {
+  function renderizarMatriculas(matriculas, cursos, modalidades) {
     const lista = document.getElementById("lista-minhas-matriculas");
     if (matriculas.length === 0) {
       lista.innerHTML = `
@@ -157,8 +158,8 @@
     lista.innerHTML = matriculas
       .map((matricula) => {
         const curso = cursos.find((c) => c.id === matricula.cursoId);
-        const meta = curso ? Danca.modalidades.LISTA_FIXA.find((m) => m.id === curso.modalidadeId) : null;
-        const corGel = meta ? `var(${meta.corVar})` : "var(--gold)";
+        const dadosModalidade = curso ? modalidades.find((m) => m.id === curso.modalidadeId) : null;
+        const corGel = dadosModalidade ? Danca.modalidades.meta(dadosModalidade).corGel : "var(--gold)";
         return `
           <a class="matricula-item revelar" href="curso.html?id=${encodeURIComponent(matricula.cursoId)}" style="--gel: ${corGel}">
             <div class="matricula-item__cabecalho">

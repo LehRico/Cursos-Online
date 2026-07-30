@@ -30,23 +30,26 @@
 
   async function montarGradeModalidades() {
     const grade = document.getElementById("grade-modalidades");
-    // Cada modalidade pode ter uma foto própria cadastrada pelo professor/admin
-    // (Danca.api); sem ela, cai no placeholder autoral por modalidade.
+    // A API é a fonte real de modalidades — inclui as criadas pelo
+    // professor/admin depois do lançamento, não só as 8 originais.
     let modalidadesApi = [];
     try {
       modalidadesApi = await Danca.api.listar("modalidades");
-    } catch {
-      /* segue com o placeholder padrão de cada modalidade se a API falhar */
+    } catch (erro) {
+      grade.innerHTML = `<div class="estado-vazio"><h3>Não foi possível carregar as modalidades</h3><p>${Danca.ui.escapar(erro.message)}</p></div>`;
+      return;
     }
 
-    grade.innerHTML = Danca.modalidades.LISTA_FIXA.map((meta) => {
-      const dadosApi = modalidadesApi.find((m) => m.id === meta.id);
-      return `
-        <a href="catalogo.html?modalidade=${encodeURIComponent(meta.id)}" class="cartao-modalidade revelar" style="--gel: var(${meta.corVar})" data-modalidade="${meta.id}">
+    grade.innerHTML = modalidadesApi
+      .map((dadosApi) => {
+        const meta = Danca.modalidades.meta(dadosApi);
+        return `
+        <a href="catalogo.html?modalidade=${encodeURIComponent(meta.id)}" class="cartao-modalidade revelar" style="--gel: ${meta.corGel}" data-modalidade="${meta.id}">
           <img src="${Danca.modalidades.imagemCapa(meta.id, dadosApi)}" alt="" loading="lazy" onerror="this.remove()" />
           <span class="cartao-modalidade__nome">${Danca.ui.escapar(meta.nome)}</span>
         </a>`;
-    }).join("");
+      })
+      .join("");
 
     Danca.ui.observarRevelacao("#grade-modalidades .revelar");
   }

@@ -114,13 +114,14 @@
         <label class="campo__rotulo" for="curso-descricao">Descrição</label>
         <textarea id="curso-descricao"></textarea>
       </div>
-      <div class="campo">
+      <div class="campo" id="campo-grupo-curso-fotos">
         <label class="campo__rotulo">Fotos do card (opcional)</label>
         <div id="curso-fotos-lista"></div>
         <button class="botao botao--fantasma botao--pequeno" type="button" id="curso-fotos-adicionar" style="margin-top: var(--espaco-2)">
           <i class="ph ph-bold ph-plus" aria-hidden="true"></i> Adicionar outra foto
         </button>
         <p class="texto-pequeno" style="color: var(--ivory-dim); margin-top: var(--espaco-2)">Cole o link de uma ou mais imagens. Sem nenhuma, o card usa a foto padrão da modalidade.</p>
+        <span class="campo__erro"></span>
       </div>
       <div class="formulario formulario--duas-colunas">
         <div class="campo" id="campo-grupo-curso-modalidade">
@@ -154,15 +155,6 @@
           <input id="curso-carga" type="number" min="1" />
           <span class="campo__erro"></span>
         </div>
-      </div>
-      <div class="campo" id="campo-grupo-curso-fotos">
-        <label class="campo__rotulo">Fotos do card (links de imagem)</label>
-        <div id="lista-curso-fotos" class="lista-campos-link"></div>
-        <button class="botao botao--fantasma botao--pequeno" type="button" id="botao-adicionar-foto-curso" style="align-self: flex-start">
-          <i class="ph ph-bold ph-plus"></i> Adicionar outro link
-        </button>
-        <span class="campo__ajuda">Opcional — se não preencher, o card usa as fotos padrão da modalidade.</span>
-        <span class="campo__erro"></span>
       </div>
       <div class="modal__rodape">
         <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-curso">Cancelar</button>
@@ -225,9 +217,9 @@
         <textarea id="modalidade-descricao"></textarea>
       </div>
       <div class="campo" id="campo-grupo-modalidade-foto">
-        <label class="campo__rotulo" for="modalidade-foto">Foto do card (opcional)</label>
-        <input id="modalidade-foto" type="url" placeholder="https://…" />
-        <span class="campo__ajuda">Sem foto, o card usa a imagem padrão da modalidade.</span>
+        <label class="campo__rotulo" for="modalidade-foto">Foto do card</label>
+        <input id="modalidade-foto" type="url" placeholder="https://…" required />
+        <span class="campo__ajuda">Usada nos cards do catálogo e da home.</span>
         <span class="campo__erro"></span>
       </div>
       <div class="modal__rodape">

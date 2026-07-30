@@ -760,44 +760,6 @@
   color: var(--ivory-dim);
 }
 
-/* ---- Lista de campos de link repetíveis (fotos de curso/modalidade) ---- */
-
-.lista-campos-link {
-  display: flex;
-  flex-direction: column;
-  gap: var(--espaco-2);
-}
-
-.lista-campos-link__linha {
-  display: flex;
-  gap: var(--espaco-2);
-  align-items: center;
-}
-
-.lista-campos-link__linha input {
-  flex: 1;
-}
-
-.lista-campos-link__remover {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.4rem;
-  height: 2.4rem;
-  border-radius: var(--raio-sm);
-  border: 1px solid var(--line-forte);
-  background: transparent;
-  color: var(--ivory-dim);
-  cursor: pointer;
-  transition: border-color var(--duracao-rapida), color var(--duracao-rapida);
-}
-
-.lista-campos-link__remover:hover {
-  border-color: var(--gel-dancas-urbanas);
-  color: var(--gel-dancas-urbanas);
-}
-
 .campo__erro {
   font-size: var(--tamanho-xs);
   color: var(--gel-dancas-urbanas);

@@ -14,8 +14,8 @@
 
     const parametros = new URLSearchParams(window.location.search);
     const modalidadeUrl = parametros.get("modalidade");
-    if (modalidadeUrl && Danca.modalidades.LISTA_FIXA.some((m) => m.id === modalidadeUrl)) {
-      filtroModalidade = modalidadeUrl;
+    if (modalidadeUrl) {
+      filtroModalidade = modalidadeUrl; // validado contra a lista real assim que carregarDados() terminar
     }
 
     document.getElementById("filtro-nivel").addEventListener("change", (evento) => {
@@ -52,11 +52,20 @@
 
   function montarChipsFiltro() {
     const contêiner = document.getElementById("filtros-chips");
-    const chips = [{ id: "todas", nome: "Todas" }, ...Danca.modalidades.LISTA_FIXA];
+    // modalidades (API) é a fonte real — inclui as criadas depois do
+    // lançamento, não só as 8 fixas originais.
+    const chips = [{ id: "todas", nome: "Todas", corGel: null }, ...modalidades.map((m) => Danca.modalidades.meta(m))];
+
+    // Se veio um ?modalidade= na URL que não existe de verdade, ignora e
+    // volta pra "todas" em vez de deixar o filtro travado num id inválido.
+    if (filtroModalidade !== "todas" && !modalidades.some((m) => m.id === filtroModalidade)) {
+      filtroModalidade = "todas";
+    }
+
     contêiner.innerHTML = chips
       .map(
         (meta) => `
-        <button type="button" class="chip" style="${meta.corVar ? `--gel: var(${meta.corVar})` : ""}" data-modalidade="${meta.id}" aria-pressed="${meta.id === filtroModalidade}">
+        <button type="button" class="chip" style="${meta.corGel ? `--gel: ${meta.corGel}` : ""}" data-modalidade="${meta.id}" aria-pressed="${meta.id === filtroModalidade}">
           ${Danca.ui.escapar(meta.nome)}
         </button>`
       )
@@ -95,11 +104,11 @@
 
     grade.innerHTML = filtrados
       .map((curso) => {
-        const meta = Danca.modalidades.LISTA_FIXA.find((m) => m.id === curso.modalidadeId);
         const dadosApi = modalidades.find((m) => m.id === curso.modalidadeId);
         const instrutor = usuarios.find((u) => u.id === curso.instrutorId);
         return Danca.ui.cartaoCursoHtml(curso, {
-          modalidade: meta ? { nome: dadosApi ? dadosApi.nome : meta.nome, corVar: meta.corVar } : null,
+          modalidade: Danca.modalidades.meta(dadosApi),
+          dadosModalidade: dadosApi,
           instrutor,
           todosCursos: cursos,
         });

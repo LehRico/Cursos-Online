@@ -164,6 +164,22 @@
       "role": "aluno",
       "ativo": false,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Andr%C3%A9%20Luiz%20Coutinho"
+    },
+    {
+      "nome": "Kaique Santos",
+      "email": "kaique.santos@itlean.com",
+      "role": "admin",
+      "senha": "300dance123",
+      "ativo": true,
+      "id": "OSpPcGd"
+    },
+    {
+      "nome": "Letícia Rico",
+      "email": "leticia.rico@itlean.com.br",
+      "role": "professor",
+      "senha": "200dance123",
+      "ativo": true,
+      "id": "jkrOFQP"
     }
   ],
   "modalidades": [
@@ -206,23 +222,6 @@
       "id": "danca-do-ventre",
       "nome": "Dança do Ventre",
       "descricao": "Ondulações, isolamentos de quadril e a riqueza da dança oriental."
-    },
-    {
-      "nome": "dança",
-      "descricao": "sdsdsd",
-      "id": "OgESBcd"
-    },
-    {
-      "nome": "Modalidade Teste 1785360116841",
-      "descricao": "",
-      "foto": "https://exemplo.com/modalidade.jpg",
-      "id": "qSek3o3"
-    },
-    {
-      "nome": "Modalidade Pós-Merge 1785378307580",
-      "descricao": "",
-      "foto": "https://exemplo.com/modalidade-merge.jpg",
-      "id": "2M0-AQ4"
     }
   ],
   "cursos": [
@@ -405,33 +404,6 @@
       "status": "rascunho",
       "nivel": "avançado",
       "cargaHoraria": 24
-    },
-    {
-      "titulo": "Curso de Teste Automatizado",
-      "descricao": "Curso criado via teste automatizado.",
-      "modalidadeId": "ballet",
-      "instrutorId": "u1",
-      "nivel": "iniciante",
-      "status": "ferias",
-      "cargaHoraria": 10,
-      "fotos": [
-        "https://exemplo.com/foto1.jpg",
-        "https://exemplo.com/foto2.jpg"
-      ],
-      "id": "0t3gam5"
-    },
-    {
-      "titulo": "Curso Pós-Merge Teste",
-      "descricao": "Teste após merge.",
-      "modalidadeId": "ballet",
-      "instrutorId": "u1",
-      "nivel": "iniciante",
-      "status": "ferias",
-      "cargaHoraria": 8,
-      "fotos": [
-        "https://exemplo.com/foto-merge.jpg"
-      ],
-      "id": "5uA3D96"
     }
   ],
   "aulas": [
@@ -794,23 +766,6 @@
       "conteudo": "https://video.exemplo.com/aula45",
       "ordem": 3,
       "duracaoMinutos": 22
-    },
-    {
-      "cursoId": "0t3gam5",
-      "titulo": "Aula com Meet",
-      "conteudo": "",
-      "linkMeet": "https://meet.google.com/abc-defg-hij",
-      "ordem": 1,
-      "duracaoMinutos": 30,
-      "id": "6YgD-Cw"
-    },
-    {
-      "cursoId": "5uA3D96",
-      "titulo": "Aula Pós-Merge",
-      "conteudo": "https://meet.google.com/xyz-merge-test",
-      "ordem": 1,
-      "duracaoMinutos": 20,
-      "id": "hRdlLYa"
     }
   ],
   "matriculas": [

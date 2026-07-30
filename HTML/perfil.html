@@ -56,7 +56,7 @@
             <div class="campo" id="campo-grupo-senha">
               <label class="campo__rotulo" for="campo-senha">Nova senha</label>
               <input id="campo-senha" type="password" placeholder="Deixe em branco para manter a atual" />
-              <span class="campo__ajuda">Mín. 6 caracteres.</span>
+              <span class="campo__ajuda" id="dica-prefixo-senha-perfil">Mín. 3 caracteres — o prefixo do seu papel é adicionado automaticamente.</span>
               <span class="campo__erro"></span>
             </div>
             <p class="campo__ajuda">O e-mail e o papel (aluno, professor ou admin) só podem ser alterados por um administrador.</p>
@@ -96,6 +96,7 @@
   </footer>
 
   <script src="js/dados/api.js"></script>
+  <script src="js/dados/senhas.js"></script>
   <script src="js/dados/modalidades.js"></script>
   <script src="js/sessao.js"></script>
   <script src="js/validacoes.js"></script>

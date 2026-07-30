@@ -22,15 +22,21 @@ Alternativa sem servidor nenhum para o front-end: dê duplo-clique em `HTML/inde
 
 > ⚠️ Evite servir a pasta `HTML/` com ferramentas que fazem redirecionamento "clean URL" (como `serve`, da Vercel) — elas removem a query string ao tirar o `.html` da URL e quebram os links `curso.html?id=...`. O script `npm run web` já usa `http-server`, que não tem esse problema.
 
-### Contas demo (senha `danca123` para todas)
+### Contas demo
 
-| Papel | Nome | E-mail |
-|---|---|---|
-| Admin | Marina Ferraz | marina.ferraz@danca.com |
-| Professor | Isadora Nunes | isadora.nunes@danca.com |
-| Aluno | Camila Rocha | camila.rocha@email.com |
+Toda senha começa com um **prefixo numérico de 3 dígitos fixo por papel** — `100` para aluno, `200` para professor, `300` para admin (ver "Prefixo de senha por papel" abaixo). Nas contas demo, o restante da senha é `danca123`:
 
-A tela de login lista só essas 3 contas (uma por papel) — basta clicar numa delas para entrar direto, sem digitar nada. O `db.json` tem outros 15 usuários (mais professores e alunos, com senha igual às de cima) só pra dar volume real aos cursos, turmas e avaliações; eles não aparecem na tela de login, mas dá pra entrar com eles digitando o e-mail manualmente.
+| Papel | Nome | E-mail | Senha |
+|---|---|---|---|
+| Admin | Marina Ferraz | marina.ferraz@danca.com | `300danca123` |
+| Professor | Isadora Nunes | isadora.nunes@danca.com | `200danca123` |
+| Aluno | Camila Rocha | camila.rocha@email.com | `100danca123` |
+
+A tela de login lista só essas 3 contas (uma por papel) — basta clicar numa delas para entrar direto, sem digitar nada. O `db.json` tem outros 15 usuários (mais professores e alunos, com senha no mesmo padrão) só pra dar volume real aos cursos, turmas e avaliações; eles não aparecem na tela de login, mas dá pra entrar com eles digitando o e-mail manualmente.
+
+### Prefixo de senha por papel
+
+Cada senha armazenada começa com um prefixo fixo de 3 dígitos de acordo com o papel da conta: `100` (aluno), `200` (professor), `300` (admin) — ver `HTML/js/dados/senhas.js`. Isso não é um mecanismo de segurança real (é só uma convenção do projeto acadêmico), mas garante que a senha de uma conta sempre "aponta" pro papel atual dela: ao criar um usuário ou trocar a própria senha em "Meu perfil", o campo de senha recebe apenas o restante (mín. 3 caracteres) e o sistema cola o prefixo automaticamente; ao um admin trocar o papel de alguém pela tabela do painel administrativo, uma senha nova é gerada com o prefixo correto e mostrada na tela para repasse manual.
 
 ---
 

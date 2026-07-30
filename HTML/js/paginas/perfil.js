@@ -62,6 +62,8 @@
     selo.textContent = Danca.ui.rotuloRole(usuarioSessao.role);
     selo.className = `selo selo--role-${usuarioSessao.role}`;
     document.getElementById("campo-nome").value = usuarioSessao.nome;
+    document.getElementById("dica-prefixo-senha-perfil").textContent =
+      `Mín. 3 caracteres — a senha final começa com "${Danca.senhas.prefixo(usuarioSessao.role)}" (prefixo do seu papel).`;
   }
 
   function renderizarAtalhosEquipe() {
@@ -104,13 +106,13 @@
       Danca.ui.mostrarErroCampo("campo-grupo-nome", "Informe um nome com pelo menos 3 caracteres.");
       return;
     }
-    if (novaSenha && novaSenha.length < 6) {
-      Danca.ui.mostrarErroCampo("campo-grupo-senha", "A senha precisa ter pelo menos 6 caracteres.");
+    if (novaSenha && novaSenha.length < Danca.senhas.TAMANHO_MINIMO_RESTO) {
+      Danca.ui.mostrarErroCampo("campo-grupo-senha", `A senha precisa ter pelo menos ${Danca.senhas.TAMANHO_MINIMO_RESTO} caracteres.`);
       return;
     }
 
     const dados = { nome: novoNome };
-    if (novaSenha) dados.senha = novaSenha;
+    if (novaSenha) dados.senha = Danca.senhas.montar(usuarioSessao.role, novaSenha);
     if (novaFotoDataUrl) dados.foto = novaFotoDataUrl;
 
     try {

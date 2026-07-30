@@ -46,7 +46,8 @@ window.Danca = window.Danca || {};
       const item = LISTA.find((m) => m.id === id);
       return item ? `var(${item.corVar})` : "var(--gold)";
     },
-    imagemCapa(id) {
+    imagemCapa(id, dadosApi) {
+      if (dadosApi && dadosApi.foto) return dadosApi.foto;
       const fotos = FOTOS[id];
       return fotos ? `assets/img/modalidades/${id}/${fotos[0]}` : `assets/img/modalidades/${id}.jpg`;
     },

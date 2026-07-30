@@ -12,12 +12,14 @@
     if (!usuarioSessao) return;
 
     Danca.ui.montarNavegacao("painel-professor.html");
+    configurarHeroPorRole();
     configurarAbas();
     configurarFechamentoModais();
 
     document.getElementById("botao-novo-curso").addEventListener("click", () => abrirModalCurso());
     document.getElementById("botao-nova-aula").addEventListener("click", () => abrirModalAula());
     document.getElementById("botao-nova-modalidade").addEventListener("click", () => abrirModalModalidade());
+    document.getElementById("botao-adicionar-foto-curso").addEventListener("click", () => adicionarLinhaLink(document.getElementById("lista-curso-fotos")));
     document.getElementById("formulario-curso").addEventListener("submit", salvarCurso);
     document.getElementById("formulario-aula").addEventListener("submit", salvarAula);
     document.getElementById("formulario-modalidade").addEventListener("submit", salvarModalidade);
@@ -39,6 +41,39 @@
     montarSelectCursosAulas();
     renderizarTabelaModalidades();
     montarSelectCursosDesempenho();
+  }
+
+  /* ================= Lista de campos de link (fotos de curso/modalidade) =================
+     Componente reutilizado nos formulários de curso e de modalidade: uma linha de
+     input por URL, com botão de remover, e sempre uma linha vazia extra pra adicionar. */
+  function montarListaLinks(idContainer, valores) {
+    const container = document.getElementById(idContainer);
+    container.innerHTML = "";
+    (valores.length > 0 ? valores : [""]).forEach((valor) => adicionarLinhaLink(container, valor));
+  }
+
+  function adicionarLinhaLink(container, valor = "") {
+    const linha = document.createElement("div");
+    linha.className = "lista-campos-link__linha";
+    linha.innerHTML = `
+      <input type="url" placeholder="https://…" value="${Danca.ui.escapar(valor)}" />
+      <button type="button" class="lista-campos-link__remover" aria-label="Remover link"><i class="ph ph-bold ph-x"></i></button>`;
+    linha.querySelector("button").addEventListener("click", () => linha.remove());
+    container.appendChild(linha);
+  }
+
+  function lerListaLinks(idContainer) {
+    return [...document.getElementById(idContainer).querySelectorAll("input")]
+      .map((input) => input.value.trim())
+      .filter(Boolean);
+  }
+
+  function configurarHeroPorRole() {
+    if (usuarioSessao.role !== "admin") return;
+    document.getElementById("painel-etiqueta").innerHTML = '<i class="ph ph-bold ph-chalkboard-teacher"></i> Painel do Administrador';
+    document.getElementById("painel-titulo").innerHTML = "Gerencie <em>as</em> turmas.";
+    document.getElementById("painel-descricao").textContent =
+      "Crie e edite cursos, aulas e modalidades de todos os professores. Acompanhe matrículas e avaliações de qualquer turma da plataforma.";
   }
 
   /* ================= Abas e modais ================= */
@@ -63,6 +98,9 @@
 
   /* ================= Cursos ================= */
 
+  const ROTULO_STATUS_CURSO = { rascunho: "Rascunho", publicado: "Publicado", ferias: "Período de férias" };
+  const SELO_STATUS_CURSO = { rascunho: "rascunho", publicado: "publicado", ferias: "ferias" };
+
   function renderizarTabelaCursos() {
     const corpo = document.getElementById("tabela-cursos");
     if (cursos.length === 0) {
@@ -80,7 +118,7 @@
             <td>${Danca.ui.escapar(instrutor ? instrutor.nome : "—")}</td>
             <td>${Danca.ui.capitalizar(curso.nivel)}</td>
             <td class="numerico">${curso.cargaHoraria}h</td>
-            <td><span class="selo selo--${curso.status === "publicado" ? "publicado" : "rascunho"}">${Danca.ui.capitalizar(curso.status)}</span></td>
+            <td><span class="selo selo--${SELO_STATUS_CURSO[curso.status] || "rascunho"}">${ROTULO_STATUS_CURSO[curso.status] || Danca.ui.capitalizar(curso.status)}</span></td>
             <td>
               <div class="tabela__acoes">
                 <button class="botao botao--fantasma botao--pequeno" data-editar-curso="${curso.id}" type="button">Editar</button>
@@ -115,7 +153,9 @@
       .join("");
     selectInstrutor.value = curso ? curso.instrutorId : usuarioSessao.id;
 
-    Danca.ui.limparErrosCampos(["campo-grupo-curso-titulo", "campo-grupo-curso-modalidade", "campo-grupo-curso-instrutor", "campo-grupo-curso-carga"]);
+    montarListaLinks("lista-curso-fotos", curso && curso.fotos ? curso.fotos : []);
+
+    Danca.ui.limparErrosCampos(["campo-grupo-curso-titulo", "campo-grupo-curso-modalidade", "campo-grupo-curso-instrutor", "campo-grupo-curso-carga", "campo-grupo-curso-fotos"]);
     document.getElementById("modal-curso").showModal();
   }
 
@@ -130,11 +170,18 @@
       nivel: document.getElementById("curso-nivel").value,
       status: document.getElementById("curso-status").value,
       cargaHoraria: Number(document.getElementById("curso-carga").value),
+      fotos: lerListaLinks("lista-curso-fotos"),
     };
 
-    Danca.ui.limparErrosCampos(["campo-grupo-curso-titulo", "campo-grupo-curso-modalidade", "campo-grupo-curso-instrutor", "campo-grupo-curso-carga"]);
+    Danca.ui.limparErrosCampos(["campo-grupo-curso-titulo", "campo-grupo-curso-modalidade", "campo-grupo-curso-instrutor", "campo-grupo-curso-carga", "campo-grupo-curso-fotos"]);
     const erros = Danca.validar.curso(dados, { modalidades, instrutores });
-    const mapaGrupos = { titulo: "campo-grupo-curso-titulo", modalidadeId: "campo-grupo-curso-modalidade", instrutorId: "campo-grupo-curso-instrutor", cargaHoraria: "campo-grupo-curso-carga" };
+    const mapaGrupos = {
+      titulo: "campo-grupo-curso-titulo",
+      modalidadeId: "campo-grupo-curso-modalidade",
+      instrutorId: "campo-grupo-curso-instrutor",
+      cargaHoraria: "campo-grupo-curso-carga",
+      fotos: "campo-grupo-curso-fotos",
+    };
 
     if (Object.keys(erros).length > 0) {
       Object.entries(erros).forEach(([campo, mensagem]) => {
@@ -258,10 +305,11 @@
     document.getElementById("aula-id").value = aula ? aula.id : "";
     document.getElementById("aula-titulo").value = aula ? aula.titulo : "";
     document.getElementById("aula-conteudo").value = aula ? aula.conteudo || "" : "";
+    document.getElementById("aula-meet").value = aula ? aula.linkMeet || "" : "";
     document.getElementById("aula-ordem").value = aula ? aula.ordem : aulasCursoAtual.length + 1;
     document.getElementById("aula-duracao").value = aula ? aula.duracaoMinutos : "";
 
-    Danca.ui.limparErrosCampos(["campo-grupo-aula-titulo", "campo-grupo-aula-ordem", "campo-grupo-aula-duracao"]);
+    Danca.ui.limparErrosCampos(["campo-grupo-aula-titulo", "campo-grupo-aula-ordem", "campo-grupo-aula-duracao", "campo-grupo-aula-meet"]);
     document.getElementById("modal-aula").showModal();
   }
 
@@ -272,15 +320,17 @@
       cursoId: cursoAulasSelecionado,
       titulo: document.getElementById("aula-titulo").value.trim(),
       conteudo: document.getElementById("aula-conteudo").value.trim(),
+      linkMeet: document.getElementById("aula-meet").value.trim(),
       ordem: Number(document.getElementById("aula-ordem").value),
       duracaoMinutos: Number(document.getElementById("aula-duracao").value),
     };
 
-    Danca.ui.limparErrosCampos(["campo-grupo-aula-titulo", "campo-grupo-aula-ordem", "campo-grupo-aula-duracao"]);
+    Danca.ui.limparErrosCampos(["campo-grupo-aula-titulo", "campo-grupo-aula-ordem", "campo-grupo-aula-duracao", "campo-grupo-aula-meet"]);
     const erros = Danca.validar.aula(dados, { cursos });
     if (erros.titulo) Danca.ui.mostrarErroCampo("campo-grupo-aula-titulo", erros.titulo);
     if (erros.ordem) Danca.ui.mostrarErroCampo("campo-grupo-aula-ordem", erros.ordem);
     if (erros.duracaoMinutos) Danca.ui.mostrarErroCampo("campo-grupo-aula-duracao", erros.duracaoMinutos);
+    if (erros.linkMeet) Danca.ui.mostrarErroCampo("campo-grupo-aula-meet", erros.linkMeet);
     if (Object.keys(erros).length > 0) return;
 
     try {
@@ -347,8 +397,9 @@
     document.getElementById("modalidade-id").value = modalidade ? modalidade.id : "";
     document.getElementById("modalidade-nome").value = modalidade ? modalidade.nome : "";
     document.getElementById("modalidade-descricao").value = modalidade ? modalidade.descricao || "" : "";
+    document.getElementById("modalidade-foto").value = modalidade ? modalidade.foto || "" : "";
 
-    Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome"]);
+    Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome", "campo-grupo-modalidade-foto"]);
     document.getElementById("modal-modalidade").showModal();
   }
 
@@ -358,14 +409,14 @@
     const dados = {
       nome: document.getElementById("modalidade-nome").value.trim(),
       descricao: document.getElementById("modalidade-descricao").value.trim(),
+      foto: document.getElementById("modalidade-foto").value.trim(),
     };
 
-    Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome"]);
+    Danca.ui.limparErrosCampos(["campo-grupo-modalidade-nome", "campo-grupo-modalidade-foto"]);
     const erros = Danca.validar.modalidade(dados, { modalidadesExistentes: modalidades, idAtual: id });
-    if (erros.nome) {
-      Danca.ui.mostrarErroCampo("campo-grupo-modalidade-nome", erros.nome);
-      return;
-    }
+    if (erros.nome) Danca.ui.mostrarErroCampo("campo-grupo-modalidade-nome", erros.nome);
+    if (erros.foto) Danca.ui.mostrarErroCampo("campo-grupo-modalidade-foto", erros.foto);
+    if (Object.keys(erros).length > 0) return;
 
     try {
       if (id) {

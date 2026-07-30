@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
   <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
   <script defer src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/componentes.css" />
@@ -82,7 +83,7 @@
         <div class="campo" id="campo-grupo-usuario-senha">
           <label class="campo__rotulo" for="usuario-senha">Senha</label>
           <input id="usuario-senha" type="password" />
-          <span class="campo__ajuda">Mín. 6 caracteres.</span>
+          <span class="campo__ajuda" id="dica-prefixo-senha">A senha final começa com o prefixo do papel selecionado.</span>
           <span class="campo__erro"></span>
         </div>
         <div class="campo" id="campo-grupo-usuario-role">
@@ -103,6 +104,8 @@
   </dialog>
 
   <script src="js/dados/api.js"></script>
+  <script src="js/dados/senhas.js"></script>
+  <script src="js/dados/email.js"></script>
   <script src="js/dados/modalidades.js"></script>
   <script src="js/sessao.js"></script>
   <script src="js/validacoes.js"></script>

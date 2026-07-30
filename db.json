@@ -4,7 +4,7 @@
       "id": "u1",
       "nome": "Marina Ferraz",
       "email": "marina.ferraz@danca.com",
-      "senha": "danca123",
+      "senha": "300danca123",
       "role": "admin",
       "ativo": true,
       "demo": true,
@@ -14,7 +14,7 @@
       "id": "u2",
       "nome": "Isadora Nunes",
       "email": "isadora.nunes@danca.com",
-      "senha": "danca123",
+      "senha": "200danca123",
       "role": "professor",
       "ativo": true,
       "demo": true,
@@ -24,7 +24,7 @@
       "id": "u3",
       "nome": "Kadu Bispo",
       "email": "kadu.bispo@danca.com",
-      "senha": "danca123",
+      "senha": "200danca123",
       "role": "professor",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Kadu%20Bispo"
@@ -33,7 +33,7 @@
       "id": "u4",
       "nome": "Renata Villas",
       "email": "renata.villas@danca.com",
-      "senha": "danca123",
+      "senha": "200danca123",
       "role": "professor",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Renata%20Villas"
@@ -42,7 +42,7 @@
       "id": "u12",
       "nome": "Thiago Meireles",
       "email": "thiago.meireles@danca.com",
-      "senha": "danca123",
+      "senha": "200danca123",
       "role": "professor",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Thiago%20Meireles"
@@ -51,7 +51,7 @@
       "id": "u5",
       "nome": "Camila Rocha",
       "email": "camila.rocha@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "demo": true,
@@ -61,7 +61,7 @@
       "id": "u6",
       "nome": "Bruno Costa",
       "email": "bruno.costa@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Bruno%20Costa"
@@ -70,7 +70,7 @@
       "id": "u7",
       "nome": "Larissa Prado",
       "email": "larissa.prado@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Larissa%20Prado"
@@ -79,7 +79,7 @@
       "id": "u8",
       "nome": "Felipe Andrade",
       "email": "felipe.andrade@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Felipe%20Andrade"
@@ -88,7 +88,7 @@
       "id": "u9",
       "nome": "Sofia Martins",
       "email": "sofia.martins@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Sofia%20Martins"
@@ -97,7 +97,7 @@
       "id": "u10",
       "nome": "Diego Almeida",
       "email": "diego.almeida@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Diego%20Almeida"
@@ -106,7 +106,7 @@
       "id": "u11",
       "nome": "Rafael Souza",
       "email": "rafael.souza@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Rafael%20Souza"
@@ -115,7 +115,7 @@
       "id": "u13",
       "nome": "Juliana Prates",
       "email": "juliana.prates@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Juliana%20Prates"
@@ -124,7 +124,7 @@
       "id": "u14",
       "nome": "Marcos Vinícius Tavares",
       "email": "marcos.tavares@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcos%20Vin%C3%ADcius%20Tavares"
@@ -133,7 +133,7 @@
       "id": "u15",
       "nome": "Beatriz Lemos",
       "email": "beatriz.lemos@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Beatriz%20Lemos"
@@ -142,7 +142,7 @@
       "id": "u16",
       "nome": "Gustavo Henrique Ramos",
       "email": "gustavo.ramos@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Gustavo%20Henrique%20Ramos"
@@ -151,7 +151,7 @@
       "id": "u17",
       "nome": "Patrícia Nogueira",
       "email": "patricia.nogueira@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": true,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Patr%C3%ADcia%20Nogueira"
@@ -160,10 +160,42 @@
       "id": "u18",
       "nome": "André Luiz Coutinho",
       "email": "andre.coutinho@email.com",
-      "senha": "danca123",
+      "senha": "100danca123",
       "role": "aluno",
       "ativo": false,
       "foto": "https://api.dicebear.com/7.x/avataaars/svg?seed=Andr%C3%A9%20Luiz%20Coutinho"
+    },
+    {
+      "nome": "Usuário De Teste",
+      "email": "teste.1785360147530@exemplo.com",
+      "role": "professor",
+      "senha": "200senha123",
+      "ativo": true,
+      "id": "uii8Xz4"
+    },
+    {
+      "nome": "Usuário Debug EmailJS",
+      "email": "teste.1785360170746@exemplo.com",
+      "role": "aluno",
+      "senha": "100senha123",
+      "ativo": true,
+      "id": "O3sI0Vz"
+    },
+    {
+      "nome": "Teste Envio Real",
+      "email": "leticia.rico+teste1785360943935@itlean.com.br",
+      "role": "professor",
+      "senha": "200senha123",
+      "ativo": true,
+      "id": "tPSsgNv"
+    },
+    {
+      "nome": "Teste Prefixo Senha",
+      "email": "teste.senha.1785361897389@exemplo.com",
+      "role": "admin",
+      "senha": "300t4p6n",
+      "ativo": true,
+      "id": "f2oG_4A"
     }
   ],
   "modalidades": [
@@ -211,6 +243,12 @@
       "nome": "dança",
       "descricao": "sdsdsd",
       "id": "OgESBcd"
+    },
+    {
+      "nome": "Modalidade Teste 1785360116841",
+      "descricao": "",
+      "foto": "https://exemplo.com/modalidade.jpg",
+      "id": "qSek3o3"
     }
   ],
   "cursos": [
@@ -393,6 +431,20 @@
       "status": "rascunho",
       "nivel": "avançado",
       "cargaHoraria": 24
+    },
+    {
+      "titulo": "Curso de Teste Automatizado",
+      "descricao": "Curso criado via teste automatizado.",
+      "modalidadeId": "ballet",
+      "instrutorId": "u1",
+      "nivel": "iniciante",
+      "status": "ferias",
+      "cargaHoraria": 10,
+      "fotos": [
+        "https://exemplo.com/foto1.jpg",
+        "https://exemplo.com/foto2.jpg"
+      ],
+      "id": "0t3gam5"
     }
   ],
   "aulas": [
@@ -755,6 +807,15 @@
       "conteudo": "https://video.exemplo.com/aula45",
       "ordem": 3,
       "duracaoMinutos": 22
+    },
+    {
+      "cursoId": "0t3gam5",
+      "titulo": "Aula com Meet",
+      "conteudo": "",
+      "linkMeet": "https://meet.google.com/abc-defg-hij",
+      "ordem": 1,
+      "duracaoMinutos": 30,
+      "id": "6YgD-Cw"
     }
   ],
   "matriculas": [

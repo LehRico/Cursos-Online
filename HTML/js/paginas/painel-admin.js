@@ -75,11 +75,21 @@
     corpo.querySelectorAll("[data-excluir-usuario]").forEach((b) => b.addEventListener("click", () => excluirUsuario(b.dataset.excluirUsuario)));
   }
 
+  /* Cada senha começa com o prefixo de 3 dígitos do role da conta (ver
+     Danca.senhas) — trocar o role sem trocar a senha deixaria uma senha com
+     prefixo "errado" pro novo papel. Por isso, ao mudar o role pela tabela,
+     gera uma senha nova (prefixo certo + sufixo aleatório) e mostra pro
+     admin repassar à pessoa. */
+  function gerarSufixoAleatorio() {
+    return Math.random().toString(36).slice(2, 2 + Danca.senhas.TAMANHO_MINIMO_RESTO + 2);
+  }
+
   async function atualizarRole(id, novoRole) {
+    const senhaNova = Danca.senhas.montar(novoRole, gerarSufixoAleatorio());
     try {
-      const atualizado = await Danca.api.atualizar("usuarios", id, { role: novoRole });
+      const atualizado = await Danca.api.atualizar("usuarios", id, { role: novoRole, senha: senhaNova });
       usuarios = usuarios.map((u) => (u.id === id ? atualizado : u));
-      Danca.ui.mostrarAviso("Papel atualizado.", "sucesso");
+      Danca.ui.mostrarAviso(`Papel atualizado. Nova senha gerada: ${senhaNova} — repasse à pessoa.`, "sucesso");
     } catch (erro) {
       Danca.ui.mostrarAviso(erro.message, "erro");
       renderizarTabela();
@@ -110,6 +120,9 @@
     document.getElementById("usuario-foto").value = "";
     novaFotoDataUrl = null;
 
+    atualizarDicaPrefixoSenha();
+    document.getElementById("usuario-role").addEventListener("change", atualizarDicaPrefixoSenha);
+
     Danca.ui.limparErrosCampos([
       "campo-grupo-usuario-nome",
       "campo-grupo-usuario-email",
@@ -118,6 +131,14 @@
       "campo-grupo-usuario-foto",
     ]);
     document.getElementById("modal-usuario").showModal();
+  }
+
+  /* O campo de senha do formulário só recebe o "resto" (sem o prefixo) — a
+     dica mostra qual prefixo será colado na frente, de acordo com o papel
+     selecionado no momento. */
+  function atualizarDicaPrefixoSenha() {
+    const role = document.getElementById("usuario-role").value;
+    document.getElementById("dica-prefixo-senha").textContent = `A senha final começa com "${Danca.senhas.prefixo(role)}" (prefixo do papel selecionado).`;
   }
 
   async function aoEscolherFotoUsuario(evento) {
@@ -158,7 +179,8 @@
       return;
     }
 
-    if (senha) dados.senha = senha;
+    const senhaCompleta = senha ? Danca.senhas.montar(dados.role, senha) : null;
+    if (senhaCompleta) dados.senha = senhaCompleta;
     if (!id) dados.ativo = true;
     if (novaFotoDataUrl) dados.foto = novaFotoDataUrl;
 
@@ -169,12 +191,30 @@
       } else {
         const criado = await Danca.api.criar("usuarios", dados);
         usuarios.push(criado);
+        await notificarNovoUsuarioPorEmail(criado, senhaCompleta);
       }
       document.getElementById("modal-usuario").close();
       renderizarTabela();
       Danca.ui.mostrarAviso("Usuário salvo com sucesso!", "sucesso");
     } catch (erro) {
       Danca.ui.mostrarAviso(erro.message, "erro");
+    }
+  }
+
+  /* Ao criar um usuário novo (qualquer papel), envia um e-mail com login e
+     senha via EmailJS. Falha de envio não desfaz a criação — só avisa o
+     admin, já que a conta já existe e ele pode repassar as credenciais
+     manualmente se o e-mail não sair. */
+  async function notificarNovoUsuarioPorEmail(usuario, senha) {
+    try {
+      const enviado = await Danca.email.enviarBoasVindas({ nome: usuario.nome, email: usuario.email, senha, role: usuario.role });
+      if (enviado) {
+        Danca.ui.mostrarAviso(`E-mail com as credenciais enviado para ${usuario.email}.`, "sucesso");
+      } else {
+        Danca.ui.mostrarAviso("Usuário criado, mas o envio de e-mail não está disponível agora.", "erro");
+      }
+    } catch {
+      Danca.ui.mostrarAviso("Usuário criado, mas não foi possível enviar o e-mail com as credenciais.", "erro");
     }
   }
 

@@ -327,7 +327,7 @@ Danca.ui = Danca.ui || {};
       mostrarStatus && curso.status === "rascunho"
         ? '<span class="selo selo--rascunho cartao-curso__selo">Rascunho</span>'
         : "";
-    const fotos = Danca.modalidades.fotosDoCurso(curso, todosCursos);
+    const fotos = curso.fotos && curso.fotos.length > 0 ? curso.fotos : Danca.modalidades.fotosDoCurso(curso, todosCursos);
 
     return `
       <article class="cartao-curso revelar" style="--gel:${corGel}">

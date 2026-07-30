@@ -1,9 +1,9 @@
 (function () {
-  document.addEventListener("DOMContentLoaded", () => {
+  document.addEventListener("DOMContentLoaded", async () => {
     Danca.ui.montarNavegacao("index.html");
     montarAcoesHero();
     Danca.ui.observarRevelacao();
-    montarGradeModalidades();
+    await montarGradeModalidades();
     montarCarrossel();
   });
 
@@ -25,12 +25,20 @@
     }
   }
 
-  function montarGradeModalidades() {
+  async function montarGradeModalidades() {
     const grade = document.getElementById("grade-modalidades");
+    let modalidadesApi = [];
+    try {
+      modalidadesApi = await Danca.api.listar("modalidades");
+    } catch {
+      /* segue com o placeholder padrão de cada modalidade se a API falhar */
+    }
+
     grade.innerHTML = Danca.modalidades.LISTA_FIXA.map((meta) => {
+      const dadosApi = modalidadesApi.find((m) => m.id === meta.id);
       return `
         <a href="catalogo.html?modalidade=${encodeURIComponent(meta.id)}" class="cartao-modalidade revelar" style="--gel: var(${meta.corVar})" data-modalidade="${meta.id}">
-          <img src="${Danca.modalidades.imagemCapa(meta.id)}" alt="" loading="lazy" onerror="this.remove()" />
+          <img src="${Danca.modalidades.imagemCapa(meta.id, dadosApi)}" alt="" loading="lazy" onerror="this.remove()" />
           <span class="cartao-modalidade__nome">${Danca.ui.escapar(meta.nome)}</span>
         </a>`;
     }).join("");

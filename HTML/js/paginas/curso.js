@@ -102,12 +102,23 @@
       lista.innerHTML = `<div class="estado-vazio"><h3>Nenhuma aula publicada ainda</h3><p>O professor está preparando o conteúdo.</p></div>`;
       return;
     }
+
+    const usuarioSessao = Danca.sessao.obter();
+    const podeVerLinkMeet =
+      !!matriculaUsuario ||
+      (usuarioSessao && (usuarioSessao.role === "admin" || (usuarioSessao.role === "professor" && usuarioSessao.id === curso.instrutorId)));
+
     lista.innerHTML = aulas
       .map(
         (aula, indice) => `
         <li class="aula-item revelar" style="--atraso: ${Math.min(indice, 8) * 60}ms">
           <span class="aula-item__numero numerico">${String(aula.ordem).padStart(2, "0")}</span>
           <span class="aula-item__corpo"><strong>${Danca.ui.escapar(aula.titulo)}</strong></span>
+          ${
+            podeVerLinkMeet && aula.linkMeet
+              ? `<a class="botao botao--contorno botao--pequeno" href="${Danca.ui.escapar(aula.linkMeet)}" target="_blank" rel="noopener"><i class="ph ph-bold ph-video-camera"></i> Entrar no Meet</a>`
+              : ""
+          }
           <span class="aula-item__duracao">${aula.duracaoMinutos} min</span>
         </li>`
       )

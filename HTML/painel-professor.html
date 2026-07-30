@@ -24,9 +24,9 @@
   <main id="conteudo-principal">
     <section class="secao" style="padding-bottom: 0">
       <div class="envolucro">
-        <span class="hero__ovelho"><i class="ph ph-bold ph-chalkboard-teacher"></i> Painel do professor</span>
-        <h1 style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)">Gerencie <em>suas</em> turmas.</h1>
-        <p style="color: var(--ivory-dim); max-width: 60ch">
+        <span class="hero__ovelho" id="painel-etiqueta"><i class="ph ph-bold ph-chalkboard-teacher"></i> Painel do professor</span>
+        <h1 style="margin-block: var(--espaco-3); font-size: var(--tamanho-2xl)" id="painel-titulo">Gerencie <em>suas</em> turmas.</h1>
+        <p style="color: var(--ivory-dim); max-width: 60ch" id="painel-descricao">
           Crie e edite cursos, aulas e modalidades. Acompanhe matrículas e avaliações das turmas que você leciona.
         </p>
       </div>
@@ -143,6 +143,7 @@
           <select id="curso-status">
             <option value="rascunho">Rascunho</option>
             <option value="publicado">Publicado</option>
+            <option value="ferias">Período de férias</option>
           </select>
         </div>
         <div class="campo" id="campo-grupo-curso-carga">
@@ -150,6 +151,15 @@
           <input id="curso-carga" type="number" min="1" />
           <span class="campo__erro"></span>
         </div>
+      </div>
+      <div class="campo" id="campo-grupo-curso-fotos">
+        <label class="campo__rotulo">Fotos do card (links de imagem)</label>
+        <div id="lista-curso-fotos" class="lista-campos-link"></div>
+        <button class="botao botao--fantasma botao--pequeno" type="button" id="botao-adicionar-foto-curso" style="align-self: flex-start">
+          <i class="ph ph-bold ph-plus"></i> Adicionar outro link
+        </button>
+        <span class="campo__ajuda">Opcional — se não preencher, o card usa as fotos padrão da modalidade.</span>
+        <span class="campo__erro"></span>
       </div>
       <div class="modal__rodape">
         <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-curso">Cancelar</button>
@@ -173,6 +183,12 @@
       <div class="campo">
         <label class="campo__rotulo" for="aula-conteudo">Link do conteúdo (vídeo)</label>
         <input id="aula-conteudo" type="url" placeholder="https://…" />
+      </div>
+      <div class="campo" id="campo-grupo-aula-meet">
+        <label class="campo__rotulo" for="aula-meet"><i class="ph ph-bold ph-video-camera"></i> Link do Google Meet</label>
+        <input id="aula-meet" type="url" placeholder="https://meet.google.com/…" />
+        <span class="campo__ajuda">Visível só para o aluno matriculado e para professor/admin.</span>
+        <span class="campo__erro"></span>
       </div>
       <div class="formulario formulario--duas-colunas">
         <div class="campo" id="campo-grupo-aula-ordem">
@@ -208,6 +224,12 @@
       <div class="campo">
         <label class="campo__rotulo" for="modalidade-descricao">Descrição</label>
         <textarea id="modalidade-descricao"></textarea>
+      </div>
+      <div class="campo" id="campo-grupo-modalidade-foto">
+        <label class="campo__rotulo" for="modalidade-foto">Foto do card (link de imagem)</label>
+        <input id="modalidade-foto" type="url" placeholder="https://…" />
+        <span class="campo__ajuda">Opcional — se não preencher, o card usa o placeholder padrão da modalidade.</span>
+        <span class="campo__erro"></span>
       </div>
       <div class="modal__rodape">
         <button class="botao botao--fantasma" type="button" data-fechar-modal="modal-modalidade">Cancelar</button>

@@ -26,8 +26,14 @@ window.Danca = window.Danca || {};
         erros.email = "Já existe uma conta com esse e-mail.";
       }
 
-      if (exigirSenha && (!preenchido(dados.senha) || dados.senha.length < 6)) {
-        erros.senha = "A senha precisa ter pelo menos 6 caracteres.";
+      /*
+        dados.senha aqui é só o "resto" digitado pela pessoa (sem o prefixo
+        de 3 dígitos por role, ver Danca.senhas) — por isso o mínimo exigido
+        é 3, não 6: o total final (prefixo + resto) sempre bate os 6
+        caracteres mínimos do enunciado.
+      */
+      if (exigirSenha && (!preenchido(dados.senha) || dados.senha.length < Danca.senhas.TAMANHO_MINIMO_RESTO)) {
+        erros.senha = `A senha precisa ter pelo menos ${Danca.senhas.TAMANHO_MINIMO_RESTO} caracteres (além do prefixo do papel).`;
       }
 
       if (!["aluno", "professor", "admin"].includes(dados.role)) {
@@ -46,9 +52,18 @@ window.Danca = window.Danca || {};
       ) {
         erros.nome = "Já existe uma modalidade com esse nome.";
       }
+      if (preenchido(dados.foto) && !/^https?:\/\/.+/.test(dados.foto.trim())) {
+        erros.foto = "Informe um link válido (começando com http:// ou https://).";
+      }
       return erros;
     },
 
+    /*
+      status "ferias" é uma extensão do enunciado (que previa só rascunho/publicado):
+      funciona como uma variante de rascunho — curso fica fora do catálogo público e
+      sem novas matrículas (ver Danca.validar.matricula), mas com rótulo próprio pro
+      professor/admin saberem que é uma pausa temporária, não um curso inacabado.
+    */
     curso(dados, { modalidades = [], instrutores = [] } = {}) {
       const erros = {};
 
@@ -61,7 +76,7 @@ window.Danca = window.Danca || {};
       if (!preenchido(dados.instrutorId) || !instrutores.some((i) => i.id === dados.instrutorId)) {
         erros.instrutorId = "Selecione um instrutor (professor ou admin) válido.";
       }
-      if (!["rascunho", "publicado"].includes(dados.status)) {
+      if (!["rascunho", "publicado", "ferias"].includes(dados.status)) {
         erros.status = "Selecione um status válido.";
       }
       if (!["iniciante", "intermediário", "avançado"].includes(dados.nivel)) {
@@ -69,6 +84,9 @@ window.Danca = window.Danca || {};
       }
       if (!(Number(dados.cargaHoraria) > 0)) {
         erros.cargaHoraria = "Informe uma carga horária positiva.";
+      }
+      if (Array.isArray(dados.fotos) && dados.fotos.some((url) => !/^https?:\/\/.+/.test(url))) {
+        erros.fotos = "Cada foto precisa ser um link válido (começando com http:// ou https://).";
       }
 
       return erros;
@@ -88,6 +106,9 @@ window.Danca = window.Danca || {};
       }
       if (!(Number(dados.duracaoMinutos) > 0)) {
         erros.duracaoMinutos = "Informe uma duração positiva.";
+      }
+      if (preenchido(dados.linkMeet) && !/^https:\/\/meet\.google\.com\/.+/.test(dados.linkMeet.trim())) {
+        erros.linkMeet = "Informe um link válido do Google Meet (https://meet.google.com/…).";
       }
 
       return erros;
